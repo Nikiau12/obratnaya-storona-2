@@ -91,3 +91,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 
 /* One type family across the editorial interface */
 body,button,input,select,textarea{font-family:var(--sans)}
+
+/* Clean white presentation for every book image */
+.book-section,.book-cover-link,.book-catalog .book-cover-link,.book-detail-cover{background:#fff}
+.book-detail-cover img{box-shadow:none}
+.book-detail-cover img[src$=".jpg"]{box-shadow:0 12px 28px rgba(17,17,17,.18)}
