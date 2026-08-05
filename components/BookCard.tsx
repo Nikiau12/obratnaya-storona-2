@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function BookCard({ book }: { book: Book }) {
   return (
-    <article className="book-item">
+    <article className={`book-item book-${book.slug}`}>
       <a className="book-cover-link" href={`/books/${book.slug}`} aria-label={`${book.title} — подробнее`}>
         <Image className="book-cover" src={book.image} alt={`Обложка книги «${book.title}»`} width={800} height={1180} sizes="(max-width: 700px) 50vw, 240px" unoptimized />
         <span className="availability">{book.availability}</span>
