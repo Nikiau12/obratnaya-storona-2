@@ -73,3 +73,18 @@ test("returns a useful 404 page", async () => {
   assert.equal(response.status, 404);
   assert.match(await response.text(), /Эта сторона пока пуста/);
 });
+
+test("serves original images when local Cloudflare bindings are unavailable", async () => {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-local-image`);
+  const { default: worker } = await import(workerUrl.href);
+
+  const response = await worker.fetch(
+    new Request("http://localhost/_vinext/image?url=%2Fbooks%2Fvesele-krushenii.png&w=640&q=75"),
+    {},
+    { waitUntil() {}, passThroughOnException() {} },
+  );
+
+  assert.equal(response.status, 307);
+  assert.equal(response.headers.get("location"), "http://localhost/books/vesele-krushenii.png");
+});
