@@ -14,15 +14,14 @@ export function BookArchive({ books }: { books: Book[] }) {
   ), [availability, books, publisher]);
 
   return (
-    <>
-      <div className="archive-controls book-controls">
+    <section className="book-archive">
+      <div className="book-toolbar">
         <div className="filter-row" aria-label="Фильтр по издательству">
           {publishers.map((item) => <button className={publisher === item ? "active" : ""} onClick={() => setPublisher(item)} key={item}>{item}</button>)}
         </div>
-        <label className="check-label"><input type="checkbox" checked={availability} onChange={(event) => setAvailability(event.target.checked)} /> Только в наличии</label>
+        <div className="book-toolbar-meta"><span>{visible.length} книги</span><label className="check-label"><input type="checkbox" checked={availability} onChange={(event) => setAvailability(event.target.checked)} /> Только в наличии</label></div>
       </div>
-      <div className="archive-count">Книг: {visible.length}</div>
-      <div className="bookshelf catalog-books">{visible.map((book) => <BookCard book={book} key={book.slug} />)}</div>
-    </>
+      <div className="bookshelf catalog-books book-catalog">{visible.map((book) => <BookCard book={book} key={book.slug} />)}</div>
+    </section>
   );
 }
