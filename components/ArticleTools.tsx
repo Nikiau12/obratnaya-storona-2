@@ -29,7 +29,7 @@ export function ArticleTools({ title }: { title: string }) {
   return (
     <>
       <div className="reading-progress" style={{ transform: `scaleX(${progress / 100})` }} aria-hidden="true" />
-      <button className="share-button" onClick={share}>{copied ? "Ссылка скопирована" : "Поделиться ↗"}</button>
+      <button className="share-button" onClick={share}>{copied ? "Ссылка скопирована" : <>Поделиться<span className="link-arrow" aria-hidden="true"> ↗</span></>}</button>
     </>
   );
 }

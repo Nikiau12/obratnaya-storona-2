@@ -14,7 +14,7 @@ export function BookCard({ book }: { book: Book }) {
         <p>{book.author}</p>
         <div className="book-actions">
           <strong>{book.price}</strong>
-          <a className="text-link" href={`/books/${book.slug}`}>О книге ↗</a>
+          <a className="text-link" href={`/books/${book.slug}`}>О книге<span className="link-arrow" aria-hidden="true"> ↗</span></a>
         </div>
       </div>
     </article>

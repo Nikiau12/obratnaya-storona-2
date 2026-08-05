@@ -44,9 +44,9 @@ export default async function MaterialPage({ params }: { params: Promise<{ slug:
         </section>
       </article>
 
-      <section className="author-strip"><div className="author-monogram">{author?.initials}</div><div><span>Об авторе</span><h2>{author?.name}</h2><p>{author?.bio}</p><a className="text-link" href={`/authors/${author?.slug}`}>Все материалы автора ↗</a></div></section>
+      <section className="author-strip"><div className="author-monogram">{author?.initials}</div><div><span>Об авторе</span><h2>{author?.name}</h2><p>{author?.bio}</p><a className="text-link" href={`/authors/${author?.slug}`}>Все материалы автора<span className="link-arrow" aria-hidden="true"> ↗</span></a></div></section>
       <section className="related-section" id="related"><div className="simple-heading"><h2>Связанные материалы</h2></div><div className="related-grid">{related.map((item) => <MaterialCard material={item} compact key={item.slug} />)}</div></section>
-      <a className="next-material" href={`/material/${next.slug}`}><span>Следующий материал</span><strong>{next.title}</strong><i>↗</i></a>
+      <a className="next-material" href={`/material/${next.slug}`}><span>Следующий материал</span><strong>{next.title}</strong><i className="link-arrow" aria-hidden="true">↗</i></a>
     </main>
   );
 }

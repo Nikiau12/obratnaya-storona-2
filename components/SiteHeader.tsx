@@ -38,7 +38,7 @@ export function SiteHeader() {
         <nav className="desktop-nav" aria-label="Основная навигация">
           {links.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
           <Link className="search-link" href="/search" aria-label="Поиск">⌕</Link>
-          <Link className="shop-nav" href="/books">Магазин ↗</Link>
+          <Link className="shop-nav" href="/books">Магазин<span className="link-arrow" aria-hidden="true"> ↗</span></Link>
         </nav>
         <button className="menu-button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="mobile-menu" aria-label="Открыть меню">Меню</button>
       </header>
@@ -52,7 +52,7 @@ export function SiteHeader() {
           {links.map(([label, href], index) => <Link href={href} key={href} onClick={() => setOpen(false)}><span>0{index + 1}</span>{label}</Link>)}
           <Link href="/search" onClick={() => setOpen(false)}><span>06</span>Поиск</Link>
         </nav>
-        <Link className="mobile-shop" href="/books" onClick={() => setOpen(false)}>Перейти в магазин ↗</Link>
+        <Link className="mobile-shop" href="/books" onClick={() => setOpen(false)}>Перейти в магазин<span className="link-arrow" aria-hidden="true"> ↗</span></Link>
       </div>
     </>
   );
