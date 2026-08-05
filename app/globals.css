@@ -82,3 +82,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 
 @media(max-width:1050px){.book-catalog{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.books-page-hero{min-height:0;padding:34px 18px 28px;grid-template-columns:1fr;grid-template-rows:auto auto auto}.books-page-hero h1{font-size:56px;margin:24px 0 20px}.books-page-hero p{font-size:15px;margin:0}.book-archive{padding:0 18px 55px}.book-toolbar{align-items:flex-start;flex-direction:column;gap:18px;padding:22px 0}.book-toolbar .filter-row{gap:14px 20px}.book-toolbar-meta{width:100%;justify-content:space-between}.book-catalog{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 12px;padding-top:26px}.book-catalog .book-card-copy h3{font-size:14px}.book-catalog .book-actions{align-items:flex-start;flex-direction:column;gap:9px}}
+
+/* Wordmark without a decorative disc */
+.brand{gap:0}
+.footer-brand{gap:0}

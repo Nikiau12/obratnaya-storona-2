@@ -3,10 +3,20 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
+const siteUrl = "https://obratnaya-storona-2.young-mite-9319.chatgpt.site";
+
 export const metadata: Metadata = {
   title: "Обратная сторона — медиа о литературе и искусстве",
   description: "Независимое онлайн-медиа о литературе, искусстве и книжных практиках.",
-  metadataBase: new URL("https://obratno.io"),
+  metadataBase: new URL(siteUrl),
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Обратная сторона",
     description: "Медиа о литературе и искусстве",

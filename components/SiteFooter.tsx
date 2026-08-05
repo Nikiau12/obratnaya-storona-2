@@ -4,7 +4,6 @@ export function SiteFooter() {
   return (
     <footer>
       <div className="footer-brand">
-        <span className="brand-mark inverse" aria-hidden="true" />
         <h2>Обратная<br />сторона</h2>
       </div>
       <div>

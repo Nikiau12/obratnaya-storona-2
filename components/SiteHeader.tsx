@@ -23,7 +23,6 @@ export function SiteHeader() {
     <>
       <header className="site-header">
         <Link className="brand" href="/" aria-label="Обратная сторона — на главную">
-          <span className="brand-mark" aria-hidden="true" />
           <span>Обратная<br />сторона</span>
         </Link>
         <div className="edition"><span>выпуск 01</span><span>5 августа 2026</span></div>
