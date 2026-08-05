@@ -11,7 +11,7 @@ export function SearchPanel({ materials, books, authors }: { materials: Material
     const normalized = query.trim().toLocaleLowerCase("ru");
     if (normalized.length < 2) return [];
     return [
-      ...materials.map((item) => ({ type: "Материал", title: item.title, subtitle: `${item.format} · ${item.rubric}`, href: `/material/${item.slug}`, search: `${item.title} ${item.excerpt} ${item.rubric}` })),
+      ...materials.map((item) => ({ type: "Материал", title: item.title, subtitle: `${item.format} · ${item.rubric}`, href: `/material/${item.slug}`, search: `${item.title} ${item.excerpt} ${item.rubric} ${item.tags.join(" ")}` })),
       ...books.map((item) => ({ type: "Книга", title: item.title, subtitle: `${item.author} · ${item.publisher}`, href: `/books/${item.slug}`, search: `${item.title} ${item.author} ${item.publisher}` })),
       ...authors.map((item) => ({ type: "Автор", title: item.name, subtitle: item.role, href: `/authors/${item.slug}`, search: `${item.name} ${item.role} ${item.bio}` })),
     ].filter((item) => item.search.toLocaleLowerCase("ru").includes(normalized));
