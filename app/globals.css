@@ -385,7 +385,7 @@ body:has(.editorial-territory)>footer{display:none}
 .territory-editor-note{bottom:24px;left:var(--territory-pad);margin:0;color:var(--territory-red);font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.12em}
 .territory-dreams{top:110px;left:17%;width:69%}
 .territory-dreams h2{font-size:clamp(50px,6vw,96px);line-height:.87}
-.territory-dream-quote{top:570px;left:5%;width:34%}
+.territory-dream-quote{top:610px;left:5%;width:34%}
 .territory-dream-quote blockquote{margin:0;font-size:clamp(22px,2.35vw,37px);font-weight:600;line-height:1.12;letter-spacing:-.035em}
 .territory-eye-note{top:710px;right:7%;width:20%;text-align:right}
 .territory-eye-note b{display:block;font-family:var(--display);font-size:clamp(78px,9vw,140px);font-weight:400;line-height:.75}
@@ -403,8 +403,10 @@ body:has(.editorial-territory)>footer{display:none}
 
 @media(max-width:900px){
   .territory-nav{grid-template-columns:150px 1fr}.territory-nav-links{display:none}
-  .territory-lead{width:70%}.territory-absence{right:4%;width:26%}
-  .territory-dreams{left:10%;width:79%}.territory-dream-quote{width:39%}.territory-eye-note{width:24%}
+  .territory-lead{width:64%}.territory-absence{right:3%;width:25%}
+  .territory-word{left:7%;width:31%}.territory-word strong{font-size:clamp(31px,4vw,36px)}
+  .territory-berger{right:5%;width:43%}
+  .territory-dreams{left:10%;width:79%}.territory-dream-quote{top:610px;width:39%}.territory-eye-note{width:24%}
 }
 
 @media(max-width:700px){
@@ -425,7 +427,7 @@ body:has(.editorial-territory)>footer{display:none}
   .territory-kicker{margin-bottom:10px;font-size:7px;line-height:1.35}
   .territory-link{margin-bottom:50px}
   .territory-lead{width:100%}
-  .territory-lead h1{font-size:clamp(39px,10.7vw,46px);line-height:.91;letter-spacing:-.058em;overflow-wrap:normal;word-break:normal;hyphens:none;text-wrap:wrap}
+  .territory-lead h1{font-size:clamp(36px,10.5vw,46px);line-height:.91;letter-spacing:-.058em;overflow-wrap:normal;word-break:normal;hyphens:none;text-wrap:wrap}
   .territory-absence{width:79%;margin-left:auto}
   .territory-absence p{font-size:23px}
   .territory-found{pointer-events:none}
@@ -435,7 +437,7 @@ body:has(.editorial-territory)>footer{display:none}
   .territory-berger{order:5;width:94%;margin:0 0 0 auto;text-align:left;transform:rotate(1deg)}
   .territory-berger h2{font-size:clamp(38px,10.5vw,45px)}
   .territory-dreams{width:100%}
-  .territory-dreams h2{font-size:clamp(34px,9.2vw,40px);line-height:.93;overflow-wrap:normal;word-break:normal;hyphens:none}
+  .territory-dreams h2{font-size:clamp(28px,8vw,36px);line-height:.95;overflow-wrap:normal;word-break:normal;hyphens:none}
   .territory-dream-quote{width:87%;margin-left:auto}
   .territory-dream-quote blockquote{font-size:25px}
   .territory-found-orchid{order:3;width:53%;margin:-20px auto 42px 2%;transform:rotate(-3deg)}
