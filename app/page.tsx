@@ -21,7 +21,7 @@ export default function Home() {
           <span className="open-mark">читать</span>
         </Link>
         <Link className="field-object fragment-link image-object image-object-swing" href="/material/poetics-of-error" aria-label="Открыть материал о потерянной рукописи">
-          <Image src="/nosorog/swinging-man.png" alt="Человек, раскачивающийся на верёвках" width={720} height={720} priority />
+          <Image src="/nosorog/cutouts/swinging-man.png" alt="Человек, раскачивающийся на верёвках" width={1254} height={1254} priority />
           <span className="image-caption">Фрагмент изображения из архива «Носорога»</span>
         </Link>
         <div className="field-object fragment-static word-object">
@@ -32,7 +32,7 @@ export default function Home() {
           <span className="object-type">Эссе + плейлист</span><h2>Play me something, Джон Берджер</h2><span className="open-mark">слушать и читать</span>
         </Link>
         <Link className="field-object fragment-link image-object image-object-speakers" href="/material/signal-in-static" aria-label="Открыть материал Play me something, Джон Берджер">
-          <Image src="/nosorog/loudspeakers.png" alt="Композиция из громкоговорителей" width={720} height={720} />
+          <Image src="/nosorog/cutouts/loudspeakers.png" alt="Композиция из громкоговорителей" width={1254} height={1254} />
         </Link>
         <div className="field-object fragment-static eye-object">
           <span className="static-mark">рубрика главной</span><div className="collage-eye" aria-hidden="true"><i /></div><strong>Глаз дня</strong><p>Сегодня смотрит не на изображение, а на место, где оно должно было быть.</p>
@@ -45,13 +45,13 @@ export default function Home() {
           <span className="object-type">Коллективный разбор</span><h2>Психоаналитики толкуют сновидения Беньямина, Адорно и Сумарокова</h2><span className="open-mark">читать</span>
         </Link>
         <Link className="field-object fragment-link image-object image-object-bat" href="/material/archive-machine" aria-label="Открыть материал о сновидениях">
-          <Image src="/nosorog/bat-jar.png" alt="Летучая мышь под стеклянным колпаком" width={720} height={720} />
+          <Image src="/nosorog/cutouts/bat-jar.png" alt="Летучая мышь под стеклянным колпаком" width={1254} height={1254} />
         </Link>
         <Link className="field-object fragment-link title-object title-object-covers" href="/material/paper-remembers">
           <span className="object-type">Три обложки · три коротких текста</span><h2>Обзор книжных обложек. Vol I</h2><span className="open-mark">смотреть</span>
         </Link>
         <Link className="field-object fragment-link image-object image-object-watercolor" href="/material/paper-remembers" aria-label="Открыть обзор книжных обложек">
-          <Image src="/nosorog/watercolor-figures.png" alt="Акварель с цветными фигурами" width={720} height={720} />
+          <Image src="/nosorog/cutouts/watercolor-figures.png" alt="Акварель с цветными фигурами" width={1254} height={1254} />
         </Link>
         <Link className="field-object fragment-link title-object title-object-silliman" href="/material/voice-of-paper">
           <span className="object-type">Интервью</span><h2>Интервью с Роном Силлиманом</h2><p>О длинном предложении, паузах и чтении как физической работе.</p><span className="open-mark">разговор целиком</span>
@@ -60,7 +60,7 @@ export default function Home() {
           <span className="object-type">Просмотр с пристрастием</span><h2>Мы заставили Григория Стариковского посмотреть «Одиссею»</h2><span className="open-mark">узнать, что произошло</span>
         </Link>
         <div className="field-object fragment-static animal-object" aria-label="Некликабельное изображение из архива Носорога">
-          <span className="static-mark">найденный знак</span><Image src="/nosorog/green-animal.png" alt="Зелёный силуэт прыгающего животного" width={720} height={720} />
+          <span className="static-mark">найденный знак</span><Image src="/nosorog/cutouts/green-animal.png" alt="Зелёный силуэт прыгающего животного" width={1254} height={1254} />
         </div>
 
         <div className="field-object shelf-label" id="books"><span>Онлайн-книжный · встроен в медиа</span><h2>Книги тоже говорят</h2><Link href="/books">Вся книжная витрина</Link></div>

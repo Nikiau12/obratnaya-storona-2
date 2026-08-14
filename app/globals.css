@@ -342,6 +342,7 @@ body,button,input,select,textarea{font-family:var(--sans)}
 .title-object-main h1{max-width:970px;margin:18px 0 0;font-size:clamp(52px,6.7vw,108px);line-height:.9}
 .image-object{--object-accent:#3157ff}
 .image-object img{width:100%;height:auto}
+.image-object img,.animal-object img{filter:drop-shadow(0 8px 8px rgba(17,17,17,.08))}
 .image-object-swing{top:95px;right:1%;width:35%;transform:rotate(3deg)}
 .image-object-swing:hover{transform:rotate(0) translate(-4px,-4px)}
 .image-caption{display:block;margin-top:4px;text-align:right}
