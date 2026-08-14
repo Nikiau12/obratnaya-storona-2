@@ -23,7 +23,7 @@ export default function RubricsPage() {
                 <p>{rubric.description}</p>
               </div>
               {material ? (
-                <Link className={`rubric-preview ${material.image?.includes("/nosorog/cutouts/") ? "has-cutout" : ""}`} href={`/material/${material.slug}`}>
+                <Link className={`rubric-preview ${material.image?.includes("/nosorog/cutouts/") ? "has-cutout" : ""} ${material.image?.includes("/references/os/") ? "has-reference" : ""}`} href={`/material/${material.slug}`}>
                   <figure>
                     {material.image ? <Image src={material.image} alt="" width={900} height={900} sizes="(max-width: 700px) 100vw, 55vw" /> : null}
                   </figure>

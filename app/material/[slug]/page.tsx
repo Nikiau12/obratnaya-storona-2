@@ -33,16 +33,17 @@ export default async function MaterialPage({ params }: { params: Promise<{ slug:
   const related = materials.filter((item) => item.slug !== material.slug).slice(0, 2);
   const mentionedBooks = books.filter((book) => material.mentionedBookSlugs?.includes(book.slug));
   const hasCutout = material.image?.includes("/nosorog/cutouts/");
+  const hasReference = material.image?.includes("/references/os/");
 
   return (
-    <main className={`article-page article-${material.format.toLowerCase()} article-tone-${material.tone} ${hasCutout ? "has-cutout" : ""}`}>
+    <main className={`article-page article-${material.format.toLowerCase()} article-tone-${material.tone} ${hasCutout ? "has-cutout" : ""} ${hasReference ? "has-reference" : ""}`}>
       <ArticleTools title={material.title} />
       <article>
         <section className="article-hero">
           <div className="eyebrow"><span>{material.format} · {material.rubric}</span><span>{material.date}</span></div>
           <div className="article-hero-layout">
             <div><h1>{material.title}</h1><p className="article-deck">{material.intro}</p></div>
-            {material.image ? <figure className="article-hero-image"><Image src={material.image} alt={`Изображение к материалу «${material.shortTitle}»`} width={900} height={900} priority /><figcaption>Фрагмент материала · временное изображение</figcaption></figure> : null}
+            {material.image ? <figure className="article-hero-image"><Image src={material.image} alt={`Изображение к материалу «${material.shortTitle}»`} width={900} height={900} priority /><figcaption>{material.imageCaption ?? "Фрагмент материала · временное изображение"}</figcaption></figure> : null}
           </div>
           <div className="article-byline"><Link href={`/authors/${author?.slug}`}>{author?.name}</Link><span>{author?.role}</span><span>{material.readTime}</span></div>
         </section>

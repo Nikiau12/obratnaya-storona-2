@@ -21,8 +21,8 @@ export default function Home() {
           <span className="open-mark">читать</span>
         </Link>
         <Link className="field-object fragment-link image-object image-object-swing" href="/material/poetics-of-error" aria-label="Открыть материал о потерянной рукописи">
-          <Image src="/nosorog/cutouts/swinging-man.png" alt="Человек, раскачивающийся на верёвках" width={1254} height={1254} priority />
-          <span className="image-caption">Фрагмент изображения из архива «Носорога»</span>
+          <Image src="/references/os/first-photograph-lightning.png" alt="Первая фотография молнии, 2 сентября 1882 года" width={974} height={1180} priority />
+          <span className="image-caption">Первая фотография молнии · 1882</span>
         </Link>
         <div className="field-object fragment-static word-object">
           <span className="static-mark">только на главной</span><p>Слово дня</p><strong>наизнанку</strong><small>наречие · внутренней стороной наружу</small>
@@ -32,7 +32,7 @@ export default function Home() {
           <span className="object-type">Эссе + плейлист</span><h2>Play me something, Джон Берджер</h2><span className="open-mark">слушать и читать</span>
         </Link>
         <Link className="field-object fragment-link image-object image-object-speakers" href="/material/signal-in-static" aria-label="Открыть материал Play me something, Джон Берджер">
-          <Image src="/nosorog/cutouts/loudspeakers.png" alt="Композиция из громкоговорителей" width={1254} height={1254} />
+          <Image src="/references/os/fangor-number-17.png" alt="Цветовая композиция Войцеха Фангора «Номер 17»" width={1079} height={1060} />
         </Link>
         <div className="field-object fragment-static eye-object">
           <span className="static-mark">рубрика главной</span><div className="collage-eye" aria-hidden="true"><i /></div><strong>Глаз дня</strong><p>Сегодня смотрит не на изображение, а на место, где оно должно было быть.</p>
@@ -45,22 +45,28 @@ export default function Home() {
           <span className="object-type">Коллективный разбор</span><h2>Психоаналитики толкуют сновидения Беньямина, Адорно и Сумарокова</h2><span className="open-mark">читать</span>
         </Link>
         <Link className="field-object fragment-link image-object image-object-bat" href="/material/archive-machine" aria-label="Открыть материал о сновидениях">
-          <Image src="/nosorog/cutouts/bat-jar.png" alt="Летучая мышь под стеклянным колпаком" width={1254} height={1254} />
+          <Image src="/references/os/vampyr-dream.png" alt="Кадр из фильма «Вампир» Карла Теодора Дрейера" width={1079} height={863} />
         </Link>
         <Link className="field-object fragment-link title-object title-object-covers" href="/material/paper-remembers">
           <span className="object-type">Три обложки · три коротких текста</span><h2>Обзор книжных обложек. Vol I</h2><span className="open-mark">смотреть</span>
         </Link>
         <Link className="field-object fragment-link image-object image-object-watercolor" href="/material/paper-remembers" aria-label="Открыть обзор книжных обложек">
-          <Image src="/nosorog/cutouts/watercolor-figures.png" alt="Акварель с цветными фигурами" width={1254} height={1254} />
+          <Image src="/references/os/ruskin-paper-crown.png" alt="Исследование бумажной короны Джона Рёскина" width={1080} height={862} />
         </Link>
         <Link className="field-object fragment-link title-object title-object-silliman" href="/material/voice-of-paper">
           <span className="object-type">Интервью</span><h2>Интервью с Роном Силлиманом</h2><p>О длинном предложении, паузах и чтении как физической работе.</p><span className="open-mark">разговор целиком</span>
         </Link>
+        <Link className="field-object fragment-link image-object image-object-masks" href="/material/voice-of-paper" aria-label="Открыть интервью с Роном Силлиманом">
+          <Image src="/references/os/steinberg-masks.png" alt="Люди в масках Сола Стейнберга" width={1078} height={1234} />
+        </Link>
         <Link className="field-object fragment-link title-object title-object-odyssey" href="/material/reverse-side-of-image">
           <span className="object-type">Просмотр с пристрастием</span><h2>Мы заставили Григория Стариковского посмотреть «Одиссею»</h2><span className="open-mark">узнать, что произошло</span>
         </Link>
-        <div className="field-object fragment-static animal-object" aria-label="Некликабельное изображение из архива Носорога">
-          <span className="static-mark">найденный знак</span><Image src="/nosorog/cutouts/green-animal.png" alt="Зелёный силуэт прыгающего животного" width={1254} height={1254} />
+        <Link className="field-object fragment-link image-object image-object-black-hole" href="/material/reverse-side-of-image" aria-label="Открыть материал о просмотре «Одиссеи»">
+          <Image src="/references/os/kapoor-black-hole.png" alt="Чёрное отверстие в бетонном полу, работа Аниша Капура" width={1920} height={1080} />
+        </Link>
+        <div className="field-object fragment-static animal-object" aria-label="Некликабельный найденный знак">
+          <span className="static-mark">найденный знак</span><Image src="/references/os/lola-alvarez-eye.png" alt="Глаз в ладони, фотография Лолы Альварес Браво" width={573} height={821} />
         </div>
 
         <div className="field-object shelf-label" id="books"><span>Онлайн-книжный · встроен в медиа</span><h2>Книги тоже говорят</h2><Link href="/books">Вся книжная витрина</Link></div>
@@ -76,7 +82,7 @@ export default function Home() {
         <Link className="field-object fragment-link book-mention" href={`/books/${vesele.slug}`}>
           <span>Книга упоминается в материале</span><strong>«Веселье крушений»</strong><p>Можно перейти в витрину и найти, где её купить.</p><span className="open-mark">к книге</span>
         </Link>
-        <div className="field-source">Временные изображения: архив издательства и журнала «Носорог»</div>
+        <div className="field-source">Временные изображения: мудборд редакции «Обратной стороны»</div>
       </section>
 
       <section className="collage-newsletter">

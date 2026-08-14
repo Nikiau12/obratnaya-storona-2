@@ -3,8 +3,9 @@ import Image from "next/image";
 
 export function MaterialCard({ material, compact = false }: { material: Material; compact?: boolean }) {
   const hasCutout = material.image?.includes("/nosorog/cutouts/");
+  const hasReference = material.image?.includes("/references/os/");
   return (
-    <a className={`material-card tone-${material.tone} ${compact ? "is-compact" : ""} ${hasCutout ? "has-cutout" : ""}`} href={`/material/${material.slug}`}>
+    <a className={`material-card tone-${material.tone} ${compact ? "is-compact" : ""} ${hasCutout ? "has-cutout" : ""} ${hasReference ? "has-reference" : ""}`} href={`/material/${material.slug}`}>
       <div className="story-meta"><span>{material.format}</span><span>№ {material.number}</span></div>
       <div className="material-visual" aria-hidden="true">
         {material.image ? <Image src={material.image} alt="" width={900} height={600} sizes="(max-width: 700px) 100vw, (max-width: 1050px) 50vw, 33vw" /> : <span>{material.shortTitle.slice(0, 1)}</span>}
