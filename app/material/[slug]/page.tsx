@@ -32,9 +32,10 @@ export default async function MaterialPage({ params }: { params: Promise<{ slug:
   const next = materials[(currentIndex + 1) % materials.length];
   const related = materials.filter((item) => item.slug !== material.slug).slice(0, 2);
   const mentionedBooks = books.filter((book) => material.mentionedBookSlugs?.includes(book.slug));
+  const hasCutout = material.image?.includes("/nosorog/cutouts/");
 
   return (
-    <main className={`article-page article-${material.format.toLowerCase()} article-tone-${material.tone}`}>
+    <main className={`article-page article-${material.format.toLowerCase()} article-tone-${material.tone} ${hasCutout ? "has-cutout" : ""}`}>
       <ArticleTools title={material.title} />
       <article>
         <section className="article-hero">
