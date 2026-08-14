@@ -1,93 +1,122 @@
 import Image from "next/image";
 import Link from "next/link";
-import { NewsletterForm } from "@/components/NewsletterForm";
-import { books } from "@/lib/content";
 
-const bookBySlug = Object.fromEntries(books.map((book) => [book.slug, book]));
+const issueItems = [
+  ["001", "Убийцы вы дураки", "/material/poetics-of-error"],
+  ["002", "Толкование сновидений", "/material/archive-machine"],
+  ["003", "Обзор обложек. Vol I", "/material/paper-remembers"],
+  ["004", "Интервью с Роном Силлиманом", "/material/voice-of-paper"],
+  ["005", "Мы посмотрели «Одиссею»", "/materials"],
+  ["006", "Play me something, Джон Берджер", "/material/signal-in-static"],
+] as const;
 
 export default function Home() {
-  const vesele = bookBySlug["vesele-krushenii"];
-  const pruzhina = bookBySlug.pruzhina;
-  const aloe = bookBySlug.aloe;
-
   return (
-    <main className="home-collage">
-      <section className="object-field" aria-labelledby="home-field-title">
-        <div className="field-intro"><span>Онлайн-медиа ОС · литература и искусство</span><p>Выпуск 01 · август 2026</p></div>
+    <main className="editorial-territory">
+      <nav className="territory-nav" aria-label="Навигация по выпуску">
+        <Link className="territory-brand" href="/">Обратная<br />сторона</Link>
+        <div className="territory-edition">
+          <span>Онлайн-медиа ОС</span>
+          <span>Выпуск 01 · август 2026</span>
+        </div>
+        <div className="territory-nav-links">
+          <Link href="/materials">Все материалы</Link>
+          <Link href="/books">Книги</Link>
+          <Link href="/search">Поиск</Link>
+        </div>
+      </nav>
 
-        <Link className="field-object fragment-link title-object title-object-main" href="/material/poetics-of-error">
-          <span className="object-type">История текста · 18 минут</span>
-          <h1 id="home-field-title">Роман Александра Введенского «Убийцы вы дураки»: история потерянной рукописи</h1>
-          <span className="open-mark">читать</span>
+      <details className="territory-index">
+        <summary><span>Содержание выпуска</span><b>01—06</b></summary>
+        <div className="territory-index-panel">
+          <div className="territory-index-heading"><span>Обратная сторона · выпуск 01</span><b>Содержание</b></div>
+          <nav aria-label="Содержание первого выпуска">
+            {issueItems.map(([number, title, href]) => (
+              <Link href={href} key={number}><small>{number}</small><span>{title}</span></Link>
+            ))}
+          </nav>
+          <div className="territory-index-footer">
+            <Link href="/materials">Редакционный архив</Link>
+            <Link href="/books">Книжная витрина</Link>
+          </div>
+        </div>
+      </details>
+
+      <section className="territory-scene territory-scene-one" aria-labelledby="territory-main-title">
+        <Link className="territory-object territory-link territory-lead" href="/material/poetics-of-error">
+          <span className="territory-kicker">История текста · материал 001</span>
+          <h1 id="territory-main-title">Роман Александра Введенского «Убийцы вы дураки»: история потерянной рукописи</h1>
+          <span className="territory-action">Открыть материал</span>
         </Link>
-        <Link className="field-object fragment-link image-object image-object-swing" href="/material/poetics-of-error" aria-label="Открыть материал о потерянной рукописи">
-          <Image src="/references/os/first-photograph-lightning.png" alt="Первая фотография молнии, 2 сентября 1882 года" width={974} height={1180} priority />
-          <span className="image-caption">Первая фотография молнии · 1882</span>
+
+        <div className="territory-connection connection-one" aria-hidden="true"><span>тот же текст · другой вход</span><i /></div>
+
+        <Link className="territory-object territory-link territory-absence" href="/material/poetics-of-error">
+          <span className="territory-kicker">Фрагмент материала 001</span>
+          <p>Название сохранилось.<br />Рукопись исчезла.<br />История осталась.</p>
+          <span className="territory-action">Продолжить с этого места</span>
         </Link>
-        <div className="field-object fragment-static word-object">
-          <span className="static-mark">только на главной</span><p>Слово дня</p><strong>наизнанку</strong><small>наречие · внутренней стороной наружу</small>
+
+        <figure className="territory-found territory-found-eye">
+          <Image src="/references/os/max-ernst-eye.png" width={573} height={691} alt="Коллаж Макса Эрнста с глазом" sizes="(max-width: 700px) 46vw, 18vw" />
+          <figcaption>Найденный объект · визуальная пауза</figcaption>
+        </figure>
+
+        <div className="territory-object territory-static territory-word">
+          <span className="territory-kicker">Слово дня · редакционная вставка</span>
+          <strong>наизнанку</strong>
+          <p>внутренней стороной наружу</p>
         </div>
 
-        <Link className="field-object fragment-link title-object title-object-berger" href="/material/signal-in-static">
-          <span className="object-type">Эссе + плейлист</span><h2>Play me something, Джон Берджер</h2><span className="open-mark">слушать и читать</span>
-        </Link>
-        <Link className="field-object fragment-link image-object image-object-speakers" href="/material/signal-in-static" aria-label="Открыть материал Play me something, Джон Берджер">
-          <Image src="/references/os/fangor-number-17.png" alt="Цветовая композиция Войцеха Фангора «Номер 17»" width={1079} height={1060} />
-        </Link>
-        <div className="field-object fragment-static eye-object">
-          <span className="static-mark">рубрика главной</span><div className="collage-eye" aria-hidden="true"><i /></div><strong>Глаз дня</strong><p>Сегодня смотрит не на изображение, а на место, где оно должно было быть.</p>
-        </div>
-        <Link className="field-object fragment-link quote-object" href="/material/archive-machine">
-          <span className="object-type">Фрагмент будущего материала</span><blockquote>«Сновидение — это черновик, который отказывается становиться окончательным текстом»</blockquote><span className="open-mark">откуда эта цитата?</span>
+        <Link className="territory-object territory-link territory-berger" href="/material/signal-in-static">
+          <span className="territory-kicker">Эссе + плейлист · материал 006</span>
+          <h2>Play me something,<br />Джон Берджер</h2>
+          <span className="territory-action">Слушать и читать</span>
         </Link>
 
-        <Link className="field-object fragment-link title-object title-object-dreams" href="/material/archive-machine">
-          <span className="object-type">Коллективный разбор</span><h2>Психоаналитики толкуют сновидения Беньямина, Адорно и Сумарокова</h2><span className="open-mark">читать</span>
-        </Link>
-        <Link className="field-object fragment-link image-object image-object-bat" href="/material/archive-machine" aria-label="Открыть материал о сновидениях">
-          <Image src="/references/os/vampyr-dream.png" alt="Кадр из фильма «Вампир» Карла Теодора Дрейера" width={1079} height={863} />
-        </Link>
-        <Link className="field-object fragment-link title-object title-object-covers" href="/material/paper-remembers">
-          <span className="object-type">Три обложки · три коротких текста</span><h2>Обзор книжных обложек. Vol I</h2><span className="open-mark">смотреть</span>
-        </Link>
-        <Link className="field-object fragment-link image-object image-object-watercolor" href="/material/paper-remembers" aria-label="Открыть обзор книжных обложек">
-          <Image src="/references/os/ruskin-paper-crown.png" alt="Исследование бумажной короны Джона Рёскина" width={1080} height={862} />
-        </Link>
-        <Link className="field-object fragment-link title-object title-object-silliman" href="/material/voice-of-paper">
-          <span className="object-type">Интервью</span><h2>Интервью с Роном Силлиманом</h2><p>О длинном предложении, паузах и чтении как физической работе.</p><span className="open-mark">разговор целиком</span>
-        </Link>
-        <Link className="field-object fragment-link image-object image-object-masks" href="/material/voice-of-paper" aria-label="Открыть интервью с Роном Силлиманом">
-          <Image src="/references/os/steinberg-masks.png" alt="Люди в масках Сола Стейнберга" width={1078} height={1234} />
-        </Link>
-        <Link className="field-object fragment-link title-object title-object-odyssey" href="/material/reverse-side-of-image">
-          <span className="object-type">Просмотр с пристрастием</span><h2>Мы заставили Григория Стариковского посмотреть «Одиссею»</h2><span className="open-mark">узнать, что произошло</span>
-        </Link>
-        <Link className="field-object fragment-link image-object image-object-black-hole" href="/material/reverse-side-of-image" aria-label="Открыть материал о просмотре «Одиссеи»">
-          <Image src="/references/os/kapoor-black-hole.png" alt="Чёрное отверстие в бетонном полу, работа Аниша Капура" width={1920} height={1080} />
-        </Link>
-        <div className="field-object fragment-static animal-object" aria-label="Некликабельный найденный знак">
-          <span className="static-mark">найденный знак</span><Image src="/references/os/lola-alvarez-eye.png" alt="Глаз в ладони, фотография Лолы Альварес Браво" width={573} height={821} />
-        </div>
-
-        <div className="field-object shelf-label" id="books"><span>Онлайн-книжный · встроен в медиа</span><h2>Книги тоже говорят</h2><Link href="/books">Вся книжная витрина</Link></div>
-        <Link className="field-object fragment-link book-object book-object-vesele" href={`/books/${vesele.slug}`}>
-          <Image src={vesele.image} alt={`Обложка книги «${vesele.title}»`} width={590} height={590} unoptimized /><span>{vesele.publisher}</span><strong>{vesele.title}</strong><small>{vesele.price}</small><span className="open-mark">о книге</span>
-        </Link>
-        <Link className="field-object fragment-link book-object book-object-pruzhina" href={`/books/${pruzhina.slug}`}>
-          <Image src={pruzhina.image} alt={`Обложка книги «${pruzhina.title}»`} width={590} height={590} unoptimized /><span>{pruzhina.publisher}</span><strong>{pruzhina.title}</strong><small>{pruzhina.price}</small><span className="open-mark">о книге</span>
-        </Link>
-        <Link className="field-object fragment-link book-object book-object-aloe" href={`/books/${aloe.slug}`}>
-          <Image src={aloe.image} alt={`Обложка книги «${aloe.title}»`} width={590} height={590} unoptimized /><span>{aloe.publisher}</span><strong>{aloe.title}</strong><small>{aloe.price}</small><span className="open-mark">о книге</span>
-        </Link>
-        <Link className="field-object fragment-link book-mention" href={`/books/${vesele.slug}`}>
-          <span>Книга упоминается в материале</span><strong>«Веселье крушений»</strong><p>Можно перейти в витрину и найти, где её купить.</p><span className="open-mark">к книге</span>
-        </Link>
-        <div className="field-source">Временные изображения: мудборд редакции «Обратной стороны»</div>
+        <p className="territory-editor-note">Не лента новостей, а территория одного выпуска</p>
       </section>
 
-      <section className="collage-newsletter">
-        <div><span>Письмо с обратной стороны</span><h2>Иногда<br />по четвергам</h2></div>
-        <div><p>Новые тексты, книги, изображения и то, что не поместилось на главную.</p><NewsletterForm /><a href="https://t.me/obratno_io">Или читать нас в Telegram</a></div>
+      <section className="territory-scene territory-scene-two" aria-labelledby="territory-dreams-title">
+        <Link className="territory-object territory-link territory-dreams" href="/material/archive-machine">
+          <span className="territory-kicker">Коллективный разбор · материал 002</span>
+          <h2 id="territory-dreams-title">Психоаналитики толкуют сновидения Беньямина, Адорно и Сумарокова</h2>
+          <span className="territory-action">Читать разбор</span>
+        </Link>
+
+        <div className="territory-connection connection-two" aria-hidden="true"><span>цитата из материала 002</span><i /></div>
+
+        <Link className="territory-object territory-link territory-dream-quote" href="/material/archive-machine">
+          <span className="territory-kicker">Один фрагмент · тот же вход</span>
+          <blockquote>«Сновидение — это черновик, который отказывается становиться окончательным текстом»</blockquote>
+          <span className="territory-action">Откуда эта цитата?</span>
+        </Link>
+
+        <figure className="territory-found territory-found-orchid">
+          <Image src="/references/os/mapplethorpe-orchid.png" width={573} height={632} alt="Фотография орхидеи Роберта Мэпплторпа" sizes="(max-width: 700px) 52vw, 20vw" />
+          <figcaption>Найденный объект · без обязательного объяснения</figcaption>
+        </figure>
+
+        <div className="territory-object territory-static territory-eye-note">
+          <span className="territory-kicker">Глаз дня · редакционная вставка</span>
+          <b aria-hidden="true">◉</b>
+          <p>Сегодня смотрит на место, где изображения ещё нет.</p>
+        </div>
+
+        <Link className="territory-object territory-link territory-covers" href="/material/paper-remembers">
+          <span className="territory-kicker">Три коротких текста · материал 003</span>
+          <h2>Обзор книжных обложек. Vol I</h2>
+          <span className="territory-action">Смотреть материал</span>
+        </Link>
+
+        <Link className="territory-object territory-link territory-book-trace" href="/books/vesele-krushenii">
+          <span className="territory-kicker">Книга внутри выпуска</span>
+          <strong>«Веселье крушений»</strong>
+          <p>Упомянута в материале 001</p>
+          <span className="territory-action">В книжную витрину</span>
+        </Link>
+
+        <p className="territory-editor-note">Конец территории · дальше архив и книжная витрина</p>
       </section>
     </main>
   );

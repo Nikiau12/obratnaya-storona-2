@@ -22,8 +22,9 @@ test("renders the editorial homepage", async () => {
   assert.match(html, /Обратная сторона/);
   assert.match(html, /Роман Александра Введенского/);
   assert.match(html, /Слово дня/);
-  assert.match(html, /Книги тоже говорят/);
-  assert.match(html, /Интервью с Роном Силлиманом/);
+  assert.match(html, /Содержание выпуска/);
+  assert.match(html, /Психоаналитики толкуют сновидения/);
+  assert.match(html, /Книга внутри выпуска/);
   assert.match(html, /og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
