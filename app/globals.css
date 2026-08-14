@@ -658,32 +658,43 @@ body,button,input,select,textarea{font-family:var(--sans)}
 
 @media(max-width:860px){
   .article-page .article-body{display:block}
+  .article-page .article-hero-layout{grid-template-columns:1fr;gap:24px;margin-top:34px}
+  .article-page .article-hero-image{width:min(100%,440px);margin:0 0 0 auto}
+  .article-page .article-body aside{position:static;margin-bottom:30px}
 }
 
 @media(max-width:700px){
-  .article-page .article-hero{padding:36px var(--mobile-pad) 0}
-  .article-page .article-hero-layout{grid-template-columns:1fr;gap:35px;margin-top:38px}
-  .article-page .article-hero h1{font-size:clamp(39px,12vw,52px);line-height:.94}
-  .article-page .article-deck{margin-top:28px;font-size:18px}
-  .article-page .article-hero-image{width:88%;margin-left:auto;padding:11px}
-  .article-page .article-byline{grid-template-columns:1fr;gap:8px;margin-top:42px}
-  .article-page .article-body{padding:38px var(--mobile-pad) 62px}
-  .article-page .article-body>div>p{font-size:18px}
-  .article-page .pull-quote{font-size:26px!important}
-  .review-block{grid-template-columns:1fr;gap:25px;margin:60px 0}
+  .article-page .article-hero{padding:28px var(--mobile-pad) 0}
+  .article-page .article-hero-layout{grid-template-columns:1fr;gap:16px;margin-top:26px}
+  .article-page .article-hero h1{font-size:clamp(37px,11.4vw,48px);line-height:.94}
+  .article-page .article-deck{margin-top:20px;font-size:17px;line-height:1.42}
+  .article-page .article-hero-image{width:100%;margin:0;padding:8px;transform:none}
+  .article-page.has-cutout .article-hero-image{width:100%;margin:-12px 0 -20px;padding:0}
+  .article-page.has-cutout .article-hero-image img{width:100%;margin:0}
+  .article-page .article-hero-image figcaption{margin-top:5px;text-align:left;line-height:1.35}
+  .article-page.has-cutout .article-hero-image figcaption{margin-top:-8px}
+  .article-page .article-byline{grid-template-columns:1fr;gap:6px;margin-top:22px;padding:14px 0}
+  .article-page .article-body{padding:28px var(--mobile-pad) 52px}
+  .article-page .article-body aside{margin-bottom:26px}
+  .article-page .article-body>div>p{font-size:18px;line-height:1.58}
+  .article-page .pull-quote{margin:40px 0;font-size:25px!important}
+  .article-page .media-player,.article-page .video-placeholder{margin-bottom:32px}
+  .review-block{grid-template-columns:1fr;gap:18px;margin:44px 0;padding-top:22px}
   .review-block:nth-of-type(even)>div{order:0}
-  .review-block figure{width:88%;margin-left:auto;padding:12px}
-  .review-block h2{font-size:34px}
+  .review-block figure{width:100%;margin:0;padding:9px;transform:none!important}
+  .review-block h2{margin:16px 0;font-size:31px}
   .review-block p{font-size:17px!important}
-  .interview-turn{margin-top:58px}
-  .interview-turn h2{font-size:30px;margin-bottom:28px}
-  .interview-turn>div{grid-template-columns:1fr;gap:13px;padding:20px}
+  .interview-turn{margin-top:42px;padding-top:18px}
+  .interview-turn h2{margin:18px 0 22px;font-size:28px}
+  .interview-turn>div{grid-template-columns:1fr;gap:10px;padding:16px}
   .interview-turn>div p{font-size:18px}
-  .article-book-links{margin-top:62px}
+  .article-book-links{margin-top:48px;padding-top:24px}
   .article-book-links-heading{grid-template-columns:1fr;gap:12px}
-  .article-book-links-heading h2{font-size:29px}
+  .article-book-links-heading h2{font-size:27px}
   .article-book-links>div:last-child{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .article-book-links a strong{font-size:13px}
+  .article-page .author-strip{padding:32px var(--mobile-pad)}
+  .article-page .related-section{padding:38px var(--mobile-pad)}
   .article-page .related-grid{grid-template-columns:1fr}
   .article-page .next-material{grid-template-columns:1fr}
 }
