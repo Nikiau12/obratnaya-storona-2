@@ -787,3 +787,6 @@ body,button,input,select,textarea{font-family:var(--sans)}
   .search-page .search-results p{grid-column:1;font-size:13px}
   .search-page .search-results i{grid-column:2;grid-row:2/4}
 }
+
+/* Materials: search and filters are temporarily removed */
+.materials-index .archive-controls{display:none}
