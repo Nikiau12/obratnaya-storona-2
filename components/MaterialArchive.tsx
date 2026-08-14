@@ -25,7 +25,7 @@ export function MaterialArchive({ materials }: { materials: Material[] }) {
   }, [author, format, materials, rubric, sort, tag]);
 
   return (
-    <>
+    <section className="materials-archive" aria-label="Архив публикаций">
       <div className="archive-controls">
         <div className="filter-row" aria-label="Фильтр по формату">
           {formats.map((item) => <button className={format === item ? "active" : ""} onClick={() => setFormat(item)} key={item}>{item}</button>)}
@@ -40,8 +40,8 @@ export function MaterialArchive({ materials }: { materials: Material[] }) {
           </select></label>
         </div>
       </div>
-      <div className="archive-count">Показано: {visible.length}</div>
+      <div className="archive-count"><span>Найдено</span><b>{String(visible.length).padStart(2, "0")}</b></div>
       <div className="archive-grid">{visible.map((material) => <MaterialCard material={material} compact key={material.slug} />)}</div>
-    </>
+    </section>
   );
 }

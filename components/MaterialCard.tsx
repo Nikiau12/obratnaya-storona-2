@@ -12,7 +12,7 @@ export function MaterialCard({ material, compact = false }: { material: Material
         <p className="material-rubric">{material.rubric} · {material.readTime}</p>
         <h3>{material.title}</h3>
         <p>{material.excerpt}</p>
-        <span className="text-link">Читать<span className="link-arrow" aria-hidden="true"> ↗</span></span>
+        <span className="text-link">Открыть материал</span>
       </div>
     </a>
   );

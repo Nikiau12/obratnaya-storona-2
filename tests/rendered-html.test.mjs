@@ -33,9 +33,10 @@ test("renders the longread template", async () => {
   assert.equal(response.status, 200);
 
   const html = await response.text();
-  assert.match(html, /Поэтика/);
+  assert.match(html, /Роман Александра Введенского/);
   assert.match(html, /Лонгрид/);
-  assert.match(html, /обратной стороны языка/);
+  assert.match(html, /история ненайденной книги/i);
+  assert.match(html, /Книги можно открыть в витрине/);
   assert.match(html, /Связанные материалы/);
 });
 
@@ -59,9 +60,10 @@ test("renders book, author and media format detail pages", async () => {
   for (const [path, expected] of [
     ["/books/vesele-krushenii", /Купить у издательства/],
     ["/authors/maria-volkova", /Материалы автора/],
-    ["/material/archive-machine", /Архив — это машина/],
-    ["/material/voice-of-paper", /00:00/],
-    ["/material/signal-in-static", /Смотреть видео/],
+    ["/material/archive-machine", /Психоаналитики толкуют сновидения/],
+    ["/material/voice-of-paper", /Интервью с Роном Силлиманом/],
+    ["/material/signal-in-static", /Демонстрационный плейлист/],
+    ["/material/paper-remembers", /Обложка как занавес/],
   ]) {
     const response = await render(path);
     assert.equal(response.status, 200, path);
