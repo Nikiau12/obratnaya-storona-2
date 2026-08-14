@@ -37,8 +37,10 @@ export function SiteHeader() {
         <div className="edition"><span>выпуск 01</span><span>5 августа 2026</span></div>
         <nav className="desktop-nav" aria-label="Основная навигация">
           {links.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-          <Link className="search-link" href="/search" aria-label="Поиск">⌕</Link>
-          <Link className="shop-nav" href="/books">Магазин<span className="link-arrow" aria-hidden="true"> ↗</span></Link>
+          <Link className="search-link" href="/search" aria-label="Поиск">
+            <span className="search-icon" aria-hidden="true" />
+          </Link>
+          <Link className="shop-nav" href="/books"><span>Магазин</span><i aria-hidden="true">↗</i></Link>
         </nav>
         <button className="menu-button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="mobile-menu" aria-label="Открыть меню">Меню</button>
       </header>

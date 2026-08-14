@@ -46,7 +46,7 @@ test("renders archives and discovery pages", async () => {
     ["/books", /Книжная витрина/],
     ["/authors", /Люди на стороне/],
     ["/rubrics", /Редакционная карта/],
-    ["/search", /Поиск по материалам/],
+    ["/search", /Что вы хотите найти/],
     ["/about", /Смотрим туда/],
     ["/contribute", /Что прислать/],
   ]) {

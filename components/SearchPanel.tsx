@@ -1,12 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import type { Author, Book, Material } from "@/lib/content";
 
 type SearchResult = { type: string; title: string; subtitle: string; href: string };
 
 export function SearchPanel({ materials, books, authors }: { materials: Material[]; books: Book[]; authors: Author[] }) {
   const [query, setQuery] = useState("");
+  const suggestions = ["архив", "обложка", "интервью", "книга"];
   const results = useMemo<SearchResult[]>(() => {
     const normalized = query.trim().toLocaleLowerCase("ru");
     if (normalized.length < 2) return [];
@@ -19,11 +21,21 @@ export function SearchPanel({ materials, books, authors }: { materials: Material
 
   return (
     <section className="search-panel">
-      <label htmlFor="site-search">Поиск по материалам, книгам и авторам</label>
-      <div className="search-input-wrap"><span>⌕</span><input id="site-search" autoFocus value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Начните вводить слово" /></div>
-      <div className="search-status" aria-live="polite">{query.length < 2 ? "Введите не менее двух букв" : `Найдено: ${results.length}`}</div>
+      <div className="search-surface">
+        <label htmlFor="site-search">Что вы хотите найти?</label>
+        <div className="search-input-wrap">
+          <span className="search-icon" aria-hidden="true" />
+          <input id="site-search" type="search" autoFocus value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Введите запрос" />
+          {query ? <button type="button" onClick={() => setQuery("")} aria-label="Очистить поиск">Очистить</button> : null}
+        </div>
+        <div className="search-suggestions" aria-label="Примеры поисковых запросов">
+          <span>Например</span>
+          {suggestions.map((suggestion) => <button type="button" onClick={() => setQuery(suggestion)} key={suggestion}>{suggestion}</button>)}
+        </div>
+      </div>
+      <div className="search-status" aria-live="polite"><span>{query.length < 2 ? "Введите не менее двух букв" : "Результаты"}</span><b>{query.length < 2 ? "—" : String(results.length).padStart(2, "0")}</b></div>
       <div className="search-results">
-        {results.map((result) => <a href={result.href} key={`${result.type}-${result.href}`}><span>{result.type}</span><h2>{result.title}</h2><p>{result.subtitle}</p><i className="link-arrow" aria-hidden="true">↗</i></a>)}
+        {results.map((result, index) => <Link href={result.href} key={`${result.type}-${result.href}`}><span>{String(index + 1).padStart(2, "0")} · {result.type}</span><h2>{result.title}</h2><p>{result.subtitle}</p><i className="link-arrow" aria-hidden="true">↗</i></Link>)}
         {query.length >= 2 && results.length === 0 ? <p className="empty-state">На этой стороне ничего не найдено. Попробуйте другое слово.</p> : null}
       </div>
     </section>
