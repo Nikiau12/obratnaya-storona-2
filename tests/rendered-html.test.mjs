@@ -20,9 +20,10 @@ test("renders the editorial homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /Обратная сторона/);
-  assert.match(html, /Как читать/);
+  assert.match(html, /Роман Александра Введенского/);
   assert.match(html, /Слово дня/);
-  assert.match(html, /Книжная<br\/>витрина/);
+  assert.match(html, /Книги тоже говорят/);
+  assert.match(html, /Интервью с Роном Силлиманом/);
   assert.match(html, /og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
