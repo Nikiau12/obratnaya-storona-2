@@ -669,6 +669,7 @@ body,button,input,select,textarea{font-family:var(--sans)}
   .article-page .article-hero h1{font-size:clamp(37px,11.4vw,48px);line-height:.94}
   .article-page .article-deck{margin-top:20px;font-size:17px;line-height:1.42}
   .article-page .article-hero-image{width:100%;margin:0;padding:8px;transform:none}
+  .article-page .article-hero-image img,.review-block figure img,.article-book-links a img,.article-gallery img{height:auto}
   .article-page.has-cutout .article-hero-image{width:100%;margin:-12px 0 -20px;padding:0}
   .article-page.has-cutout .article-hero-image img{width:100%;margin:0}
   .article-page .article-hero-image figcaption{margin-top:5px;text-align:left;line-height:1.35}
