@@ -4,6 +4,7 @@
   --home-muted: #bac6ba;
   --home-accent: #dfb47c;
   min-height: 100vh;
+  isolation: isolate;
   background: var(--home-bg);
   color: var(--home-text);
   -webkit-font-smoothing: antialiased;

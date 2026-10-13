@@ -7,6 +7,7 @@ import type { Book } from "@/lib/content";
 import type { HomeFeature } from "@/lib/home-content";
 import { SiteHeader } from "../SiteHeader";
 import { BookCover } from "./BookCover";
+import { InkTrail } from "./InkTrail";
 import styles from "./HomeComposition.module.css";
 
 type Props = { features: HomeFeature[]; books: Book[]; quote: { text: string; attribution: string } };
@@ -76,10 +77,11 @@ export function HomeComposition({ features, books, quote }: Props) {
 
   return (
     <div className={styles.root} data-theme={theme}>
+      <InkTrail />
       <SiteHeader home />
       <div className={styles.layout}>
         <main id="main-content" tabIndex={-1} className={styles.main}>
-          <div className={styles.intro}>
+          <div className={styles.intro} data-ink-protect>
             <h1>Медленное литературное медиа</h1>
             <div className={styles.themePicker} role="group" aria-label="Цвет фона">
               <span>Фон</span>
