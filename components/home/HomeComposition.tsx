@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FocusEvent } from "react";
+import { useEffect, useState, type FocusEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Book } from "@/lib/content";
@@ -15,9 +15,60 @@ export function HomeComposition({ features, books, quote }: Props) {
   const [theme, setTheme] = useState<"petrol" | "earth">("petrol");
   const [hovered, setHovered] = useState<string | null>(null);
   const [focused, setFocused] = useState<string | null>(null);
-  const active = features.find((feature) => feature.id === (focused ?? hovered));
+  const [reading, setReading] = useState<string | null>(features[0]?.id ?? null);
+  const active = features.find((feature) => feature.id === (focused ?? hovered ?? reading));
   const selected = active?.mentionedBookSlugs.filter((slug) => books.some((book) => book.slug === slug)) ?? [];
   const hasSelection = selected.length > 0;
+  const groupedSlugs = new Set<string>();
+  const shelfGroups = features.flatMap((feature) => {
+    const relatedBooks = feature.mentionedBookSlugs.flatMap((slug) => {
+      const book = books.find((item) => item.slug === slug);
+      if (!book || groupedSlugs.has(slug)) return [];
+      groupedSlugs.add(slug);
+      return [book];
+    });
+    return relatedBooks.length ? [{ id: feature.id, label: feature.rubric, books: relatedBooks }] : [];
+  });
+  shelfGroups.push(...books.filter((book) => !groupedSlugs.has(book.slug)).map((book) => ({ id: book.slug, label: book.title, books: [book] })));
+
+  useEffect(() => {
+    const sections = features.flatMap((feature) => {
+      const element = document.getElementById(feature.id);
+      return element ? [{ id: feature.id, element }] : [];
+    });
+    let frame = 0;
+    function updateReading() {
+      frame = 0;
+      // Keep the current material active through the editorial inserts until
+      // the next material reaches the middle of the viewport.
+      const readingLine = window.innerHeight * .55;
+      let current = sections[0]?.id ?? null;
+      for (const section of sections) {
+        if (section.element.getBoundingClientRect().top <= readingLine) current = section.id;
+      }
+      setReading(current);
+    }
+    function scheduleUpdate() {
+      if (!frame) frame = window.requestAnimationFrame(updateReading);
+    }
+    function onScroll() {
+      // Scrolling resumes reading progress even after a previous hover/focus.
+      setHovered(null);
+      setFocused(null);
+      scheduleUpdate();
+    }
+    const observer = new ResizeObserver(scheduleUpdate);
+    observer.observe(document.body);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    updateReading();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.cancelAnimationFrame(frame);
+    };
+  }, [features]);
 
   function clearFocus(event: FocusEvent<HTMLElement>) {
     if (!event.currentTarget.contains(event.relatedTarget)) setFocused(null);
@@ -72,10 +123,18 @@ export function HomeComposition({ features, books, quote }: Props) {
           <div className={styles.shelfSticky}>
             <Link className={styles.shelfHeading} href="/books">Книжный</Link>
             <div className={styles.shelfBooks} data-active={hasSelection}>
-              {books.map((book) => <Link className={styles.shelfBook} data-selected={selected.includes(book.slug)} data-book={book.slug} href={`/books/${book.slug}`} key={book.slug} aria-label={`${book.author}. ${book.title}`}>
-                <BookCover book={book} decorative />
-                <span className={styles.bookCaption}>{book.title}</span>
-              </Link>)}
+              {shelfGroups.map((group) => <div key={group.id} className={styles.shelfGroup}
+                data-shelf-group={group.id} data-grouped={group.books.length > 1}
+                data-selected={group.books.some((book) => selected.includes(book.slug))}
+                role="group" aria-label={group.label}>
+                <div className={styles.shelfCovers}>
+                  {group.books.map((book) => <Link className={styles.shelfBook} data-selected={selected.includes(book.slug)} data-book={book.slug} href={`/books/${book.slug}`} key={book.slug} aria-label={`${book.author}. ${book.title}`} title={book.title}>
+                    <BookCover book={book} decorative />
+                    <span className={styles.bookCaption}>{book.title}</span>
+                  </Link>)}
+                </div>
+                {group.books.length > 1 ? <span className={styles.groupCaption}>{group.label}</span> : null}
+              </div>)}
             </div>
             <Link href="/books" className={styles.allBooks}>Все книги</Link>
           </div>

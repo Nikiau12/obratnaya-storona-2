@@ -54,6 +54,8 @@
 .shelfSticky { position: sticky; top: 28px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
 .shelfHeading { display: flex; align-items: baseline; justify-content: space-between; width: 100%; gap: 12px; font-size: 16px; }
 .shelfBooks { display: flex; flex-direction: column; align-items: center; width: 100%; gap: 20px; }
+.shelfGroup, .shelfCovers { display: contents; }
+.groupCaption { display: none; }
 .shelfBook { position: relative; width: 70px; transition: opacity .2s ease,transform .2s ease; }
 .shelfBook:nth-child(odd) { transform: rotate(-4deg); }
 .shelfBook:nth-child(even) { transform: rotate(5deg); }
@@ -134,7 +136,25 @@
   .homeFooter { grid-template-columns: 1fr auto; gap: 24px; padding: 30px 22px 105px; }
   .homeFooter p { grid-column: 1/-1; grid-row: 2; font-size: 13px; }
 }
+@media (min-width: 961px) and (min-height: 701px) {
+  .shelfBooks { gap: 38px; }
+  .shelfGroup { display: flex; flex-direction: column; align-items: center; width: 100%; transition: opacity .2s ease, transform .2s ease; }
+  .shelfCovers { display: flex; justify-content: center; width: 100%; }
+  .shelfBooks[data-active="true"] .shelfGroup { opacity: .35; }
+  .shelfBooks .shelfGroup[data-selected="true"], .shelfBooks .shelfGroup:hover, .shelfBooks .shelfGroup:focus-within { opacity: 1; transform: translateX(-8px); }
+  .shelfBooks[data-active] .shelfBook { opacity: 1; }
+  .shelfGroup[data-grouped="true"] .shelfCovers { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); grid-template-rows: repeat(12,minmax(0,1fr)); align-items: start; aspect-ratio: 1; padding: 8px 2px; }
+  .shelfGroup[data-grouped="true"] .shelfBook { width: 100%; }
+  .shelfGroup[data-grouped="true"] .shelfBook:nth-child(1) { grid-column: 2/8; grid-row: 1/9; transform: rotate(-9deg); z-index: 1; }
+  .shelfGroup[data-grouped="true"] .shelfBook:nth-child(2) { grid-column: 7/13; grid-row: 6/13; transform: rotate(9deg); z-index: 3; }
+  .shelfGroup[data-grouped="true"] .shelfBook:nth-child(3) { grid-column: 1/6; grid-row: 6/13; transform: rotate(-3deg); z-index: 2; }
+  .shelfGroup[data-grouped="true"] .shelfBook:hover, .shelfGroup[data-grouped="true"] .shelfBook:focus-visible { z-index: 4; }
+  .shelfGroup[data-grouped="true"] .bookCaption { display: none; }
+  .groupCaption { display: block; width: 100%; min-height: 30px; margin-top: 12px; font-size: 11px; line-height: 1.4; text-align: center; opacity: 0; transition: opacity .2s ease; }
+  .shelfGroup[data-selected="true"] .groupCaption, .shelfGroup:hover .groupCaption, .shelfGroup:focus-within .groupCaption { opacity: 1; }
+}
 @media (prefers-reduced-motion: reduce) {
   .root *, .root *::before, .root *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  .shelfBooks .shelfGroup[data-selected="true"], .shelfBooks .shelfGroup:hover, .shelfBooks .shelfGroup:focus-within { transform: none; }
   .shelfBooks .shelfBook[data-selected="true"], .shelfBooks .shelfBook:hover, .shelfBooks .shelfBook:focus-visible { transform: none; }
 }
