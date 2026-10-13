@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { crossesInkRect, inkOpacity, inkWidth, INK_LIFETIME, type InkPoint, type InkRect } from "@/lib/ink-trail";
+import { inkOpacity, inkWidth, INK_LIFETIME, type InkPoint } from "@/lib/ink-trail";
 import styles from "./InkTrail.module.css";
 
 type Sample = InkPoint & { time: number; width: number };
 type Segment = { from: InkPoint; control: InkPoint; to: InkPoint; time: number; width: number };
-const PROTECTED = "header, footer, aside, a, button, input, textarea, select, img, blockquote, figcaption, [data-ink-protect]";
 
 export function InkTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -26,7 +25,6 @@ export function InkTrail() {
     let previous: Sample | null = null;
     let tail: InkPoint | null = null;
     let segments: Segment[] = [];
-    let protectedRects: InkRect[] = [];
     let width = 0;
     let height = 0;
     let scale = 1;
@@ -53,11 +51,6 @@ export function InkTrail() {
         surface.height = Math.round(height * scale);
         ctx.setTransform(scale, 0, 0, scale, 0, 0);
       }
-      protectedRects = Array.from(root!.querySelectorAll(PROTECTED)).flatMap((element) => {
-        const rect = element.getBoundingClientRect();
-        if (!rect.width || !rect.height) return [];
-        return [{ left: rect.left - 16, top: rect.top - 16, right: rect.right + 16, bottom: rect.bottom + 16 }];
-      });
     }
 
     function render(now: number) {
@@ -79,8 +72,6 @@ export function InkTrail() {
         ctx.stroke();
       }
       ctx.globalAlpha = 1;
-      // Clear protected areas every frame, including the moving sticky shelf.
-      for (const rect of protectedRects) ctx.clearRect(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
       if (segments.length) frame = requestAnimationFrame(render);
     }
 
@@ -93,11 +84,10 @@ export function InkTrail() {
     function beginPointer(event: PointerEvent) {
       liftPen();
       if (!enabled || event.pointerType !== "mouse" || event.button !== 0) return;
-      if (dirty) measure();
-      const point = { x: event.clientX, y: event.clientY };
       // A deliberate stroke on empty paper should not select nearby text.
-      // Selection and clicks inside content retain their native behavior.
-      if (!protectedRects.some((rect) => crossesInkRect(point, point, rect))) event.preventDefault();
+      // This only controls drag selection; ink itself draws over all content.
+      const target = event.target;
+      if (target instanceof Element && !target.closest("a, button, input, textarea, select, [contenteditable], p, h1, h2, h3, blockquote, figcaption")) event.preventDefault();
     }
 
     function move(event: PointerEvent) {
@@ -105,8 +95,6 @@ export function InkTrail() {
       if (dirty) measure();
       const now = performance.now();
       const point = { x: event.clientX, y: event.clientY };
-      const from = previous ? { x: previous.x - window.scrollX, y: previous.y - window.scrollY } : point;
-      if (protectedRects.some((rect) => crossesInkRect(from, point, rect))) { liftPen(); return; }
       const next = { x: point.x + window.scrollX, y: point.y + window.scrollY };
       if (!previous || now - previous.time > 180) {
         previous = { ...next, time: now, width: .7 };

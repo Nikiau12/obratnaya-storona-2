@@ -10,6 +10,8 @@
   -webkit-font-smoothing: antialiased;
 }
 .root[data-theme="earth"] { --home-bg: #30251f; --home-muted: #c4b9a9; --home-accent: #deb88a; }
+.root:has(> [data-ink-trail][data-enabled="true"]),
+.root:has(> [data-ink-trail][data-enabled="true"]) * { cursor: none !important; }
 .root a:focus-visible, .root button:focus-visible { outline: 2px solid var(--home-accent); outline-offset: 7px; }
 .layout { display: grid; grid-template-columns: minmax(0,1fr) 158px; gap: clamp(28px,4.5vw,84px); max-width: 1760px; margin: 0 auto; padding: 25px clamp(22px,4vw,72px) 100px; }
 .main { min-width: 0; }

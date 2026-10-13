@@ -81,7 +81,7 @@ export function HomeComposition({ features, books, quote }: Props) {
       <SiteHeader home />
       <div className={styles.layout}>
         <main id="main-content" tabIndex={-1} className={styles.main}>
-          <div className={styles.intro} data-ink-protect>
+          <div className={styles.intro}>
             <h1>Медленное литературное медиа</h1>
             <div className={styles.themePicker} role="group" aria-label="Цвет фона">
               <span>Фон</span>
