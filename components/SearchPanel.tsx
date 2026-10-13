@@ -1,43 +1,16 @@
 "use client";
-
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import type { Author, Book, Material } from "@/lib/content";
-
-type SearchResult = { type: string; title: string; subtitle: string; href: string };
-
-export function SearchPanel({ materials, books, authors }: { materials: Material[]; books: Book[]; authors: Author[] }) {
-  const [query, setQuery] = useState("");
-  const suggestions = ["архив", "обложка", "интервью", "книга"];
-  const results = useMemo<SearchResult[]>(() => {
-    const normalized = query.trim().toLocaleLowerCase("ru");
-    if (normalized.length < 2) return [];
-    return [
-      ...materials.map((item) => ({ type: "Материал", title: item.title, subtitle: `${item.format} · ${item.rubric}`, href: `/material/${item.slug}`, search: `${item.title} ${item.excerpt} ${item.rubric} ${item.tags.join(" ")}` })),
-      ...books.map((item) => ({ type: "Книга", title: item.title, subtitle: `${item.author} · ${item.publisher}`, href: `/books/${item.slug}`, search: `${item.title} ${item.author} ${item.publisher}` })),
-      ...authors.map((item) => ({ type: "Автор", title: item.name, subtitle: item.role, href: `/authors/${item.slug}`, search: `${item.name} ${item.role} ${item.bio}` })),
-    ].filter((item) => item.search.toLocaleLowerCase("ru").includes(normalized));
-  }, [authors, books, materials, query]);
-
-  return (
-    <section className="search-panel">
-      <div className="search-surface">
-        <label htmlFor="site-search">Что вы хотите найти?</label>
-        <div className="search-input-wrap">
-          <span className="search-icon" aria-hidden="true" />
-          <input id="site-search" type="search" autoFocus value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Введите запрос" />
-          {query ? <button type="button" onClick={() => setQuery("")} aria-label="Очистить поиск">Очистить</button> : null}
-        </div>
-        <div className="search-suggestions" aria-label="Примеры поисковых запросов">
-          <span>Например</span>
-          {suggestions.map((suggestion) => <button type="button" onClick={() => setQuery(suggestion)} key={suggestion}>{suggestion}</button>)}
-        </div>
-      </div>
-      <div className="search-status" aria-live="polite"><span>{query.length < 2 ? "Введите не менее двух букв" : "Результаты"}</span><b>{query.length < 2 ? "—" : String(results.length).padStart(2, "0")}</b></div>
-      <div className="search-results">
-        {results.map((result, index) => <Link href={result.href} key={`${result.type}-${result.href}`}><span>{String(index + 1).padStart(2, "0")} · {result.type}</span><h2>{result.title}</h2><p>{result.subtitle}</p></Link>)}
-        {query.length >= 2 && results.length === 0 ? <p className="empty-state">На этой стороне ничего не найдено. Попробуйте другое слово.</p> : null}
-      </div>
-    </section>
-  );
+import type { Author,Book,Material } from "@/lib/content";
+import { publishers } from "@/lib/publishers";
+import s from "./editorial/Editorial.module.css";
+export function SearchPanel({materials,books,authors}:{materials:Material[];books:Book[];authors:Author[]}){
+ const [query,setQuery]=useState("");const normalized=query.trim().toLocaleLowerCase("ru");
+ const results=normalized.length<2?[]:[
+ ...materials.map(m=>({type:m.draft?"Материал · макет":"Материал",title:m.title,subtitle:m.rubric,href:`/material/${m.slug}`,search:[m.title,m.excerpt,m.rubric,...m.tags].join(" ")})),
+ ...books.map(b=>({type:"Книга",title:b.title,subtitle:`${b.author} · ${b.publisher}`,href:`/books/${b.slug}`,search:[b.title,b.author,b.publisher].join(" ")})),
+ ...publishers.map(p=>({type:"Издательство",title:p.name,subtitle:"Книги издательства",href:`/publishers/${p.slug}`,search:p.name})),
+ ...authors.map(a=>({type:"Автор · макет",title:a.name,subtitle:a.role,href:`/authors/${a.slug}`,search:[a.name,a.role].join(" ")}))
+ ].filter(r=>r.search.toLocaleLowerCase("ru").includes(normalized));
+ return <section><label className={s.searchField}>Что вы хотите найти?<input type="search" autoFocus value={query} onChange={e=>setQuery(e.target.value)} placeholder="Название, автор, издательство" /></label><div className={s.filterRow}>{["обложки","Петербург","Носорог"].map(word=><button key={word} onClick={()=>setQuery(word)}>{word}</button>)}{query?<button onClick={()=>setQuery("")}>Очистить поиск</button>:null}</div><p className={s.count} aria-live="polite">{normalized.length<2?"Введите не менее двух букв":`Найдено: ${results.length}`}</p><div className={s.results}>{results.map(r=><Link href={r.href} key={r.href}><span className={s.kicker}>{r.type}</span><h2>{r.title}</h2><p>{r.subtitle}</p></Link>)}</div>{normalized.length>=2&&!results.length?<p className={s.empty}>Ничего не найдено. Попробуйте другое слово.</p>:null}</section>;
 }

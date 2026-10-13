@@ -1,23 +1,5 @@
 import Link from "next/link";
-
+import s from "./editorial/Editorial.module.css";
 export function SiteFooter() {
-  return (
-    <footer>
-      <div className="footer-brand">
-        <h2>Обратная<br />сторона</h2>
-      </div>
-      <div>
-        <p className="footer-about">Независимое онлайн-медиа о литературе и искусстве. Часть констелляции книжных практик «Обратная сторона».</p>
-        <Link className="button button-acid" href="/contribute">Предложить текст</Link>
-      </div>
-      <div className="footer-links">
-        <Link href="/about">Редакция</Link>
-        <Link href="/authors">Авторы</Link>
-        <Link href="/materials">Архив</Link>
-        <Link href="/search">Поиск</Link>
-        <a href="https://t.me/obratno_io">Telegram</a>
-      </div>
-      <div className="footer-bottom"><span>© 2026</span><span>obratno.io</span><span>Сделано с другой стороны</span></div>
-    </footer>
-  );
+ return <footer className={s.footer}><Link className={s.footerBrand} href="/">Обратная сторона</Link><nav aria-label="Навигация внизу страницы"><Link href="/materials">Медиа</Link><Link href="/books">Книжный</Link><Link href="/publishers">Издательства</Link><Link href="/rubrics">Рубрики</Link><Link href="/about">О нас</Link><Link href="/bureau">Бюро</Link><Link href="/search">Поиск</Link></nav><Link href="/">На главную</Link></footer>;
 }

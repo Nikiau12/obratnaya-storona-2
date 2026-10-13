@@ -1,72 +1,13 @@
 "use client";
-
-import { useMemo, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { authors, type Material } from "@/lib/content";
 import { MaterialCard } from "./MaterialCard";
-
+import s from "./editorial/Editorial.module.css";
 export function MaterialArchive({ materials, children }: { materials: Material[]; children?: ReactNode }) {
-  const [query, setQuery] = useState("");
-  const [format, setFormat] = useState("Все");
-  const [sort, setSort] = useState("new");
-  const [rubric, setRubric] = useState("Все рубрики");
-  const [author, setAuthor] = useState("Все авторы");
-  const [tag, setTag] = useState("Все теги");
-  const formats = ["Все", ...Array.from(new Set(materials.map((item) => item.format)))];
-  const rubrics = ["Все рубрики", ...Array.from(new Set(materials.map((item) => item.rubric)))];
-  const materialAuthors = authors.filter((item) => materials.some((material) => material.authorSlug === item.slug));
-  const tags = ["Все теги", ...Array.from(new Set(materials.flatMap((item) => item.tags)))];
-  const visible = useMemo(() => {
-    const normalizedQuery = query.trim().toLocaleLowerCase("ru");
-    const filtered = materials.filter((item) => {
-      const itemAuthor = authors.find((candidate) => candidate.slug === item.authorSlug);
-      const searchableText = [item.title, item.excerpt, item.rubric, item.format, itemAuthor?.name, ...item.tags]
-        .filter(Boolean)
-        .join(" ")
-        .toLocaleLowerCase("ru");
-
-      return (!normalizedQuery || searchableText.includes(normalizedQuery)) &&
-        (format === "Все" || item.format === format) &&
-        (rubric === "Все рубрики" || item.rubric === rubric) &&
-        (author === "Все авторы" || item.authorSlug === author) &&
-        (tag === "Все теги" || item.tags.includes(tag));
-    });
-    return sort === "new" ? filtered : [...filtered].reverse();
-  }, [author, format, materials, query, rubric, sort, tag]);
-
-  return (
-    <section className="materials-archive" aria-label="Архив публикаций">
-      <div className="archive-controls">
-        <div className="archive-search">
-          <label htmlFor="archive-search">Поиск по материалам</label>
-          <div>
-            <span aria-hidden="true">⌕</span>
-            <input
-              id="archive-search"
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Название, автор, рубрика или тег"
-            />
-          </div>
-        </div>
-        <div className="archive-filter-area">
-          <div className="filter-row" aria-label="Фильтр по формату">
-            {formats.map((item) => <button className={format === item ? "active" : ""} onClick={() => setFormat(item)} key={item}>{item}</button>)}
-          </div>
-          <div className="select-filters">
-            <label>Рубрика<select value={rubric} onChange={(event) => setRubric(event.target.value)}>{rubrics.map((item) => <option key={item}>{item}</option>)}</select></label>
-            <label>Автор<select value={author} onChange={(event) => setAuthor(event.target.value)}><option>Все авторы</option>{materialAuthors.map((item) => <option value={item.slug} key={item.slug}>{item.name}</option>)}</select></label>
-            <label>Тег<select value={tag} onChange={(event) => setTag(event.target.value)}>{tags.map((item) => <option key={item}>{item}</option>)}</select></label>
-            <label>Порядок<select value={sort} onChange={(event) => setSort(event.target.value)}>
-              <option value="new">Сначала новые</option>
-              <option value="old">Сначала старые</option>
-            </select></label>
-          </div>
-        </div>
-      </div>
-      {children}
-      <div className="archive-count"><span>Найдено</span><b>{String(visible.length).padStart(2, "0")}</b></div>
-      <div className="archive-grid">{visible.map((material) => <MaterialCard material={material} compact key={material.slug} />)}</div>
-    </section>
-  );
+ const [query,setQuery]=useState(""),[format,setFormat]=useState("Все"),[rubric,setRubric]=useState("Все рубрики");
+ const [author,setAuthor]=useState("Все авторы"),[tag,setTag]=useState("Все теги"),[sort,setSort]=useState("catalog");
+ const visible=materials.filter(item => [item.title,item.excerpt,item.rubric,...item.tags,authors.find(a=>a.slug===item.authorSlug)?.name].join(" ").toLocaleLowerCase("ru").includes(query.trim().toLocaleLowerCase("ru")) && (format==="Все" || item.format===format) && (rubric==="Все рубрики" || item.rubric===rubric) && (author==="Все авторы" || item.authorSlug===author) && (tag==="Все теги" || item.tags.includes(tag)));
+ if(sort==="title")visible.sort((a,b)=>a.title.localeCompare(b.title,"ru"));
+ function reset(){setQuery("");setFormat("Все");setRubric("Все рубрики");setAuthor("Все авторы");setTag("Все теги");setSort("catalog");}
+ return <section aria-label="Архив публикаций"><div className={s.controls}><label className={s.searchField}>Поиск по материалам<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Название, автор, рубрика или тег" /></label><div className={s.filterRow} aria-label="Фильтр по формату">{["Все",...new Set(materials.map(m=>m.format))].map(item=><button key={item} aria-pressed={format===item} onClick={()=>setFormat(item)}>{item}</button>)}</div><div className={s.selectRow}><label>Рубрика<select value={rubric} onChange={e=>setRubric(e.target.value)}>{["Все рубрики",...new Set(materials.map(m=>m.rubric))].map(r=><option key={r}>{r}</option>)}</select></label><label>Автор<select value={author} onChange={e=>setAuthor(e.target.value)}><option>Все авторы</option>{authors.filter(a=>materials.some(m=>m.authorSlug===a.slug)).map(a=><option key={a.slug} value={a.slug}>{a.name}</option>)}</select></label><label>Тег<select value={tag} onChange={e=>setTag(e.target.value)}>{["Все теги",...new Set(materials.flatMap(m=>m.tags))].map(t=><option key={t}>{t}</option>)}</select></label><label>Порядок<select value={sort} onChange={e=>setSort(e.target.value)}><option value="catalog">Порядок каталога</option><option value="title">По названию</option></select></label><button className={s.share} onClick={reset}>Сбросить фильтры</button></div></div>{children}<p className={s.count} aria-live="polite">Найдено: {visible.length}</p>{visible.length ? <div className={s.articleList}>{visible.map(material=><MaterialCard key={material.slug} material={material} />)}</div> : <p className={s.empty}>Ничего не найдено. Измените запрос или сбросьте фильтры.</p>}</section>;
 }

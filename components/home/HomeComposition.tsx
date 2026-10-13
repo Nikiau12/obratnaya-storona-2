@@ -96,7 +96,7 @@ export function HomeComposition({ features, books, quote }: Props) {
                 <article key={feature.id} id={feature.id} className={index === 0 ? styles.review : styles.weekly}
                   onPointerEnter={(event) => { if (event.pointerType !== "touch") setHovered(feature.id); }}
                   onPointerLeave={() => setHovered(null)} onFocus={() => setFocused(feature.id)} onBlur={clearFocus}>
-                  <a className={styles.featureLink} href={feature.href} target="_blank" rel="noreferrer" aria-label={`${feature.rubric}: ${feature.title} — открыть текст в новой вкладке`}>
+                  <a className={styles.featureLink} href={feature.href} aria-label={`${feature.rubric}: ${feature.title}`}>
                     <div className={index === 0 ? styles.coverGroup : styles.singleCover} aria-hidden="true">
                       {relatedBooks.map((book) => <BookCover key={book.slug} book={book} priority={index === 0} decorative />)}
                     </div>

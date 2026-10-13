@@ -1,21 +1,8 @@
-import type { Material } from "@/lib/content";
+import { getBook, type Material } from "@/lib/content";
 import Image from "next/image";
-
-export function MaterialCard({ material, compact = false }: { material: Material; compact?: boolean }) {
-  const hasCutout = material.image?.includes("/nosorog/cutouts/");
-  const hasReference = material.image?.includes("/references/os/");
-  return (
-    <a className={`material-card tone-${material.tone} ${compact ? "is-compact" : ""} ${hasCutout ? "has-cutout" : ""} ${hasReference ? "has-reference" : ""}`} href={`/material/${material.slug}`}>
-      <div className="story-meta"><span>{material.format}</span><span>№ {material.number}</span></div>
-      <div className="material-visual" aria-hidden="true">
-        {material.image ? <Image src={material.image} alt="" width={900} height={600} sizes="(max-width: 700px) 100vw, (max-width: 1050px) 50vw, 33vw" /> : <span>{material.shortTitle.slice(0, 1)}</span>}
-      </div>
-      <div className="material-card-copy">
-        <p className="material-rubric">{material.rubric} · {material.readTime}</p>
-        <h3>{material.title}</h3>
-        <p>{material.excerpt}</p>
-        <span className="text-link">Открыть материал</span>
-      </div>
-    </a>
-  );
+import Link from "next/link";
+import { BookCover } from "./home/BookCover";
+import s from "./editorial/Editorial.module.css";
+export function MaterialCard({ material }: { material: Material; compact?: boolean }) {
+ return <Link className={s.material} href={`/material/${material.slug}`}><div className={s.materialImage} aria-hidden="true">{material.template === "cover-reviews" ? <div className={s.materialCoverGroup}>{material.mentionedBookSlugs?.map(slug => <BookCover key={slug} book={getBook(slug)!} decorative />)}</div> : material.image ? <Image src={material.image} alt="" width={800} height={600} unoptimized /> : null}</div><div className={s.materialMeta}><span>{material.rubric}</span>{material.draft ? <span>Макет</span> : null}</div><h3>{material.title}</h3>{material.excerpt ? <p>{material.excerpt}</p> : null}</Link>;
 }

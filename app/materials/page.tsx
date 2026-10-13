@@ -1,17 +1,6 @@
-import type { Metadata } from "next";
+import Link from "next/link";
 import { MaterialArchive } from "@/components/MaterialArchive";
 import { materials } from "@/lib/content";
-export const metadata: Metadata = { title: "Все материалы — Обратная сторона", description: "Архив публикаций литературного медиа «Обратная сторона»." };
-export default function MaterialsPage() {
-  return (
-    <main className="inner-page materials-index">
-      <MaterialArchive materials={materials}>
-        <section className="materials-index-hero">
-          <div><span>Редакционный архив · выпуск 01</span><h1>Все<br />материалы</h1></div>
-          <p>Большие тексты, разговоры, коллективные разборы, звук и видео. Архив можно читать подряд или собирать собственный маршрут с помощью фильтров.</p>
-          <aside><b>06</b><span>материалов<br />в первом выпуске</span></aside>
-        </section>
-      </MaterialArchive>
-    </main>
-  );
-}
+import s from "@/components/editorial/Editorial.module.css";
+export const metadata={title:"Медиа — Обратная сторона"};
+export default function Page(){return <main className={s.page}><header className={s.hero}><span className={s.kicker}>Обратная сторона</span><h1 className={s.title}>Медиа</h1><nav className={s.links}><Link className={s.textLink} href="/rubrics">Рубрики</Link><Link className={s.textLink} href="/authors">Авторы</Link></nav></header><MaterialArchive materials={materials}/></main>;}

@@ -3,9 +3,10 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
+import s from "./editorial/Editorial.module.css";
 
 export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   if (pathname === "/") return children;
-  return <><SiteHeader /><div id="page-content" tabIndex={-1}>{children}</div><SiteFooter /></>;
+  return <div className={s.shell}><SiteHeader /><div id="page-content" tabIndex={-1}>{children}</div><SiteFooter /></div>;
 }

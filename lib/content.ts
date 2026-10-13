@@ -1,6 +1,15 @@
-export type MaterialFormat = "Лонгрид" | "Интервью" | "Обзор" | "Галерея" | "Аудио" | "Видео";
+import editorialTexts from "./editorial-texts.json";
+
+export type MaterialFormat = "Лонгрид" | "Интервью" | "Обзор" | "Галерея" | "Аудио" | "Видео" | "Объект";
 
 export type Material = {
+  template?: "cover-reviews" | "book-week" | "object-week";
+  draft?: boolean;
+  mediaUrl?: string;
+  subtitle?: string;
+  reviewChapters?: { bookSlug: string; author: string; title: string; paragraphs: string[] }[];
+  footnotes?: { id: string; text: string }[];
+  pullQuotes?: { afterParagraph: number; text: string }[];
   slug: string;
   title: string;
   shortTitle: string;
@@ -18,6 +27,7 @@ export type Material = {
   body: string[];
   tags: string[];
   questions?: { question: string; answer: string }[];
+  readingBlocks?: ({ type: "paragraph" | "quote" | "poem"; text: string } | { type: "image"; src: string; alt: string; caption?: string })[];
   sections?: { title: string; text: string; image?: string; caption?: string }[];
   mentionedBookSlugs?: string[];
 };
@@ -77,7 +87,7 @@ export const authors: Author[] = [
   },
 ];
 
-export const materials: Material[] = [
+const legacyMaterials: Material[] = [
   {
     slug: "poetics-of-error",
     title: "Роман Александра Введенского «Убийцы вы дураки»: история потерянной рукописи",
@@ -212,6 +222,30 @@ export const materials: Material[] = [
   },
 ];
 
+export const materials: Material[] = [
+  {
+    slug: "cover-reviews", template: "cover-reviews", title: "Рецензии на книжные обложки",
+    shortTitle: "Эмигрантские дневники. Пылинки идеального музея. Осень на острове Сатурн.",
+    format: "Обзор", rubric: "Рецензии на книжные обложки", authorSlug: "", date: "", readTime: "", number: "", tone: "dark",
+    excerpt: "Кажется, что перед нами должна предстать идеальная картинка, созданная по принципу «ничего лишнего», однако мы видим пустоту, полную самой себя…",
+    intro: "", body: editorialTexts.reviews.chapters.flatMap((chapter) => chapter.paragraphs),
+    reviewChapters: editorialTexts.reviews.chapters,
+    image: "/books/emigrant-diaries.jpg", tags: ["обложки", "поэзия", "книга"],
+    mentionedBookSlugs: ["emigrant-diaries", "ideal-museum", "saturn-autumn"],
+  },
+  {
+    slug: "beyond-horizon", template: "book-week", title: editorialTexts.weekly.title, shortTitle: "Подлинный Петербург",
+    format: "Лонгрид", rubric: "Книга недели", authorSlug: "", date: "", readTime: "", number: "", tone: "dark",
+    excerpt: "Выход в свет антологии петербургской поэзии «За чертой горизонта», составленной Станиславом Снытко, — событие, масштаб которого измеряется не столько объемом проделанной работы…",
+    intro: "", body: editorialTexts.weekly.paragraphs, image: "/books/beyond-horizon.jpg",
+    subtitle: "Об антологии «За чертой горизонта»",
+    footnotes: editorialTexts.weekly.footnotes,
+    pullQuotes: [{ afterParagraph: 7, text: "«За чертой горизонта», пересматривая распределение литературных ролей, заново производит само пространство возможного чтения." }],
+    tags: ["Петербург", "поэзия", "антология"], mentionedBookSlugs: ["beyond-horizon"],
+  },
+  ...legacyMaterials.map((material) => ({ ...material, draft: true })),
+];
+
 export const books: Book[] = [
   {
     slug: "emigrant-diaries", title: "Эмигрантские дневники. 1938–1955",
@@ -296,6 +330,8 @@ export const books: Book[] = [
 ];
 
 export const rubrics = [
+  { name: "Рецензии на книжные обложки", description: "" },
+  { name: "Книга недели", description: "" },
   { name: "История текста", description: "Рукописи, утраты, версии и биографии произведений до публикации." },
   { name: "Коллективный разбор", description: "Один фрагмент и несколько несовпадающих способов его прочитать." },
   { name: "Книжная оптика", description: "Обложки, бумага, переплёт и книга как визуальный объект." },

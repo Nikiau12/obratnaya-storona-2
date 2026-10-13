@@ -1,22 +1,8 @@
+import Link from "next/link";
 import type { Book } from "@/lib/content";
-import Image from "next/image";
-
+import { publisherHref } from "@/lib/publishers";
+import { BookCover } from "./home/BookCover";
+import s from "./editorial/Editorial.module.css";
 export function BookCard({ book }: { book: Book }) {
-  return (
-    <article className={`book-item book-${book.slug}`}>
-      <a className="book-cover-link" href={`/books/${book.slug}`} aria-label={`${book.title} — подробнее`}>
-        <Image className="book-cover" src={book.image} alt={`Обложка книги «${book.title}»`} width={800} height={1180} sizes="(max-width: 700px) 50vw, 240px" unoptimized />
-        {book.availability ? <span className="availability">{book.availability}</span> : null}
-      </a>
-      <div className="book-card-copy">
-        <p>{book.publisher}</p>
-        <h3><a href={`/books/${book.slug}`}>{book.title}</a></h3>
-        <p>{book.author}</p>
-        <div className="book-actions">
-          {book.price ? <strong>{book.price}</strong> : null}
-          <a className="text-link" href={`/books/${book.slug}`}>О книге</a>
-        </div>
-      </div>
-    </article>
-  );
+ return <article className={s.bookCard}><Link className={s.bookImage} href={`/books/${book.slug}`} aria-label={book.title}><BookCover book={book} /></Link><Link className={s.publisher} href={publisherHref(book.publisher)}>{book.publisher}</Link><h3><Link href={`/books/${book.slug}`}>{book.title}</Link></h3><p>{book.author}</p>{book.price ? <small>{book.price}</small> : null}{book.availability ? <small>{book.availability}</small> : null}</article>;
 }
