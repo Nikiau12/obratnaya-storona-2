@@ -20,11 +20,12 @@ test("renders the editorial homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /Обратная сторона/);
-  assert.match(html, /Роман Александра Введенского/);
-  assert.match(html, /Слово дня/);
-  assert.match(html, /Содержание выпуска/);
-  assert.match(html, /Психоаналитики толкуют сновидения/);
-  assert.match(html, /Книга внутри выпуска/);
+  assert.match(html, /Рецензии на книжные обложки/);
+  assert.match(html, /Подлинный Петербург/);
+  assert.match(html, /Книжная полка/);
+  assert.match(html, /beyond-horizon/);
+  assert.match(html, /Нефтяной фон/);
+  assert.doesNotMatch(html, /Содержание выпуска|Выпуск 01|Книга внутри выпуска/);
   assert.match(html, /og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
@@ -50,10 +51,22 @@ test("renders archives and discovery pages", async () => {
     ["/search", /Что вы хотите найти/],
     ["/about", /Смотрим туда/],
     ["/contribute", /Что прислать/],
+    ["/bureau", /Бюро/],
   ]) {
     const response = await render(path);
     assert.equal(response.status, 200, path);
     assert.match(await response.text(), expected, path);
+  }
+});
+
+test("editorial book entries do not claim prices or stock and link back to their features", async () => {
+  for (const slug of ["emigrant-diaries", "ideal-museum", "saturn-autumn", "beyond-horizon"]) {
+    const response = await render(`/books/${slug}`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.doesNotMatch(html, /<dt>(Цена|Наличие)<\/dt>|Купить у издательства/);
+    assert.match(html, /Об издании/);
+    assert.match(html, /\/#(cover-reviews|book-of-the-week)/);
   }
 });
 

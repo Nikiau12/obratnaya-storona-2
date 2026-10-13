@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { SiteChrome } from "@/components/SiteChrome";
 import "./globals.css";
 
 const siteUrl = "https://obratnaya-storona-2.young-mite-9319.chatgpt.site";
@@ -36,9 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ru">
       <body>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

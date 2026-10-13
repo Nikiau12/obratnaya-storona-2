@@ -49,7 +49,6 @@ export default function AuthorsPage() {
 
         <div className="authors-note" aria-hidden="true">
           <span>редакционная<br />констелляция</span>
-          <i>↘</i>
         </div>
       </section>
     </main>

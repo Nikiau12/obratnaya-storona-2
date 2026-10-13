@@ -35,13 +35,15 @@ export type Book = {
   title: string;
   author: string;
   publisher: string;
-  price: string;
-  availability: "В наличии" | "Предзаказ" | "Скоро";
+  price?: string;
+  availability?: "В наличии" | "Предзаказ" | "Скоро";
   image: string;
   externalUrl: string;
   year: string;
   isbn: string;
   description: string;
+  sourceUrl?: string;
+  imageCrop?: "nosorog";
 };
 
 export const authors: Author[] = [
@@ -211,6 +213,34 @@ export const materials: Material[] = [
 ];
 
 export const books: Book[] = [
+  {
+    slug: "emigrant-diaries", title: "Эмигрантские дневники. 1938–1955",
+    author: "Бертольт Брехт", publisher: "Individuum", year: "2026",
+    isbn: "978-5-04-239854-4", image: "/books/emigrant-diaries.jpg",
+    externalUrl: "", description: "",
+    sourceUrl: "https://eksmo.ru/amp/book/bertolt-brekht-emigranstskie-dnevniki-1938-1955-ITD1412103/",
+  },
+  {
+    slug: "ideal-museum", title: "Пылинки идеального музея",
+    author: "Андрей Сен-Сеньков", publisher: "Jaromir Hladik press", year: "2026",
+    isbn: "978-5-6055683-4-6", image: "/books/ideal-museum.png",
+    externalUrl: "", description: "Сборник стихотворений.",
+    sourceUrl: "https://piotrovsky.store/product/pylinki_idealnogo_muzeya/",
+  },
+  {
+    slug: "saturn-autumn", title: "Осень на острове Сатурн",
+    author: "Михаил Бордуновский", publisher: "Носорог", year: "2026",
+    isbn: "978-5-6055744-1-5", image: "/books/saturn-autumn.png", imageCrop: "nosorog",
+    externalUrl: "", description: "Стихотворения и поэмы, 2020–2025.",
+    sourceUrl: "https://nosorog.media/tproduct/418921535-106128607652-osen-na-ostrove-saturn",
+  },
+  {
+    slug: "beyond-horizon", title: "За чертой горизонта",
+    author: "Составитель — Станислав Снытко", publisher: "Издательство Ивана Лимбаха", year: "2026",
+    isbn: "978-5-89059-598-0", image: "/books/beyond-horizon.jpg",
+    externalUrl: "", description: "Петербургская антология. 1950–2020-е.",
+    sourceUrl: "https://www.limbakh.ru/index.php?id=+11423",
+  },
   {
     slug: "vesele-krushenii",
     title: "Веселье крушений",

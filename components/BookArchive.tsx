@@ -12,6 +12,7 @@ export function BookArchive({ books }: { books: Book[] }) {
     (publisher === "Все" || book.publisher === publisher) &&
     (!availability || book.availability === "В наличии")
   ), [availability, books, publisher]);
+  const bookNoun = new Intl.PluralRules("ru").select(visible.length);
 
   return (
     <section className="book-archive">
@@ -19,7 +20,7 @@ export function BookArchive({ books }: { books: Book[] }) {
         <div className="filter-row" aria-label="Фильтр по издательству">
           {publishers.map((item) => <button className={publisher === item ? "active" : ""} onClick={() => setPublisher(item)} key={item}>{item}</button>)}
         </div>
-        <div className="book-toolbar-meta"><span>{visible.length} книги</span><label className="check-label"><input type="checkbox" checked={availability} onChange={(event) => setAvailability(event.target.checked)} /> Только в наличии</label></div>
+        <div className="book-toolbar-meta"><span>{visible.length} {bookNoun === "one" ? "книга" : bookNoun === "few" ? "книги" : "книг"}</span><label className="check-label"><input type="checkbox" checked={availability} onChange={(event) => setAvailability(event.target.checked)} /> Только в наличии</label></div>
       </div>
       <div className="bookshelf catalog-books book-catalog">{visible.map((book) => <BookCard book={book} key={book.slug} />)}</div>
     </section>

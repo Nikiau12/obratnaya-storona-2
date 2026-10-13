@@ -8,14 +8,14 @@ export function SiteFooter() {
       </div>
       <div>
         <p className="footer-about">Независимое онлайн-медиа о литературе и искусстве. Часть констелляции книжных практик «Обратная сторона».</p>
-        <Link className="button button-acid" href="/contribute">Предложить текст<span className="link-arrow" aria-hidden="true"> ↗</span></Link>
+        <Link className="button button-acid" href="/contribute">Предложить текст</Link>
       </div>
       <div className="footer-links">
         <Link href="/about">Редакция</Link>
         <Link href="/authors">Авторы</Link>
         <Link href="/materials">Архив</Link>
         <Link href="/search">Поиск</Link>
-        <a href="https://t.me/obratno_io">Telegram<span className="link-arrow" aria-hidden="true"> ↗</span></a>
+        <a href="https://t.me/obratno_io">Telegram</a>
       </div>
       <div className="footer-bottom"><span>© 2026</span><span>obratno.io</span><span>Сделано с другой стороны</span></div>
     </footer>

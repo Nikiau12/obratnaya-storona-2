@@ -35,7 +35,7 @@ export function SearchPanel({ materials, books, authors }: { materials: Material
       </div>
       <div className="search-status" aria-live="polite"><span>{query.length < 2 ? "Введите не менее двух букв" : "Результаты"}</span><b>{query.length < 2 ? "—" : String(results.length).padStart(2, "0")}</b></div>
       <div className="search-results">
-        {results.map((result, index) => <Link href={result.href} key={`${result.type}-${result.href}`}><span>{String(index + 1).padStart(2, "0")} · {result.type}</span><h2>{result.title}</h2><p>{result.subtitle}</p><i className="link-arrow" aria-hidden="true">↗</i></Link>)}
+        {results.map((result, index) => <Link href={result.href} key={`${result.type}-${result.href}`}><span>{String(index + 1).padStart(2, "0")} · {result.type}</span><h2>{result.title}</h2><p>{result.subtitle}</p></Link>)}
         {query.length >= 2 && results.length === 0 ? <p className="empty-state">На этой стороне ничего не найдено. Попробуйте другое слово.</p> : null}
       </div>
     </section>

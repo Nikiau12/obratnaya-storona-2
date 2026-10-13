@@ -1,0 +1,21 @@
+{
+  "emigrant-diaries.jpg": {
+    "page": "https://eksmo.ru/amp/book/bertolt-brekht-emigranstskie-dnevniki-1938-1955-ITD1412103/",
+    "image": "https://cdn.eksmo.ru/v2/ITD000000001412103/COVER/cover1__w600.jpg"
+  },
+  "ideal-museum.png": {
+    "page": "https://piotrovsky.store/product/pylinki_idealnogo_muzeya/",
+    "image": "https://piotrovsky.store/upload/resize_cache/iblock/544/572_515_1/gcbzpp2utbh4ye5yk2l2grw6mbk19o8r.png",
+    "bibliography": "https://www.livelib.ru/publisher/66911/books/listview/biglist"
+  },
+  "saturn-autumn.png": {
+    "page": "https://nosorog.media/tproduct/418921535-106128607652-osen-na-ostrove-saturn",
+    "image": "https://static.tildacdn.com/stor6139-6465-4631-b033-383133643333/0f9129d79b951e74c4fc95103c1bdd02.png",
+    "display": "CSS crops the photographed background; the source image is unchanged."
+  },
+  "beyond-horizon.jpg": {
+    "page": "https://www.limbakh.ru/index.php?id=11935",
+    "image": "https://www.limbakh.ru/assets/images/za-chertoj/petersburg_ant_cover.jpg",
+    "note": "Publisher labels the large cover image as a sketch. Confirm final artwork before publication."
+  }
+}

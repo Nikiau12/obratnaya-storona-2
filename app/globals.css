@@ -142,7 +142,6 @@ body,button,input,select,textarea{font-family:var(--sans)}
 
 @media(max-width:700px){
   :root{--mobile-pad:clamp(16px,5vw,22px)}
-  .link-arrow{display:none}
   html{scroll-padding-top:76px}
   body{font-size:16px;overflow-wrap:break-word}
   .site-header{height:64px;padding:0 var(--mobile-pad)}
