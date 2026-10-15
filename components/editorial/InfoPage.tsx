@@ -1,9 +1,10 @@
 import Link from "next/link";
 import s from "./Editorial.module.css";
+import c from "./Composition.module.css";
 
 export function InfoPage({ kind }: { kind: "about" | "bureau" }) {
   const bureau = kind === "bureau";
-  return <main className={s.page}>
+  return <main className={`${s.page} ${c.infoPage}`} data-kind={kind}>
     <span className={s.draft}>Макет страницы · тексты будут добавлены</span>
     <header className={s.infoHero}><h1 className={s.title}>{bureau ? "Бюро" : "О нас"}</h1><div>{bureau ? <p className={s.intro}>Место для короткого рассказа о Бюро.</p> : <p className={s.intro}>Обратная сторона.<br/>Медиа и книжный.<br/>Независимые издательства и самиздат.</p>}<nav className={s.links} aria-label="На этой странице"><a className={s.textLink} href="#description">{bureau ? "О Бюро" : "О проекте"}</a><a className={s.textLink} href="#details">{bureau ? "Услуги" : "Медиа и книжный"}</a>{bureau ? <a className={s.textLink} href="#projects">Проекты</a> : null}<a className={s.textLink} href="#contacts">Контакты</a></nav></div></header>
     <section className={s.infoSection} id="description"><span className={s.kicker}>{bureau ? "О Бюро" : "О проекте"}</span><div className={s.contentSpace}><p>{bureau ? "Здесь будет рассказ о подходе Бюро и работе с клиентами." : "Здесь будет утверждённый рассказ об Обратной стороне, её участниках и идее проекта."}</p></div></section>

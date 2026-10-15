@@ -92,6 +92,13 @@
 .petrolSwatch { background: #102e30; }
 .earthSwatch { background: #30251f; }
 @media (min-width: 1550px) { .composition { row-gap: 120px; } .coverGroup { max-width: 540px; } }
+@media (min-width: 701px) {
+  .feature[data-layout="right"] .featureLink { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:32px 16px; }
+  .feature[data-layout="right"] .singleCover { grid-column:7/13; max-width:255px; justify-self:end; }
+  .feature[data-layout="right"] .featureCopy { grid-column:1/11; }
+  .feature[data-layout="right"] .excerpt { max-width:470px; }
+  .feature[data-layout="center"] .featureImage { align-self:start; padding-top:40px; }
+}
 @media (max-width: 1150px) {
   .layout { grid-template-columns: minmax(0,1fr) 110px; gap: 36px; }
   .intro { padding-bottom: 52px; }

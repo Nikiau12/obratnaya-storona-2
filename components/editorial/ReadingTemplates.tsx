@@ -6,6 +6,7 @@ import { publisherHref } from "@/lib/publishers";
 import { BookCover } from "../home/BookCover";
 import { InlineText } from "./InlineText";
 import s from "./Editorial.module.css";
+import c from "./Composition.module.css";
 
 function Paragraphs({ paragraphs }: { paragraphs: string[] }) {
   return <>{paragraphs.map((paragraph, index) => <p key={index}><InlineText text={paragraph} /></p>)}</>;
@@ -41,14 +42,14 @@ export function BookReadingLinks({ book }: { book: Book }) {
 export function CoverReviewsTemplate({ material }: { material: Material }) {
   const chapters = material.reviewChapters ?? [];
   return <>
-    <header className={s.readingHeader}>
+    <header className={`${s.readingHeader} ${c.readingHeading}`}>
       <span className={s.kicker}>{material.rubric}</span>
       <h1 className={s.title}>{material.shortTitle}</h1>
       <nav className={s.contents} aria-label="Обложки в материале">{chapters.map((chapter) => <a key={chapter.bookSlug} href={`#${chapter.bookSlug}`}>{chapter.author}</a>)}</nav>
     </header>
     {chapters.map((chapter) => {
       const book = getBook(chapter.bookSlug)!;
-      return <section className={s.reviewChapter} id={chapter.bookSlug} key={chapter.bookSlug}>
+      return <section className={`${s.reviewChapter} ${c.reviewPart}`} id={chapter.bookSlug} key={chapter.bookSlug}>
         <aside className={s.chapterCover}><Link href={`/books/${book.slug}`} aria-label={`${book.title} — открыть книгу`}><BookCover book={book} /></Link><BookReadingLinks book={book} /></aside>
         <div className={s.chapterCopy}><span className={s.kicker}>{chapter.author}</span><h2>{chapter.title}</h2><div className={s.prose}><Paragraphs paragraphs={chapter.paragraphs} /></div></div>
       </section>;
@@ -60,7 +61,7 @@ export function BookWeekTemplate({ material }: { material: Material }) {
   const book = getBook(material.mentionedBookSlugs?.[0] ?? "");
   if (!book) return <EssayTemplate material={material} />;
   return <>
-    <header className={s.weeklyHero}>
+    <header className={`${s.weeklyHero} ${c.weeklyOpening}`}>
       <Link className={s.weeklyCover} href={`/books/${book.slug}`}><BookCover book={book} priority /></Link>
       <div><span className={s.kicker}>{material.rubric}</span><h1 className={s.title}>{material.shortTitle}</h1>{material.subtitle ? <p className={s.intro}>{material.subtitle}</p> : null}<p className={s.muted}>{book.author}<br />{book.publisher} · {book.year}</p></div>
     </header>
@@ -75,11 +76,11 @@ export function BookWeekTemplate({ material }: { material: Material }) {
 }
 
 function MaterialHeading({ material }: { material: Material }) {
-  return <header className={s.readingHeader}><span className={s.kicker}>{material.format} · {material.rubric}</span><h1 className={s.title}>{material.title}</h1>{material.intro ? <p className={s.intro}>{material.intro}</p> : null}</header>;
+  return <header className={`${s.readingHeader} ${c.readingHeading}`}><span className={s.kicker}>{material.format} · {material.rubric}</span><h1 className={s.title}>{material.title}</h1>{material.intro ? <p className={s.intro}>{material.intro}</p> : null}</header>;
 }
 
 function MaterialImage({ material }: { material: Material }) {
-  return material.image ? <figure className={s.essayImage}><Image src={material.image} alt={material.imageCaption || material.title} width={1100} height={750} unoptimized />{material.imageCaption ? <figcaption>{material.imageCaption}</figcaption> : null}</figure> : null;
+  return material.image ? <figure className={`${s.essayImage} ${c.imageFigure}`}><Image src={material.image} alt={material.imageCaption || material.title} width={1100} height={750} unoptimized />{material.imageCaption ? <figcaption>{material.imageCaption}</figcaption> : null}</figure> : null;
 }
 
 export function EssayTemplate({ material }: { material: Material }) {
@@ -91,7 +92,7 @@ export function InterviewTemplate({ material }: { material: Material }) {
 }
 
 export function VisualTemplate({ material }: { material: Material }) {
-  return <><MaterialHeading material={material} /><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /></div><div className={s.visualSequence}>{!material.sections?.length && !material.readingBlocks?.length ? <MaterialImage material={material} /> : null}<ReadingBlocks blocks={material.readingBlocks} />{material.sections?.map((section, index) => <section className={s.visualItem} id={`section-${index + 1}`} key={section.title}>{section.image ? <figure><Image src={section.image} alt={section.caption || section.title} width={900} height={900} unoptimized />{section.caption ? <figcaption className={s.muted}>{section.caption}</figcaption> : null}</figure> : null}<div><h2 className={s.sectionTitle}>{section.title}</h2><div className={s.prose}><p><InlineText text={section.text} /></p></div></div></section>)}</div></>;
+  return <><MaterialHeading material={material} /><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /></div><div className={`${s.visualSequence} ${c.visualFlow}`}>{!material.sections?.length && !material.readingBlocks?.length ? <MaterialImage material={material} /> : null}<ReadingBlocks blocks={material.readingBlocks} />{material.sections?.map((section, index) => <section className={s.visualItem} id={`section-${index + 1}`} key={section.title}>{section.image ? <figure><Image src={section.image} alt={section.caption || section.title} width={900} height={900} unoptimized />{section.caption ? <figcaption className={s.muted}>{section.caption}</figcaption> : null}</figure> : null}<div><h2 className={s.sectionTitle}>{section.title}</h2><div className={s.prose}><p><InlineText text={section.text} /></p></div></div></section>)}</div></>;
 }
 
 export function MediaTemplate({ material }: { material: Material }) {
