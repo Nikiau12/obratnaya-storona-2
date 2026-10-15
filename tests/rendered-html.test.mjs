@@ -151,3 +151,52 @@ test("missing content returns 404 and demo media has no fake playback controls",
   assert.doesNotMatch(html,/<audio|<video|Воспроизвести аудио|Смотреть видео/);
  }
 });
+
+test("preview publications are isolated from the homepage and archive", async () => {
+  for (const path of ["/preview", "/preview/interview", "/preview/object", "/preview/visual", "/preview/home", "/preview/shop"]) {
+    const response = await render(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.match(html, /noindex/, path);
+    assert.doesNotMatch(html, /mailto:|<form/, path);
+  }
+  for (const path of ["/", "/materials"]) {
+    const html = await (await render(path)).text();
+    assert.doesNotMatch(html, /href="\/preview\/(interview|object|visual)"/, path);
+  }
+  assert.equal((await render("/preview/missing")).status, 404);
+});
+
+test("interview preserves mixed dialogue order, stanza breaks and indentation", async () => {
+  const html = await (await render("/preview/interview")).text();
+  const fragments = ["Место для первого вопроса", "Место для начала ответа", "Первая строка стихотворения\n    Строка с авторским отступом\nТретья строка\n\nСледующая строфа", "Продолжение той же реплики", "Место для следующего вопроса", "Место для цитируемого фрагмента", "Продолжение ответа после цитаты"];
+  let previous = -1;
+  for (const fragment of fragments) {
+    const index = html.indexOf(fragment);
+    assert.ok(index > previous, fragment);
+    previous = index;
+  }
+  assert.equal((html.match(/data-role="question"/g) || []).length, 2);
+  assert.equal((html.match(/data-role="answer"/g) || []).length, 2);
+});
+
+test("extended homepage contains five separate features and only one site header", async () => {
+  const html = await (await render("/preview/home")).text();
+  assert.equal((html.match(/<article\b/g) || []).length, 5);
+  assert.equal((html.match(/<header\b/g) || []).length, 1);
+  for (const id of ["cover-reviews", "book-of-the-week", "preview-interview", "preview-object", "preview-visual"]) assert.match(html, new RegExp(`id="${id}"`));
+  assert.equal((html.match(/data-book="ideal-museum"/g) || []).length, 1);
+  assert.match(html, /data-has-visual="false"/);
+});
+
+test("visual and object layouts preserve image dimensions and individual captions", async () => {
+  const visual = await (await render("/preview/visual")).text();
+  assert.match(visual, /width="725" height="1200"/);
+  assert.match(visual, /Первая пара/);
+  assert.match(visual, /Следующая пара/);
+  assert.equal((visual.match(/<figcaption/g) || []).length, 4);
+  const object = await (await render("/preview/object")).text();
+  assert.match(object, /width="1254" height="1254"/);
+  assert.match(object, /Фотография предмета пока не передана/);
+  assert.doesNotMatch(object, /Купить|Цена|В наличии/);
+});

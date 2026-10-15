@@ -7,11 +7,15 @@ export type HomeFeature = {
   excerpt: string;
   href: string;
   mentionedBookSlugs: string[];
+  layout?: "wide" | "right" | "left" | "center";
+  image?: { src: string; alt: string; width: number; height: number };
+  draft?: boolean;
 };
 
 export const homeFeatures: HomeFeature[] = [
   {
     id: "cover-reviews",
+    layout: "wide",
     rubric: "Рецензии на книжные обложки",
     title: "Эмигрантские дневники. Пылинки идеального музея. Осень на острове Сатурн.",
     excerpt: "Кажется, что перед нами должна предстать идеальная картинка, созданная по принципу «ничего лишнего», однако мы видим пустоту, полную самой себя…",
@@ -20,6 +24,7 @@ export const homeFeatures: HomeFeature[] = [
   },
   {
     id: "book-of-the-week",
+    layout: "right",
     rubric: "Книга недели",
     title: "Подлинный Петербург",
     subtitle: "Об антологии «За чертой горизонта»",
@@ -33,4 +38,4 @@ export const homeQuote = {
   text: "Это не мы смотрим из комнаты, а комната показывает себя",
   attribution: "Из рецензии на «Пылинки идеального музея»",
 };
-export const homeShelfSlugs = homeFeatures.flatMap((feature) => feature.mentionedBookSlugs);
+export const homeShelfSlugs = [...new Set(homeFeatures.flatMap((feature) => feature.mentionedBookSlugs))];

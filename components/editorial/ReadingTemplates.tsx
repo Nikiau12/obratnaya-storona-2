@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
-import { books, getBook, type Book, type Material } from "@/lib/content";
+import { books, getBook, type Book, type Material, type ReadingBlock, type TextBlock, type EditorialImage } from "@/lib/content";
 import { publisherHref } from "@/lib/publishers";
 import { BookCover } from "../home/BookCover";
 import { InlineText } from "./InlineText";
@@ -11,8 +11,23 @@ function Paragraphs({ paragraphs }: { paragraphs: string[] }) {
   return <>{paragraphs.map((paragraph, index) => <p key={index}><InlineText text={paragraph} /></p>)}</>;
 }
 
-function ReadingBlocks({ material }: { material: Material }) {
-  return <>{material.readingBlocks?.map((block, index) => block.type === "image" ? <figure className={s.essayImage} key={index}><Image src={block.src} alt={block.alt} width={1000} height={750} unoptimized />{block.caption ? <figcaption>{block.caption}</figcaption> : null}</figure> : block.type === "quote" ? <blockquote className={s.pullQuote} key={index}><InlineText text={block.text} /></blockquote> : block.type === "poem" ? <div className={s.poem} key={index}><InlineText text={block.text} /></div> : <p key={index}><InlineText text={block.text} /></p>)}</>;
+function TextFragment({ block }: { block: TextBlock }) {
+  if (block.type === "quote") return <blockquote className={s.pullQuote}><InlineText text={block.text} />{block.attribution ? <footer>{block.attribution}</footer> : null}</blockquote>;
+  if (block.type === "poem") return <div className={s.poem}><InlineText text={block.text} />{block.attribution ? <p className={s.muted}>{block.attribution}</p> : null}</div>;
+  return <p><InlineText text={block.text} /></p>;
+}
+
+function EditorialFigure({ image }: { image: EditorialImage }) {
+  return <figure className={s.editorialFigure}><Image src={image.src} alt={image.alt} width={image.width} height={image.height} unoptimized />{image.caption ? <figcaption>{image.caption}</figcaption> : null}</figure>;
+}
+
+export function ReadingBlocks({ blocks }: { blocks?: ReadingBlock[] }) {
+  return <>{blocks?.map((block, index) => {
+    if (block.type === "image") return <EditorialFigure key={index} image={block} />;
+    if (block.type === "dialogue") return <section key={index} className={s.dialogue} data-role={block.role}><h2>{block.speaker}</h2><div className={s.prose}>{block.blocks.map((part, partIndex) => <TextFragment key={partIndex} block={part} />)}</div></section>;
+    if (block.type === "comparison") return <section key={index} className={s.comparison}><h2 className={s.sectionTitle}>{block.title}</h2><div className={s.comparisonImages}>{block.images.map((image, imageIndex) => <EditorialFigure key={imageIndex} image={image} />)}</div>{block.text ? <div className={`${s.essayText} ${s.prose}`}><p><InlineText text={block.text} /></p></div> : null}</section>;
+    return <TextFragment key={index} block={block} />;
+  })}</>;
 }
 
 export function BookReadingLinks({ book }: { book: Book }) {
@@ -68,15 +83,15 @@ function MaterialImage({ material }: { material: Material }) {
 }
 
 export function EssayTemplate({ material }: { material: Material }) {
-  return <><MaterialHeading material={material} /><MaterialImage material={material} /><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /><ReadingBlocks material={material} /></div></>;
+  return <><MaterialHeading material={material} /><MaterialImage material={material} /><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /><ReadingBlocks blocks={material.readingBlocks} /></div></>;
 }
 
 export function InterviewTemplate({ material }: { material: Material }) {
-  return <><MaterialHeading material={material} /><div className={s.interview}><div className={s.prose}><Paragraphs paragraphs={material.body} /></div>{material.questions?.map((turn, index) => <section className={s.question} id={`question-${index + 1}`} key={turn.question}><h2>{turn.question}</h2><div className={s.prose}><p><InlineText text={turn.answer} /></p></div></section>)}<ReadingBlocks material={material} /></div></>;
+  return <><MaterialHeading material={material} /><div className={s.interview}><div className={s.prose}><Paragraphs paragraphs={material.body} /></div>{material.readingBlocks?.length ? <ReadingBlocks blocks={material.readingBlocks} /> : material.questions?.map((turn, index) => <section className={s.question} id={`question-${index + 1}`} key={turn.question}><h2>{turn.question}</h2><div className={s.prose}><p><InlineText text={turn.answer} /></p></div></section>)}</div></>;
 }
 
 export function VisualTemplate({ material }: { material: Material }) {
-  return <><MaterialHeading material={material} /><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /></div><div className={s.visualSequence}>{!material.sections?.length ? <MaterialImage material={material} /> : null}<ReadingBlocks material={material} />{material.sections?.map((section, index) => <section className={s.visualItem} id={`section-${index + 1}`} key={section.title}>{section.image ? <figure><Image src={section.image} alt={section.caption || section.title} width={900} height={900} unoptimized />{section.caption ? <figcaption className={s.muted}>{section.caption}</figcaption> : null}</figure> : null}<div><h2 className={s.sectionTitle}>{section.title}</h2><div className={s.prose}><p><InlineText text={section.text} /></p></div></div></section>)}</div></>;
+  return <><MaterialHeading material={material} /><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /></div><div className={s.visualSequence}>{!material.sections?.length && !material.readingBlocks?.length ? <MaterialImage material={material} /> : null}<ReadingBlocks blocks={material.readingBlocks} />{material.sections?.map((section, index) => <section className={s.visualItem} id={`section-${index + 1}`} key={section.title}>{section.image ? <figure><Image src={section.image} alt={section.caption || section.title} width={900} height={900} unoptimized />{section.caption ? <figcaption className={s.muted}>{section.caption}</figcaption> : null}</figure> : null}<div><h2 className={s.sectionTitle}>{section.title}</h2><div className={s.prose}><p><InlineText text={section.text} /></p></div></div></section>)}</div></>;
 }
 
 export function MediaTemplate({ material }: { material: Material }) {
@@ -84,7 +99,7 @@ export function MediaTemplate({ material }: { material: Material }) {
 }
 
 export function ObjectWeekTemplate({ material }: { material: Material }) {
-  return <><MaterialHeading material={material} /><MaterialImage material={material} /><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /></div></>;
+  return <><div className={s.objectHero}>{material.object?.image ? <EditorialFigure image={material.object.image} /> : <MaterialImage material={material} />}<div><MaterialHeading material={material} />{material.object?.details?.length ? <dl className={s.details}>{material.object.details.map(detail => <div key={detail.label}><dt>{detail.label}</dt><dd>{detail.value}</dd></div>)}</dl> : null}</div></div><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /><ReadingBlocks blocks={material.readingBlocks} /></div></>;
 }
 
 export function MaterialTemplate({ material }: { material: Material }) {

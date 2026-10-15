@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FocusEvent } from "react";
+import { Fragment, useEffect, useState, type FocusEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Book } from "@/lib/content";
@@ -10,16 +10,15 @@ import { BookCover } from "./BookCover";
 import { InkTrail } from "./InkTrail";
 import styles from "./HomeComposition.module.css";
 
-type Props = { features: HomeFeature[]; books: Book[]; quote: { text: string; attribution: string } };
+type Props = { features: HomeFeature[]; books: Book[]; quote: { text: string; attribution: string }; preview?: boolean };
 
-export function HomeComposition({ features, books, quote }: Props) {
+export function HomeComposition({ features, books, quote, preview = false }: Props) {
   const [theme, setTheme] = useState<"petrol" | "earth">("petrol");
   const [hovered, setHovered] = useState<string | null>(null);
   const [focused, setFocused] = useState<string | null>(null);
   const [reading, setReading] = useState<string | null>(features[0]?.id ?? null);
   const active = features.find((feature) => feature.id === (focused ?? hovered ?? reading));
   const selected = active?.mentionedBookSlugs.filter((slug) => books.some((book) => book.slug === slug)) ?? [];
-  const hasSelection = selected.length > 0;
   const groupedSlugs = new Set<string>();
   const shelfGroups = features.flatMap((feature) => {
     const relatedBooks = feature.mentionedBookSlugs.flatMap((slug) => {
@@ -79,6 +78,7 @@ export function HomeComposition({ features, books, quote }: Props) {
     <div className={styles.root} data-theme={theme}>
       <InkTrail />
       <SiteHeader home />
+      {preview ? <div className={styles.previewNotice}>Макет расширенной главной · новые материалы показывают только структуру. <Link href="/preview">Все макеты</Link></div> : null}
       <div className={styles.layout}>
         <main id="main-content" tabIndex={-1} className={styles.main}>
           <div className={styles.intro}>
@@ -93,15 +93,16 @@ export function HomeComposition({ features, books, quote }: Props) {
             {features.map((feature, index) => {
               const relatedBooks = feature.mentionedBookSlugs.flatMap((slug) => books.filter((book) => book.slug === slug));
               return (
-                <article key={feature.id} id={feature.id} className={index === 0 ? styles.review : styles.weekly}
+                <Fragment key={feature.id}><article id={feature.id} className={styles.feature} data-layout={feature.layout ?? ["wide", "right", "left", "center"][index % 4]} data-has-visual={Boolean(feature.image || relatedBooks.length)}
                   onPointerEnter={(event) => { if (event.pointerType !== "touch") setHovered(feature.id); }}
                   onPointerLeave={() => setHovered(null)} onFocus={() => setFocused(feature.id)} onBlur={clearFocus}>
                   <a className={styles.featureLink} href={feature.href} aria-label={`${feature.rubric}: ${feature.title}`}>
-                    <div className={index === 0 ? styles.coverGroup : styles.singleCover} aria-hidden="true">
+                    {feature.image ? <div className={styles.featureImage}><Image src={feature.image.src} alt={feature.image.alt} width={feature.image.width} height={feature.image.height} unoptimized priority={index === 0} /></div> : relatedBooks.length ? <div className={relatedBooks.length > 1 ? styles.coverGroup : styles.singleCover} data-count={relatedBooks.length} data-many={relatedBooks.length > 3} aria-hidden="true">
                       {relatedBooks.map((book) => <BookCover key={book.slug} book={book} priority={index === 0} decorative />)}
-                    </div>
+                    </div> : null}
                     <div className={styles.featureCopy}>
                       <span className={styles.kicker}>{feature.rubric}</span>
+                      {feature.draft ? <span className={styles.draft}>Макет публикации</span> : null}
                       <h2>{feature.title}</h2>
                       {feature.subtitle ? <p className={styles.subtitle}>{feature.subtitle}</p> : null}
                       <p className={styles.excerpt}>{feature.excerpt}</p>
@@ -112,11 +113,9 @@ export function HomeComposition({ features, books, quote }: Props) {
                     <span className={styles.inlineLabel}>Книги из материала</span>
                     <div>{relatedBooks.map((book) => <Link key={book.slug} href={`/books/${book.slug}`}><BookCover book={book} decorative /><span>{book.title}</span></Link>)}</div>
                   </div> : null}
-                </article>
+                </article>{index === 0 ? <div className={styles.interlude}><figure className={styles.quote}><blockquote>«{quote.text}»</blockquote><figcaption>{quote.attribution}</figcaption></figure><figure className={styles.object}><Image src="/nosorog/cutouts/swinging-man.png" alt="Вырезанная фигура человека на качелях" width={600} height={600} sizes="(max-width: 700px) 50vw, 300px" unoptimized /></figure></div> : null}</Fragment>
               );
             })}
-            <figure className={styles.quote}><blockquote>«{quote.text}»</blockquote><figcaption>{quote.attribution}</figcaption></figure>
-            <figure className={styles.object}><Image src="/nosorog/cutouts/swinging-man.png" alt="Вырезанная фигура человека на качелях" width={600} height={600} sizes="(max-width: 700px) 50vw, 300px" unoptimized /></figure>
           </div>
           <div className={styles.archiveLink}><Link href="/materials">Медиа</Link></div>
         </main>
@@ -124,9 +123,9 @@ export function HomeComposition({ features, books, quote }: Props) {
         <aside className={styles.shelf} aria-label="Книжная полка">
           <div className={styles.shelfSticky}>
             <Link className={styles.shelfHeading} href="/books">Книжный</Link>
-            <div className={styles.shelfBooks} data-active={hasSelection}>
+            <div className={styles.shelfBooks} data-active={Boolean(active)} aria-label={selected.length ? `Книги к материалу: ${active?.title}` : "В этом материале нет связанных книг"}>
               {shelfGroups.map((group) => <div key={group.id} className={styles.shelfGroup}
-                data-shelf-group={group.id} data-grouped={group.books.length > 1}
+                data-shelf-group={group.id} data-grouped={group.books.length > 1} data-many={group.books.length > 3}
                 data-selected={group.books.some((book) => selected.includes(book.slug))}
                 role="group" aria-label={group.label}>
                 <div className={styles.shelfCovers}>

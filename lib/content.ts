@@ -2,6 +2,13 @@ import editorialTexts from "./editorial-texts.json";
 
 export type MaterialFormat = "Лонгрид" | "Интервью" | "Обзор" | "Галерея" | "Аудио" | "Видео" | "Объект";
 
+export type EditorialImage = { src: string; alt: string; width: number; height: number; caption?: string };
+export type TextBlock = { type: "paragraph" | "quote" | "poem"; text: string; attribution?: string };
+export type ReadingBlock = TextBlock
+  | ({ type: "image" } & EditorialImage)
+  | { type: "dialogue"; speaker: string; role: "question" | "answer"; blocks: TextBlock[] }
+  | { type: "comparison"; title: string; images: EditorialImage[]; text?: string };
+
 export type Material = {
   template?: "cover-reviews" | "book-week" | "object-week";
   draft?: boolean;
@@ -27,7 +34,8 @@ export type Material = {
   body: string[];
   tags: string[];
   questions?: { question: string; answer: string }[];
-  readingBlocks?: ({ type: "paragraph" | "quote" | "poem"; text: string } | { type: "image"; src: string; alt: string; caption?: string })[];
+  readingBlocks?: ReadingBlock[];
+  object?: { image?: EditorialImage; details?: { label: string; value: string }[] };
   sections?: { title: string; text: string; image?: string; caption?: string }[];
   mentionedBookSlugs?: string[];
 };
