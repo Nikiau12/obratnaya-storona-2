@@ -1,7 +1,7 @@
 .root {
-  --home-bg: #102e30;
-  --home-text: #f0e8d9;
-  --home-muted: #bac6ba;
+  --home-bg: #000;
+  --home-text: #f5f5f2;
+  --home-muted: #b8b8b2;
   --home-accent: #dfb47c;
   min-height: 100vh;
   isolation: isolate;
@@ -9,9 +9,7 @@
   color: var(--home-text);
   -webkit-font-smoothing: antialiased;
 }
-.root[data-theme="earth"] { --home-bg: #30251f; --home-muted: #c4b9a9; --home-accent: #deb88a; }
-.root:has(> [data-ink-trail][data-enabled="true"]),
-.root:has(> [data-ink-trail][data-enabled="true"]) * { cursor: none !important; }
+.root[data-theme="white"] { --home-bg: #fff; --home-text: #111; --home-muted: #656560; --home-accent: #8c5129; }
 .root a:focus-visible, .root button:focus-visible { outline: 2px solid var(--home-accent); outline-offset: 7px; }
 .layout { display: grid; grid-template-columns: minmax(0,1fr) 158px; gap: clamp(28px,4.5vw,84px); max-width: 1760px; margin: 0 auto; padding: 25px clamp(22px,4vw,72px) 100px; }
 .main { min-width: 0; }
@@ -84,13 +82,6 @@
 .homeFooter > span { font-size: 16px; color: var(--home-text); }
 .homeFooter p { margin: 0; line-height: 1.6; }
 .homeFooter a { color: var(--home-text); }
-.themePicker { display: flex; flex: 0 0 auto; align-items: center; padding: 0 6px 0 14px; color: var(--home-text); border: 1px solid #f0e8d933; border-radius: 28px; }
-.themePicker > span { margin-right: 8px; font-size: 11px; }
-.themePicker button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; background: none; color: inherit; border: 0; border-radius: 50%; cursor: pointer; }
-.themePicker i { display: block; width: 19px; height: 19px; border-radius: 50%; border: 1px solid #f0e8d955; }
-.themePicker button[aria-pressed="true"] i { outline: 1px solid var(--home-text); outline-offset: 4px; }
-.petrolSwatch { background: #102e30; }
-.earthSwatch { background: #30251f; }
 @media (min-width: 1550px) { .composition { row-gap: 120px; } .coverGroup { max-width: 540px; } }
 @media (min-width: 701px) {
   .feature[data-layout="right"] .featureLink { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:32px 16px; }
@@ -130,8 +121,6 @@
   .layout { padding: 8px 22px 50px; gap: 70px; }
   .intro { display: flex; gap: 12px; padding: 12px 0 32px; }
   .intro h1 { font-size: 12px; max-width: 145px; }
-  .themePicker { padding: 0 3px; }
-  .themePicker > span { display: none; }
   .composition { grid-template-columns: repeat(6,minmax(0,1fr)); gap: 56px 12px; }
   .feature[data-layout] { grid-column: 1/-1; }
   .feature[data-layout] .featureLink { display: flex; flex-direction: column; align-items: stretch; gap: 20px; }

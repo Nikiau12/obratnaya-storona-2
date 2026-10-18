@@ -3,8 +3,16 @@
 .brand { width: max-content; position: relative; font-family: var(--display); font-size: 22px; font-weight: 600; line-height: .94; letter-spacing: -.06em; }
 .nav { display: flex; gap: clamp(22px,3vw,48px); align-items: center; }
 .nav a, .search { font-size: 17px; padding-block: 9px; text-decoration-thickness: 1px; text-underline-offset: 7px; }
-.search { justify-self: end; font-size: 14px; }
+.actions { justify-self: end; display: flex; align-items: center; gap: 18px; }
+.search { font-size: 14px; }
 .nav a:hover, .search:hover { text-decoration: underline; }
+.themePicker { display: flex; align-items: center; padding: 0 5px 0 11px; border: 1px solid color-mix(in srgb,currentColor 24%,transparent); border-radius: 28px; }
+.themePicker > span { margin-right: 5px; font-size: 10px; }
+.themePicker button { display: grid; place-items: center; width: 35px; height: 35px; padding: 0; background: none; color: inherit; border: 0; border-radius: 50%; cursor: pointer; }
+.themePicker i { display: block; width: 15px; height: 15px; border: 1px solid color-mix(in srgb,currentColor 45%,transparent); border-radius: 50%; }
+.themePicker button[aria-pressed="true"] i { outline: 1px solid currentColor; outline-offset: 3px; }
+.blackSwatch { background: #000; }
+.whiteSwatch { background: #fff; }
 .header a:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
 .skip { position: fixed; top: 12px; left: 12px; z-index: 150; padding: 12px; background: #f1eadb; color: #142e2f; transform: translateY(-180%); }
 .skip:focus { transform: none; }
@@ -13,5 +21,12 @@
   .brand { font-size: 20px; }
   .nav { grid-column: 1/-1; grid-row: 2; justify-content: space-between; gap: 12px; }
   .nav a { font-size: 16px; min-height: 44px; display: flex; align-items: center; }
-  .search { grid-column: 2; grid-row: 1; }
+  .actions { grid-column: 2; grid-row: 1; gap: 10px; }
+  .themePicker > span { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  .themePicker { padding-left: 5px; }
+}
+@media (max-width: 430px) {
+  .actions { gap: 7px; }
+  .search { font-size: 12px; }
+  .themePicker button { width: 31px; height: 35px; }
 }

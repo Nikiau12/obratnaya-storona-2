@@ -24,7 +24,9 @@ test("renders the editorial homepage", async () => {
   assert.match(html, /Подлинный Петербург/);
   assert.match(html, /Книжная полка/);
   assert.match(html, /beyond-horizon/);
-  assert.match(html, /Нефтяной фон/);
+  assert.match(html, /Чёрный фон/);
+  assert.match(html, /Белый фон/);
+  assert.doesNotMatch(html, /data-ink-trail|<canvas/);
   assert.doesNotMatch(html, /Содержание выпуска|Выпуск 01|Книга внутри выпуска/);
   assert.match(html, /og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);

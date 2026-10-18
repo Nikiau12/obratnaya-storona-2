@@ -3,10 +3,13 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
+import { SiteThemeProvider } from "./SiteTheme";
 import s from "./editorial/Editorial.module.css";
 
 export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  if (pathname === "/" || pathname === "/preview/home") return children;
-  return <div className={s.shell}><SiteHeader /><div id="page-content" tabIndex={-1}>{children}</div><SiteFooter /></div>;
+  const content = pathname === "/" || pathname === "/preview/home"
+    ? children
+    : <div className={s.shell}><SiteHeader /><div id="page-content" tabIndex={-1}>{children}</div><SiteFooter /></div>;
+  return <SiteThemeProvider>{content}</SiteThemeProvider>;
 }

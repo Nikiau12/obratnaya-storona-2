@@ -6,14 +6,14 @@ import Link from "next/link";
 import type { Book } from "@/lib/content";
 import type { HomeFeature } from "@/lib/home-content";
 import { SiteHeader } from "../SiteHeader";
+import { useSiteTheme } from "../SiteTheme";
 import { BookCover } from "./BookCover";
-import { InkTrail } from "./InkTrail";
 import styles from "./HomeComposition.module.css";
 
 type Props = { features: HomeFeature[]; books: Book[]; quote: { text: string; attribution: string }; preview?: boolean };
 
 export function HomeComposition({ features, books, quote, preview = false }: Props) {
-  const [theme, setTheme] = useState<"petrol" | "earth">("petrol");
+  const { theme } = useSiteTheme();
   const [hovered, setHovered] = useState<string | null>(null);
   const [focused, setFocused] = useState<string | null>(null);
   const [reading, setReading] = useState<string | null>(features[0]?.id ?? null);
@@ -76,18 +76,12 @@ export function HomeComposition({ features, books, quote, preview = false }: Pro
 
   return (
     <div className={styles.root} data-theme={theme}>
-      <InkTrail />
       <SiteHeader home />
       {preview ? <div className={styles.previewNotice}>Макет расширенной главной · новые материалы показывают только структуру. <Link href="/preview">Все макеты</Link></div> : null}
       <div className={styles.layout}>
         <main id="main-content" tabIndex={-1} className={styles.main}>
           <div className={styles.intro}>
             <h1>Медленное литературное медиа</h1>
-            <div className={styles.themePicker} role="group" aria-label="Цвет фона">
-              <span>Фон</span>
-              <button type="button" onClick={() => setTheme("petrol")} aria-pressed={theme === "petrol"} aria-label="Нефтяной фон" title="Нефтяной"><i className={styles.petrolSwatch} /></button>
-              <button type="button" onClick={() => setTheme("earth")} aria-pressed={theme === "earth"} aria-label="Землисто-коричневый фон" title="Землисто-коричневый"><i className={styles.earthSwatch} /></button>
-            </div>
           </div>
           <div className={styles.composition}>
             {features.map((feature, index) => {
