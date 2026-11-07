@@ -12,5 +12,5 @@ export function SketchDialog({ title, close, children }: {title:string; close:()
     dialog?.showModal();
     return ()=>{dialog?.close();document.body.style.overflow=overflow;previous?.focus();};
   },[]);
-  return <dialog ref={ref} className={s.dialog} aria-labelledby={id} onCancel={close} onClick={e=>{if(e.target===e.currentTarget)close();}}><div className={s.dialogBody}><button className={s.close} onClick={close}>Закрыть</button><p className={s.note}>Эскиз</p><h2 id={id}>{title}</h2>{children}</div></dialog>;
+  return <dialog ref={ref} className={s.dialog} aria-labelledby={id} onCancel={close} onClick={e=>{if(e.target===e.currentTarget)close();}}><div className={s.dialogBody}><button className={s.close} onClick={close}>Закрыть</button><h2 id={id}>{title}</h2>{children}</div></dialog>;
 }

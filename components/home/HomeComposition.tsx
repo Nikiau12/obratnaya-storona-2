@@ -77,7 +77,7 @@ export function HomeComposition({ features, books, quote, preview = false }: Pro
   return (
     <div className={styles.root} data-theme={theme}>
       <SiteHeader home />
-      {preview ? <div className={styles.previewNotice}>Макет расширенной главной · новые материалы показывают только структуру. <Link href="/preview">Все макеты</Link></div> : null}
+      {preview ? <div className={styles.previewNotice}><Link href="/preview">Все макеты</Link></div> : null}
       <div className={styles.layout}>
         <main id="main-content" tabIndex={-1} className={styles.main}>
           <div className={styles.intro}>
@@ -96,10 +96,10 @@ export function HomeComposition({ features, books, quote, preview = false }: Pro
                     </div> : null}
                     <div className={styles.featureCopy}>
                       <span className={styles.kicker}>{feature.rubric}</span>
-                      {feature.draft ? <span className={styles.draft}>Макет публикации</span> : null}
+
                       <h2>{feature.title}</h2>
                       {feature.subtitle ? <p className={styles.subtitle}>{feature.subtitle}</p> : null}
-                      <p className={styles.excerpt}>{feature.excerpt}</p>
+                      {!feature.draft && feature.excerpt ? <p className={styles.excerpt}>{feature.excerpt}</p> : null}
                       <span className={styles.read}>Читать</span>
                     </div>
                   </a>

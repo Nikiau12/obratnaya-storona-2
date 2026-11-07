@@ -8,5 +8,5 @@ export default async function PreviewMaterial({params}:{params:Promise<{slug:str
   const slug = (await params).slug;
   const entry = previewMaterials.find(m => m.slug === slug);
   if (!entry) notFound();
-  return <main className={s.page}><nav className={s.breadcrumbs}><Link href="/preview">Все макеты</Link><Link href="/preview/home">Расширенная главная</Link></nav><p className={s.draft}>Макет публикации · текст и изображения для проверки вёрстки</p><article><MaterialTemplate material={entry}/></article>{entry.mentionedBookSlugs?.length ? <section className={s.section}><h2 className={s.sectionTitle}>Книги для пробы связи с книжным</h2><MentionedBooks material={entry}/></section> : null}</main>;
+  return <main className={s.page}><nav className={s.breadcrumbs}><Link href="/preview">Все макеты</Link><Link href="/preview/home">Расширенная главная</Link></nav><article><MaterialTemplate material={entry}/></article>{entry.mentionedBookSlugs?.length ? <section className={s.section}><h2 className={s.sectionTitle}>Книги в материале</h2><MentionedBooks material={entry}/></section> : null}</main>;
 }

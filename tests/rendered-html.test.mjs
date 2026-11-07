@@ -48,7 +48,7 @@ test("renders archives and discovery pages", async () => {
   for (const [path, expected] of [
     ["/materials", /Журнал/],
     ["/books", /Витрина/],
-    ["/authors", /Макеты авторских страниц/],
+    ["/authors", /Авторы/],
     ["/rubrics", /Рубрики/],
     ["/search", /Что вы хотите найти/],
     ["/about", /О нас/],
@@ -78,7 +78,7 @@ test("renders book, author and media format detail pages", async () => {
     ["/authors/maria-volkova", /Материалы автора/],
     ["/material/archive-machine", /Психоаналитики толкуют сновидения/],
     ["/material/voice-of-paper", /Интервью с Роном Силлиманом/],
-    ["/material/signal-in-static", /Аудиозапись пока не добавлена/],
+    ["/material/signal-in-static", /Play me something/],
     ["/material/paper-remembers", /Обложка как занавес/],
   ]) {
     const response = await render(path);
@@ -149,7 +149,7 @@ test("missing content returns 404 and demo media has no fake playback controls",
  }
  for(const slug of ["signal-in-static","reverse-side-of-image"]){
   const html=await (await render("/material/"+slug)).text();
-  assert.match(html,/Макет публикации/);
+  assert.doesNotMatch(html,/Макет публикации|запись пока не добавлена/);
   assert.doesNotMatch(html,/<audio|<video|Воспроизвести аудио|Смотреть видео/);
  }
 });
@@ -191,15 +191,15 @@ test("extended homepage contains five separate features and only one site header
   assert.match(html, /data-has-visual="false"/);
 });
 
-test("visual and object layouts preserve image dimensions and individual captions", async () => {
+test("visual and object layouts preserve image dimensions without draft captions", async () => {
   const visual = await (await render("/preview/visual")).text();
   assert.match(visual, /width="725" height="1200"/);
   assert.match(visual, /Первая пара/);
   assert.match(visual, /Следующая пара/);
-  assert.equal((visual.match(/<figcaption/g) || []).length, 4);
+  assert.equal((visual.match(/<figcaption/g) || []).length, 0);
   const object = await (await render("/preview/object")).text();
   assert.match(object, /width="1254" height="1254"/);
-  assert.match(object, /Фотография предмета пока не передана/);
+  assert.doesNotMatch(object, /Фотография предмета пока не передана/);
   assert.doesNotMatch(object, /Купить|Цена|В наличии/);
 });
 
@@ -223,5 +223,5 @@ test("the sketch publication and book form a navigable pair without invented sal
     assert.match(pages.get(path), /Место для текста/);
     assert.doesNotMatch(pages.get(path), /Купить книгу|Купить у издательства|<dt>(Цена|Наличие)<\/dt>/);
   }
-  assert.match(pages.get("/books/sketch-01"), /Ссылка на покупку/);
+  assert.doesNotMatch(pages.get("/books/sketch-01"), /Ссылка на покупку|Будет добавлена/);
 });

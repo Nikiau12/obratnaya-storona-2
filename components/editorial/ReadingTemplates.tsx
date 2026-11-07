@@ -76,11 +76,11 @@ export function BookWeekTemplate({ material }: { material: Material }) {
 }
 
 function MaterialHeading({ material }: { material: Material }) {
-  return <header className={`${s.readingHeader} ${c.readingHeading}`}><span className={s.kicker}>{material.format} · {material.rubric}</span><h1 className={s.title}>{material.title}</h1>{material.intro ? <p className={s.intro}>{material.intro}</p> : null}</header>;
+  return <header className={`${s.readingHeader} ${c.readingHeading}`}><span className={s.kicker}>{material.format} · {material.rubric}</span><h1 className={s.title}>{material.title}</h1>{!material.draft && material.intro ? <p className={s.intro}>{material.intro}</p> : null}</header>;
 }
 
 function MaterialImage({ material }: { material: Material }) {
-  return material.image ? <figure className={`${s.essayImage} ${c.imageFigure}`}><Image src={material.image} alt={material.imageCaption || material.title} width={1100} height={750} unoptimized />{material.imageCaption ? <figcaption>{material.imageCaption}</figcaption> : null}</figure> : null;
+  return material.image ? <figure className={`${s.essayImage} ${c.imageFigure}`}><Image src={material.image} alt={material.imageCaption || material.title} width={1100} height={750} unoptimized />{!material.draft && material.imageCaption ? <figcaption>{material.imageCaption}</figcaption> : null}</figure> : null;
 }
 
 export function EssayTemplate({ material }: { material: Material }) {
@@ -92,11 +92,11 @@ export function InterviewTemplate({ material }: { material: Material }) {
 }
 
 export function VisualTemplate({ material }: { material: Material }) {
-  return <><MaterialHeading material={material} /><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /></div><div className={`${s.visualSequence} ${c.visualFlow}`}>{!material.sections?.length && !material.readingBlocks?.length ? <MaterialImage material={material} /> : null}<ReadingBlocks blocks={material.readingBlocks} />{material.sections?.map((section, index) => <section className={s.visualItem} id={`section-${index + 1}`} key={section.title}>{section.image ? <figure><Image src={section.image} alt={section.caption || section.title} width={900} height={900} unoptimized />{section.caption ? <figcaption className={s.muted}>{section.caption}</figcaption> : null}</figure> : null}<div><h2 className={s.sectionTitle}>{section.title}</h2><div className={s.prose}><p><InlineText text={section.text} /></p></div></div></section>)}</div></>;
+  return <><MaterialHeading material={material} /><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /></div><div className={`${s.visualSequence} ${c.visualFlow}`}>{!material.sections?.length && !material.readingBlocks?.length ? <MaterialImage material={material} /> : null}<ReadingBlocks blocks={material.readingBlocks} />{material.sections?.map((section, index) => <section className={s.visualItem} id={`section-${index + 1}`} key={section.title}>{section.image ? <figure><Image src={section.image} alt={section.caption || section.title} width={900} height={900} unoptimized />{!material.draft && section.caption ? <figcaption className={s.muted}>{section.caption}</figcaption> : null}</figure> : null}<div><h2 className={s.sectionTitle}>{section.title}</h2><div className={s.prose}><p><InlineText text={section.text} /></p></div></div></section>)}</div></>;
 }
 
 export function MediaTemplate({ material }: { material: Material }) {
-  return <><MaterialHeading material={material} /><div className={s.mediaArea}>{material.mediaUrl ? material.format === "Видео" ? <video controls preload="metadata" src={material.mediaUrl} poster={material.image} aria-label={material.title} /> : <audio controls preload="metadata" src={material.mediaUrl} aria-label={material.title} /> : <p className={s.mediaMissing}>{material.format === "Видео" ? "Видеозапись пока не добавлена." : "Аудиозапись пока не добавлена."}</p>}</div><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /></div></>;
+  return <><MaterialHeading material={material} /><div className={s.mediaArea}>{material.mediaUrl ? material.format === "Видео" ? <video controls preload="metadata" src={material.mediaUrl} poster={material.image} aria-label={material.title} /> : <audio controls preload="metadata" src={material.mediaUrl} aria-label={material.title} /> : null}</div><div className={`${s.essayText} ${s.prose}`}><Paragraphs paragraphs={material.body} /></div></>;
 }
 
 export function ObjectWeekTemplate({ material }: { material: Material }) {

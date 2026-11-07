@@ -34,7 +34,6 @@ export function TypographyStudy({ variant: initialVariant }: { variant: "a" | "b
         </nav>
         <Link href="/" className={s.original}>Текущая главная</Link>
       </div>
-      <p className={s.description} aria-live="polite">{variant === "a" ? "Literata в заголовках · Golos Text в подписях" : "Golos Text в заголовках и подписях"}</p>
     </div>
     <SketchHome />
   </div>;

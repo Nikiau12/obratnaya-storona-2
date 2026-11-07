@@ -30,5 +30,5 @@ export function AudioObject() {
       setPlaying(true);setError("");timer.current=setTimeout(()=>{setPlaying(false);void ctx.close();audio.current=null;},1700);
     }catch{setError("Звук недоступен в этом браузере.");}
   }
-  return <div className={s.audioObject} data-playing={playing}><DrawnObject kind="wave"/><button onClick={play} aria-pressed={playing}>{playing?"Остановить":"Послушать"}</button><span>Пробный звук · 2 сек.</span>{error&&<span role="status">{error}</span>}</div>;
+  return <div className={s.audioObject} data-playing={playing}><DrawnObject kind="wave"/><button onClick={play} aria-pressed={playing}>{playing?"Остановить":"Послушать"}</button>{error&&<span role="status">{error}</span>}</div>;
 }

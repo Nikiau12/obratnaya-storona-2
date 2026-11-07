@@ -16,13 +16,13 @@ export const previewMaterials: Material[] = [
       { type: "dialogue", role: "question", speaker: "Собеседник", blocks: [{ type: "paragraph", text: "Место для первого вопроса." }] },
       { type: "dialogue", role: "answer", speaker: "Герой интервью", blocks: [
         { type: "paragraph", text: "Место для начала ответа. Абзацы, выделения и авторские переносы сохраняются при переносе текста." },
-        { type: "poem", text: "Первая строка стихотворения\n    Строка с авторским отступом\nТретья строка\n\nСледующая строфа", attribution: "Схема стихотворного фрагмента — не цитата" },
+        { type: "poem", text: "Первая строка стихотворения\n    Строка с авторским отступом\nТретья строка\n\nСледующая строфа" },
         { type: "paragraph", text: "Продолжение той же реплики после стихотворения." },
       ] },
       { type: "dialogue", role: "question", speaker: "Собеседник", blocks: [{ type: "paragraph", text: "Место для следующего вопроса." }] },
       { type: "dialogue", role: "answer", speaker: "Герой интервью", blocks: [
         { type: "paragraph", text: "Место для следующего ответа." },
-        { type: "quote", text: "Место для цитируемого фрагмента внутри ответа.", attribution: "Источник цитаты" },
+        { type: "quote", text: "Место для цитируемого фрагмента внутри ответа." },
         { type: "paragraph", text: "Продолжение ответа после цитаты." },
       ] },
     ],
@@ -30,7 +30,7 @@ export const previewMaterials: Material[] = [
   {
     ...base, slug: "object", title: "Объект недели", shortTitle: "Объект недели", format: "Объект", rubric: "Макет рубрики", template: "object-week",
     intro: "Место для названия и короткой истории предмета.",
-    object: { image: { src: "/nosorog/cutouts/swinging-man.png", alt: "Пробная иллюстрация: фигура на качелях", width: 1254, height: 1254, caption: "Временная иллюстрация из имеющихся материалов. Фотография предмета пока не передана." }, details: [{ label: "Предмет", value: "Название будет добавлено" }, { label: "Происхождение", value: "Данные будут добавлены" }] },
+    object: { image: { src: "/nosorog/cutouts/swinging-man.png", alt: "Пробная иллюстрация: фигура на качелях", width: 1254, height: 1254 }, details: [{ label: "Предмет", value: "Название будет добавлено" }, { label: "Происхождение", value: "Данные будут добавлены" }] },
     body: ["Здесь будет текст об объекте: его история, контекст и связь с независимым книгоизданием."],
     readingBlocks: [{ type: "paragraph", text: "Следом можно добавить подробность, отдельное изображение или цитату. Если в тексте упоминаются книги, они появятся в связанной подборке." }],
   },
@@ -40,12 +40,12 @@ export const previewMaterials: Material[] = [
     mentionedBookSlugs: ["ideal-museum", "beyond-horizon"],
     readingBlocks: [
       { type: "comparison", title: "Первая пара", images: [
-        { src: "/books/ideal-museum.png", alt: "Обложка «Пылинок идеального музея»", width: 515, height: 515, caption: "«Пылинки идеального музея» — проба размещения обложки" },
-        { src: "/nosorog/cutouts/green-animal.png", alt: "Зелёная фигура — временное изображение", width: 1254, height: 1254, caption: "Место для изображения, с которым его сравнивают" },
+        { src: "/books/ideal-museum.png", alt: "Обложка «Пылинок идеального музея»", width: 515, height: 515 },
+        { src: "/nosorog/cutouts/green-animal.png", alt: "Зелёная фигура — временное изображение", width: 1254, height: 1254 },
       ], text: "Здесь будет пояснение к первой паре. Изображения сохраняют собственные пропорции и остаются главным содержанием разворота." },
       { type: "comparison", title: "Следующая пара", images: [
-        { src: "/books/beyond-horizon.jpg", alt: "Обложка «За чертой горизонта»", width: 725, height: 1200, caption: "«За чертой горизонта» — проба размещения обложки" },
-        { src: "/nosorog/cutouts/swinging-man.png", alt: "Фигура на качелях — проба повторяющегося блока", width: 1254, height: 1254, caption: "Подпись ко второй части сравнения" },
+        { src: "/books/beyond-horizon.jpg", alt: "Обложка «За чертой горизонта»", width: 725, height: 1200 },
+        { src: "/nosorog/cutouts/swinging-man.png", alt: "Фигура на качелях — проба повторяющегося блока", width: 1254, height: 1254 },
       ], text: "Каждая пара может сопровождаться своим пояснением. Для варианта с конфетами или принтерами потребуются соответствующие фотографии и текст." },
     ],
   },
