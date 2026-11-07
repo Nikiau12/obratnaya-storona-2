@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
+import { sketchFeature } from "@/lib/sketch-feature";
 import { DrawnObject, type ObjectKind } from "./Objects";
 import { SketchDialog } from "./Dialog";
 import s from "./Sketch.module.css";
 
 export const pieces: {kind:ObjectKind;name:string;title:string}[] = [
-  {kind:"spider",name:"Паучок",title:"Текст, текст, текст"},
+  {kind:"spider",name:"Паучок",title:sketchFeature.materialTitle},
   {kind:"cube",name:"Куб",title:"Ещё один текст"},
   {kind:"cloud",name:"Облако",title:"Текст с облаком"},
   {kind:"cup",name:"Чашка",title:"Текст, ещё немного текста"},
@@ -15,7 +17,8 @@ export const pieces: {kind:ObjectKind;name:string;title:string}[] = [
 
 export function Piece({index,onOpen}:{index:number;onOpen:(index:number)=>void}) {
   const item=pieces[index];
-  return <article className={s.piece} data-piece={index}><button className={s.pieceButton} onClick={()=>onOpen(index)} aria-label={`Открыть эскиз: ${item.name}`}><span className={s.pieceDrawing}><DrawnObject kind={item.kind}/></span><span className={s.pieceTitle}>{item.title}</span></button><p className={s.byline}>Имя автора</p><p className={s.excerpt}>Здесь начинается текст. Несколько слов, ещё несколько слов…</p></article>;
+  const visual=<><span className={s.pieceDrawing}><DrawnObject kind={item.kind}/></span><span className={s.pieceTitle}>{item.title}</span></>;
+  return <article className={s.piece} data-piece={index}>{index===0?<Link className={s.pieceButton} href={sketchFeature.materialHref} aria-label={`Читать публикацию: ${item.title}`}>{visual}</Link>:<button className={s.pieceButton} onClick={()=>onOpen(index)} aria-label={`Открыть эскиз: ${item.name}`}>{visual}</button>}<p className={s.byline}>Имя автора</p>{index===0?<p className={s.excerpt}>Место для анонса</p>:<p className={s.excerpt}>Здесь начинается текст. Несколько слов, ещё несколько слов…</p>}</article>;
 }
 
 export function PieceDialog({index,close}:{index:number;close:()=>void}) {

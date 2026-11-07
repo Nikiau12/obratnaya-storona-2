@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { sketchFeature } from "@/lib/sketch-feature";
 import { SiteHeader } from "../SiteHeader";
 import { SiteFooter } from "../SiteFooter";
 import { BlackHole, DrawnObject, DummyCover } from "./Objects";
@@ -21,6 +22,6 @@ export function SketchHome(){
         <Piece index={4} onOpen={setSelected}/><Piece index={5} onOpen={setSelected}/>
       </div><Link className={s.more} href="/materials">Весь журнал</Link>
     </div>
-    <aside className={s.shelf} aria-label="Витрина книг"><div className={s.shelfTop}><Link href="/books">Витрина</Link><p>Независимые издательства<br/>и самиздат</p></div><div className={s.shelfBooks}>{[0,1,2,3,4].map(i=><Link href="/books" key={i} className={s.shelfBook} aria-label={`В витрину: макет книги ${i+1}`}><DummyCover index={i}/><span>Название книги</span></Link>)}</div><Link href="/books" className={s.more}>Вся витрина</Link></aside>
+    <aside className={s.shelf} aria-label="Витрина книг"><div className={s.shelfTop}><Link href="/books">Витрина</Link><p>Независимые издательства<br/>и самиздат</p></div><div className={s.shelfBooks}>{[0,1,2,3,4].map(i=><Link href={i===0?sketchFeature.bookHref:"/books"} key={i} className={s.shelfBook} aria-label={i===0?`Открыть книгу: ${sketchFeature.bookTitle}`:`В витрину: макет книги ${i+1}`}><DummyCover index={i}/><span>{i===0?sketchFeature.bookTitle:"Название книги"}</span></Link>)}</div><Link href="/books" className={s.more}>Вся витрина</Link></aside>
   </main><SiteFooter/>{selected!==null&&<PieceDialog index={selected} close={()=>setSelected(null)}/>}</div>;
 }

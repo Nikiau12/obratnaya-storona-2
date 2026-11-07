@@ -20,7 +20,7 @@ test("renders the editorial homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /Обратная сторона/);
-  assert.match(html, /Текст, текст, текст/);
+  assert.match(html, /Название публикации/);
   assert.match(html, /Витрина книг/);
   assert.match(html, /Открыть заметку у глаза/);
   assert.match(html, /constellation/);
@@ -201,4 +201,27 @@ test("visual and object layouts preserve image dimensions and individual caption
   assert.match(object, /width="1254" height="1254"/);
   assert.match(object, /Фотография предмета пока не передана/);
   assert.doesNotMatch(object, /Купить|Цена|В наличии/);
+});
+
+// Follow the public entry points, then check both directions of the new pair.
+test("the sketch publication and book form a navigable pair without invented sales details", async () => {
+  const paths = ["/", "/materials", "/books", "/material/sketch-01", "/books/sketch-01"];
+  const pages = new Map();
+  for (const path of paths) {
+    const response = await render(path);
+    assert.equal(response.status, 200, path);
+    pages.set(path, await response.text());
+  }
+  for (const path of ["/", "/materials", "/books/sketch-01"]) {
+    assert.match(pages.get(path), /href="\/material\/sketch-01"/, path);
+  }
+  for (const path of ["/", "/books", "/material/sketch-01"]) {
+    assert.match(pages.get(path), /href="\/books\/sketch-01"/, path);
+  }
+  for (const path of ["/material/sketch-01", "/books/sketch-01"]) {
+    assert.match(pages.get(path), /noindex/);
+    assert.match(pages.get(path), /Место для текста/);
+    assert.doesNotMatch(pages.get(path), /Купить книгу|Купить у издательства|<dt>(Цена|Наличие)<\/dt>/);
+  }
+  assert.match(pages.get("/books/sketch-01"), /Ссылка на покупку/);
 });
