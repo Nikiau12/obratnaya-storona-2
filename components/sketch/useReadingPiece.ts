@@ -22,8 +22,7 @@ export function useReadingPiece() {
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     // Focusing a link can scroll the browser automatically. Preserve that
     // selection; only an intentional reading gesture should clear it.
-    const resumeReading = (event?: Event) => {
-      if (event?.target instanceof Element && event.target.closest("[data-reading-piece]")) return;
+    const resumeReading = () => {
       setHovered(null); setFocused(null);
     };
     const scroll = () => { setHovered(null); schedule(); };

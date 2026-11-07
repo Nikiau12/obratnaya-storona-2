@@ -11,10 +11,10 @@
 .timeline span { font:10px var(--sans); text-align:center; font-variant-numeric:tabular-nums; }
 .player p { font-size:12px; line-height:1.4; }
 .lab { max-width:1100px; margin:auto; padding:40px clamp(24px,5vw,80px) 100px; }
-.lab h1 { font:400 clamp(32px,5vw,64px)/1.15 var(--display); margin:0 0 60px; }
+.lab h1 { font:400 clamp(32px,5vw,64px)/1.15 Georgia,"Times New Roman",serif; margin:0 0 60px; }
 .labGrid { display:grid; grid-template-columns:1fr 1fr; gap:80px; }
 .labGrid section { min-width:0; }
-.labGrid h2 { font:400 27px var(--display); margin-bottom:25px; }
+.labGrid h2 { font:400 27px Georgia,"Times New Roman",serif; margin-bottom:25px; }
 .file { display:block; font-size:13px; margin-bottom:35px; }
 .file input { display:block; width:100%; font:12px var(--sans); margin-top:15px; }
 @media(max-width:700px){.labGrid{grid-template-columns:1fr;gap:60px}.empty svg{height:65px}}
