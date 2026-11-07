@@ -33,7 +33,6 @@ footer{background:var(--ink);color:white;padding:60px 30px 25px;display:grid;gri
 .select-filters{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}.select-filters label{display:flex;align-items:center}
 
 /* Monochrome editorial direction */
-:root{--paper:#f5f4ef;--acid:#fff;--red:#dededa;--grey:#d7d7d3}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline-color:#111}
 .site-header{background:rgba(245,244,239,.96)}
 .desktop-nav .shop-nav,.availability,.word-card,.daily-rubric,.page-hero-acid,.author-hero,.author-strip{background:#fff}

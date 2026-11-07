@@ -20,10 +20,10 @@ test("renders the editorial homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /Обратная сторона/);
-  assert.match(html, /Рецензии на книжные обложки/);
-  assert.match(html, /Подлинный Петербург/);
-  assert.match(html, /Книжная полка/);
-  assert.match(html, /beyond-horizon/);
+  assert.match(html, /Текст, текст, текст/);
+  assert.match(html, /Витрина книг/);
+  assert.match(html, /Открыть заметку у глаза/);
+  assert.match(html, /constellation/);
   assert.match(html, /Чёрный фон/);
   assert.match(html, /Белый фон/);
   assert.doesNotMatch(html, /data-ink-trail|<canvas/);
@@ -46,8 +46,8 @@ test("renders the longread template", async () => {
 
 test("renders archives and discovery pages", async () => {
   for (const [path, expected] of [
-    ["/materials", /Медиа/],
-    ["/books", /Книжный/],
+    ["/materials", /Журнал/],
+    ["/books", /Витрина/],
     ["/authors", /Макеты авторских страниц/],
     ["/rubrics", /Рубрики/],
     ["/search", /Что вы хотите найти/],
@@ -108,8 +108,8 @@ test("serves original images when local Cloudflare bindings are unavailable", as
   assert.equal(response.headers.get("location"), "http://localhost/books/vesele-krushenii.png");
 });
 
-test("homepage opens both full publications internally", async () => {
- const html=await (await render("/")).text();
+test("previous homepage retains both full publications internally", async () => {
+ const html=await (await render("/preview/home")).text();
  assert.match(html,/href="\/material\/cover-reviews"/);
  assert.match(html,/href="\/material\/beyond-horizon"/);
  assert.doesNotMatch(html,/docs\.google\.com/);

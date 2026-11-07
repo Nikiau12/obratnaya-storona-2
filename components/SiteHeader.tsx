@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSiteTheme } from "./SiteTheme";
 import styles from "./SiteHeader.module.css";
 
-const links = [["О нас", "/about"], ["Бюро", "/bureau"], ["Медиа", "/materials"], ["Книжный", "/books"]] as const;
+const links = [["О нас", "/about"], ["Журнал", "/materials"], ["Витрина", "/books"]] as const;
 
 export function SiteHeader({ home = false }: { home?: boolean }) {
   const { theme, setTheme } = useSiteTheme();
