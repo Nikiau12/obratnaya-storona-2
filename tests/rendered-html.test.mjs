@@ -285,6 +285,8 @@ test("reading layouts support multiple related books and no related book without
   }
   const relations=await(await render("/preview/relations")).text();
   assert.equal((relations.match(/data-book="sketch-01"/g)||[]).length,1);
+  for(const format of ["essay","cover-reviews","book-week","interview","object-week","visual"])assert.ok(relations.includes(`href="/preview/reading/${format}"`));
+  assert.doesNotMatch(relations,/href="\/material\/sketch-/);
 });
 
 test("comparison, cover proportions and unconfigured media remain isolated from editorial content",async()=>{
