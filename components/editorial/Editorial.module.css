@@ -18,7 +18,7 @@
 .sectionHead { display:flex; align-items:baseline; justify-content:space-between; gap:24px; margin-bottom:35px; }
 .sectionHead h2 { margin:0; }
 .footer { display:grid; grid-template-columns:1fr 1fr auto; gap:35px; padding:50px clamp(22px,5vw,80px) 70px; background:var(--paper); color:var(--muted); border:0; margin:0; font-size:14px; }
-.footerBrand { font-family:Georgia,"Times New Roman",serif; font-size:24px; letter-spacing:-.04em; color:var(--ink); }
+.footerBrand { font-family:var(--home-heading-font,Georgia,"Times New Roman",serif); font-weight:var(--home-heading-weight,400); font-size:24px; letter-spacing:-.04em; color:var(--ink); }
 .footer p { margin:0; line-height:1.6; font-size:14px; }
 .footer nav { display:flex; flex-wrap:wrap; gap:15px 24px; max-width:320px; }
 .footer a:hover { text-decoration:underline; text-underline-offset:5px; }

@@ -8,7 +8,7 @@ import s from "./editorial/Editorial.module.css";
 
 export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const content = pathname === "/" || pathname === "/preview/home"
+  const content = pathname === "/" || pathname === "/preview/home" || pathname === "/preview/typography"
     ? children
     : <div className={s.shell}><SiteHeader /><div id="page-content" tabIndex={-1}>{children}</div><SiteFooter /></div>;
   return <SiteThemeProvider>{content}</SiteThemeProvider>;

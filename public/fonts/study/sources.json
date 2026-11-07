@@ -1,0 +1,71 @@
+{
+  "downloaded": "2026-11-07",
+  "fonts": [
+    {
+      "family": "Golos Text",
+      "file": "golos-text-cyrillic-ext.woff2",
+      "url": "https://fonts.gstatic.com/s/golostext/v7/q5uCsoe9Lv5t7Meb31EcEx58hK5SAMqbpw.woff2",
+      "bytes": 17532
+    },
+    {
+      "family": "Golos Text",
+      "file": "golos-text-cyrillic.woff2",
+      "url": "https://fonts.gstatic.com/s/golostext/v7/q5uCsoe9Lv5t7Meb31EcExd8hK5SAMqbpw.woff2",
+      "bytes": 22028
+    },
+    {
+      "family": "Golos Text",
+      "file": "golos-text-latin-ext.woff2",
+      "url": "https://fonts.gstatic.com/s/golostext/v7/q5uCsoe9Lv5t7Meb31EcEx18hK5SAMqbpw.woff2",
+      "bytes": 19204
+    },
+    {
+      "family": "Golos Text",
+      "file": "golos-text-latin.woff2",
+      "url": "https://fonts.gstatic.com/s/golostext/v7/q5uCsoe9Lv5t7Meb31EcExN8hK5SAMo.woff2",
+      "bytes": 38084
+    },
+    {
+      "family": "Literata",
+      "file": "literata-cyrillic-ext.woff2",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or3PQ6P12-iJxAIgLa78DkTtAoDhk0oVpaK3YLanFLHpPf2TbLi4J_zWTEKVt8m1ow.woff2",
+      "bytes": 16608
+    },
+    {
+      "family": "Literata",
+      "file": "literata-cyrillic.woff2",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or3PQ6P12-iJxAIgLa78DkTtAoDhk0oVpaK3YLanFLHpPf2TbLi4J_XWTEKVt8m1ow.woff2",
+      "bytes": 47920
+    },
+    {
+      "family": "Literata",
+      "file": "literata-greek-ext.woff2",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or3PQ6P12-iJxAIgLa78DkTtAoDhk0oVpaK3YLanFLHpPf2TbLi4J_3WTEKVt8m1ow.woff2",
+      "bytes": 18596
+    },
+    {
+      "family": "Literata",
+      "file": "literata-greek.woff2",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or3PQ6P12-iJxAIgLa78DkTtAoDhk0oVpaK3YLanFLHpPf2TbLi4J_LWTEKVt8m1ow.woff2",
+      "bytes": 31964
+    },
+    {
+      "family": "Literata",
+      "file": "literata-vietnamese.woff2",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or3PQ6P12-iJxAIgLa78DkTtAoDhk0oVpaK3YLanFLHpPf2TbLi4J_7WTEKVt8m1ow.woff2",
+      "bytes": 17956
+    },
+    {
+      "family": "Literata",
+      "file": "literata-latin-ext.woff2",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or3PQ6P12-iJxAIgLa78DkTtAoDhk0oVpaK3YLanFLHpPf2TbLi4J__WTEKVt8m1ow.woff2",
+      "bytes": 70736
+    },
+    {
+      "family": "Literata",
+      "file": "literata-latin.woff2",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or3PQ6P12-iJxAIgLa78DkTtAoDhk0oVpaK3YLanFLHpPf2TbLi4J_HWTEKVt8k.woff2",
+      "bytes": 85780
+    }
+  ]
+}
