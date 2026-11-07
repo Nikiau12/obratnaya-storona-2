@@ -22,7 +22,7 @@
 .pieceDrawing .drawing { transition:transform .3s ease; }
 .pieceButton:hover .drawing { transform:rotate(-4deg) translateY(-3px); }
 .pieceTitle { font:var(--home-heading-weight,400) clamp(25px,2.3vw,36px)/var(--home-heading-leading,1.08) var(--home-heading-font,Georgia,"Times New Roman",serif); letter-spacing:-.025em; display:block; }
-.pieceButton:hover .pieceTitle { text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:5px; }
+.pieceButton:hover .pieceTitle { text-decoration:none; text-decoration-thickness:1px; text-underline-offset:5px; }
 .byline { font-size:12px; margin:12px 0; color:var(--muted); }
 .excerpt { font-size:15px; line-height:1.5; max-width:245px; color:var(--muted); margin:0; }
 .homeFlow [data-piece="0"] { grid-column:1/5; }
@@ -40,12 +40,12 @@
 .popover p { margin:0; }.popover span { display:block; margin-top:14px; font-size:12px; }
 .audioObject { max-width:170px; text-align:center; }
 .audioObject svg { height:100px; }
-.audioObject button { color:inherit; background:none; border:0; border-bottom:1px solid var(--ink); padding:5px 0; cursor:pointer; font-size:15px; }
+.audioObject button { color:inherit; background:none; border:0;  padding:5px 0; cursor:pointer; font-size:15px; }
 .audioObject>span { display:block; font-size:10px; color:var(--muted); margin-top:10px; }
 .audioObject:hover svg path,.audioObject[data-playing="true"] svg path { animation:pulse .8s ease-in-out infinite alternate; transform-origin:center; }
 .audioObject svg path:nth-child(2n) { animation-delay:-.4s; }
 @keyframes pulse { to { transform:scaleY(.6); } }
-.more { display:block; width:max-content; font-size:14px; border-bottom:1px solid currentColor; padding-bottom:6px; margin:60px 0 0 auto; }
+.more { display:block; width:max-content; font-size:14px;  padding-bottom:6px; margin:60px 0 0 auto; }
 .shelf { padding-top:30px; text-align:center; min-width:0; }
 .shelfTop { margin-bottom:35px; }
 .shelfTop>a { font:var(--home-heading-weight,400) 30px var(--home-heading-font,Georgia,serif); }
@@ -65,7 +65,7 @@
 .dummyCover[data-variant="5"] .coverShape { border-radius:0; border-width:1px 0; height:42%; transform:rotate(-8deg); }
 .journalHeading { display:flex; align-items:center; justify-content:space-between; margin-bottom:26px; gap:30px; }
 .search { display:grid; gap:6px; font-size:11px; width:min(100%,280px); }
-.search input { background:transparent; color:inherit; font-size:15px; padding:10px 0; border:0; border-bottom:1px solid var(--line); border-radius:0; min-width:0; width:100%; }
+.search input { background:transparent; color:inherit; font-size:15px; padding:10px 0; border:0;  border-radius:0; min-width:0; width:100%; }
 .search input::placeholder { color:var(--muted); }
 .journalFlow { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:80px 40px; align-items:start; margin-top:60px; }
 .journalFlow [data-piece="0"] { grid-column:1/4; }
@@ -79,7 +79,7 @@
 .storeLayout { display:grid; grid-template-columns:minmax(0,1fr) 225px; gap:60px; margin-top:45px; }
 .storeMain { min-width:0; }
 .storeControls { display:flex; justify-content:space-between; gap:25px; align-items:end; }
-.sort { display:grid; gap:6px; font-size:11px; }.sort select { appearance:none; color:inherit; background:var(--paper); border:0; border-bottom:1px solid var(--line); border-radius:0; padding:10px 0; font-size:14px; }
+.sort { display:grid; gap:6px; font-size:11px; }.sort select { appearance:none; color:inherit; background:var(--paper); border:0;  border-radius:0; padding:10px 0; font-size:14px; }
 .resultCount { font-size:11px; color:var(--muted); margin:25px 0 40px; }
 .bookGrid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:55px 34px; }
 .storeBook { min-width:0; }.storeBook button,.storeBook>a { display:block; border:0; background:none; color:inherit; text-align:left; padding:0; width:100%; cursor:pointer; }
@@ -88,7 +88,7 @@
 .publishers { align-self:start; position:sticky; top:35px; padding:0 0 0 25px; border-left:1px solid var(--line); }
 .publishers h2 { font:normal 24px/1.2 Georgia,serif; margin-bottom:23px; }
 .publisherButton { display:block; padding:12px 0; width:100%; text-align:left; background:none; color:inherit; border:0; font-size:15px; cursor:pointer; line-height:1.4; }
-.publisherButton[aria-pressed="true"] { text-decoration:underline; text-underline-offset:5px; }
+.publisherButton[aria-pressed="true"] { text-decoration:none; text-underline-offset:5px; }
 .publisherItem { position:relative; }
 .publisherDescription { display:none; position:absolute; z-index:10; right:100%; top:0; width:270px; padding:24px; border:1px solid var(--ink); color:var(--ink); background:var(--paper); font-size:14px; line-height:1.5; }
 .publisherDescription strong { font-weight:400; }.publisherDescription p { margin:12px 0 0; color:var(--muted); }
@@ -96,7 +96,7 @@
 .dialog { padding:0; width:min(760px,calc(100% - 36px)); max-height:90dvh; background:var(--paper); color:var(--ink); border:1px solid var(--ink); }
 .dialog::backdrop { background:#0009; backdrop-filter:blur(3px); }
 .dialogBody { padding:35px clamp(24px,6vw,70px) 60px; }
-.close { display:block; margin:0 0 40px auto; padding:8px 0; border:0; border-bottom:1px solid; color:inherit; background:none; cursor:pointer; }
+.close { display:block; margin:0 0 40px auto; padding:8px 0; border:0;  color:inherit; background:none; cursor:pointer; }
 .dialogBody h2 { font:normal 40px/1.1 Georgia,serif; letter-spacing:-.035em; }
 .dialogDrawing { max-width:250px; margin:35px auto; }.sampleText { font:20px/1.8 Georgia,serif; }
 .bookDialog { display:grid; grid-template-columns:160px 1fr; gap:40px; margin-top:30px; font-size:16px; line-height:1.6; }.purchasePlaceholder { font-size:13px; color:var(--muted); }
@@ -111,3 +111,6 @@
 .textLines { display:grid; gap:13px; padding:4px 0; }
 .textLines i { height:1px; background:currentColor; opacity:.25; }
 .textLines i:last-child { width:65%; }
+
+.pieceButton:hover .pieceTitle,.more:hover,.close:hover,.audioObject button:hover { opacity:.65; }
+.publisherButton[aria-pressed="true"] { font-weight:600; }

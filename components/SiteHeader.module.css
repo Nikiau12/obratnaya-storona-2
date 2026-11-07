@@ -5,7 +5,7 @@
 .nav a, .search { font-size: 17px; padding-block: 9px; text-decoration-thickness: 1px; text-underline-offset: 7px; }
 .actions { justify-self: end; display: flex; align-items: center; gap: 18px; }
 .search { font-size: 14px; }
-.nav a:hover, .search:hover { text-decoration: underline; }
+.nav a:hover, .search:hover { text-decoration:none; }
 .themePicker { display: flex; align-items: center; padding: 0 5px 0 11px; border: 1px solid color-mix(in srgb,currentColor 24%,transparent); border-radius: 28px; }
 .themePicker > span { margin-right: 5px; font-size: 10px; }
 .themePicker button { display: grid; place-items: center; width: 35px; height: 35px; padding: 0; background: none; color: inherit; border: 0; border-radius: 50%; cursor: pointer; }
@@ -30,3 +30,5 @@
   .search { font-size: 12px; }
   .themePicker button { width: 31px; height: 35px; }
 }
+
+.nav a:hover,.search:hover { opacity:.65; }
