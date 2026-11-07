@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { sketchFeature as feature } from "@/lib/sketch-feature";
+import { sketchFeature, type SketchFeature } from "@/lib/sketch-feature";
 import { DrawnObject, DummyCover } from "./Objects";
 import s from "./FeaturePages.module.css";
 
@@ -15,12 +15,12 @@ function PageNavigation({ book = false }: { book?: boolean }) {
   </nav>;
 }
 
-export function SketchPublicationPage() {
+export function SketchPublicationPage({feature=sketchFeature}:{feature?:SketchFeature}) {
   return <main className={s.page}>
     <PageNavigation />
     <article>
       <header className={s.articleHero}>
-        <div className={s.heroDrawing}><DrawnObject kind="spider" /></div>
+        <div className={s.heroDrawing}><DrawnObject kind={feature.kind} /></div>
         <div className={s.articleTitle}>
           <h1>{feature.materialTitle}</h1>
         </div>
@@ -35,7 +35,7 @@ export function SketchPublicationPage() {
         <aside className={s.relatedBook} aria-label="Книга в публикации">
           <p className={s.eyebrow}>Книга в публикации</p>
           <Link href={feature.bookHref} className={s.relatedBookLink} aria-label={`Открыть книгу: ${feature.bookTitle}`}>
-            <DummyCover index={0} /><h2>{feature.bookTitle}</h2>
+            <DummyCover index={feature.index} /><h2>{feature.bookTitle}</h2>
           </Link>
           <Link className={s.textLink} href={feature.bookHref}>О книге</Link>
         </aside>
@@ -45,11 +45,11 @@ export function SketchPublicationPage() {
   </main>;
 }
 
-export function SketchBookPage() {
+export function SketchBookPage({feature=sketchFeature}:{feature?:SketchFeature}) {
   return <main className={s.page}>
     <PageNavigation book />
     <section className={s.bookHero} aria-labelledby="book-title">
-      <div className={s.bookCover}><DummyCover index={0} /></div>
+      <div className={s.bookCover}><DummyCover index={feature.index} /></div>
       <div className={s.bookInfo}>
         <h1 id="book-title">{feature.bookTitle}</h1>
         <p className={s.author}>Имя автора книги</p>
@@ -63,7 +63,7 @@ export function SketchBookPage() {
     <section className={s.bookJournal} aria-labelledby="book-journal-title">
       <h2 id="book-journal-title">Об этой книге<br />в журнале</h2>
       <Link href={feature.materialHref} className={s.relatedArticle}>
-        <div><DrawnObject kind="spider" /></div>
+        <div><DrawnObject kind={feature.kind} /></div>
         <span className={s.relatedArticleTitle}>{feature.materialTitle}</span>
         <span className={s.textLink}>Читать публикацию</span>
       </Link>

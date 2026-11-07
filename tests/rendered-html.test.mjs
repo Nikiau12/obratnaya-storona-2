@@ -225,3 +225,26 @@ test("the sketch publication and book form a navigable pair without invented sal
   }
   assert.doesNotMatch(pages.get("/books/sketch-01"), /Ссылка на покупку|Будет добавлена/);
 });
+
+test("all six sketch pairs connect home, journal, store and both detail pages", async () => {
+  const home=await (await render("/")).text();
+  const journal=await (await render("/materials")).text();
+  const store=await (await render("/books")).text();
+  for (let i=1;i<=6;i++) {
+    const slug=`sketch-${String(i).padStart(2,"0")}`;
+    for(const html of [home,journal]) assert.ok(html.includes(`href="/material/${slug}"`),slug);
+    for(const html of [home,store]) assert.ok(html.includes(`href="/books/${slug}"`),slug);
+    const publication=await render(`/material/${slug}`),book=await render(`/books/${slug}`);
+    assert.equal(publication.status,200);assert.equal(book.status,200);
+    const articleHtml=await publication.text(),bookHtml=await book.text();
+    assert.ok(articleHtml.includes(`href="/books/${slug}"`));
+    assert.ok(bookHtml.includes(`href="/material/${slug}"`));
+    for(const html of [articleHtml,bookHtml]) {
+      assert.match(html,/noindex/);
+      assert.doesNotMatch(html,/Купить книгу|<dt>(Цена|Наличие)<\/dt>|Место для анонса|Ссылка на покупку/);
+    }
+    assert.match(articleHtml,new RegExp(`data-variant="${i-1}"`));
+    assert.match(bookHtml,new RegExp(`data-variant="${i-1}"`));
+  }
+  for(const path of ["/material/sketch-07","/books/sketch-07"]) assert.equal((await render(path)).status,404);
+});

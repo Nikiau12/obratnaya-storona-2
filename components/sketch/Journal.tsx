@@ -1,32 +1,20 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { sketchFeature } from "@/lib/sketch-feature";
-import { DrawnObject, DummyCover, type ObjectKind } from "./Objects";
-import { SketchDialog } from "./Dialog";
+import { sketchFeatures } from "@/lib/sketch-feature";
+import { DrawnObject, DummyCover } from "./Objects";
 import s from "./Sketch.module.css";
 
-export const pieces: {kind:ObjectKind;name:string;title:string}[] = [
-  {kind:"spider",name:"Паучок",title:sketchFeature.materialTitle},
-  {kind:"cube",name:"Куб",title:"Ещё один текст"},
-  {kind:"cloud",name:"Облако",title:"Текст с облаком"},
-  {kind:"cup",name:"Чашка",title:"Текст, ещё немного текста"},
-  {kind:"stone",name:"Камень",title:"Другой текст"},
-  {kind:"flower",name:"Цветок",title:"И ещё один текст"},
-];
+export const pieces = sketchFeatures;
 
-export function Piece({index,onOpen,onHover,onFocus,inlineBook=false}:{index:number;onOpen:(index:number)=>void;onHover?:(index:number|null)=>void;onFocus?:(index:number|null)=>void;inlineBook?:boolean}) {
+export function Piece({index,onHover,onFocus,inlineBook=false}:{index:number;onHover?:(index:number|null)=>void;onFocus?:(index:number|null)=>void;inlineBook?:boolean}) {
   const item=pieces[index];
-  const visual=<><span className={s.pieceDrawing}><DrawnObject kind={item.kind}/></span><span className={s.pieceTitle}>{item.title}</span></>;
-  return <article className={s.piece} data-piece={index} onPointerEnter={event=>{if(event.pointerType!=="touch")onHover?.(index);}} onPointerLeave={()=>onHover?.(null)} onFocus={()=>onFocus?.(index)} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget))onFocus?.(null);}}>{index===0?<Link className={s.pieceButton} href={sketchFeature.materialHref} aria-label={`Читать публикацию: ${item.title}`}>{visual}</Link>:<button className={s.pieceButton} onClick={()=>onOpen(index)} aria-label={`Открыть эскиз: ${item.name}`}>{visual}</button>}{inlineBook&&index===0&&<Link className={s.inlineBook} href={sketchFeature.bookHref} aria-label={`Книга в публикации: ${sketchFeature.bookTitle}`}><DummyCover index={0}/><span>{sketchFeature.bookTitle}</span></Link>}</article>;
-}
-
-export function PieceDialog({index,close}:{index:number;close:()=>void}) {
-  return <SketchDialog title={pieces[index].title} close={close}><div className={s.dialogDrawing}><DrawnObject kind={pieces[index].kind}/></div></SketchDialog>;
+  const visual=<><span className={s.pieceDrawing}><DrawnObject kind={item.kind}/></span><span className={s.pieceTitle}>{item.materialTitle}</span></>;
+  return <article className={s.piece} data-piece={index} onPointerEnter={event=>{if(event.pointerType!=="touch")onHover?.(index);}} onPointerLeave={()=>onHover?.(null)} onFocus={()=>onFocus?.(index)} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget))onFocus?.(null);}}><Link className={s.pieceButton} href={item.materialHref} aria-label={`Читать публикацию: ${item.materialTitle}`}>{visual}</Link>{inlineBook&&<Link className={s.inlineBook} href={item.bookHref} aria-label={`Книга в публикации: ${item.bookTitle}`}><DummyCover index={item.index}/><span>{item.bookTitle}</span></Link>}</article>;
 }
 
 export function SketchJournal(){
-  const [query,setQuery]=useState("");const [selected,setSelected]=useState<number|null>(null);
-  const visible=pieces.map((piece,index)=>({...piece,index})).filter(p=>`${p.name} ${p.title}`.toLocaleLowerCase("ru").includes(query.toLocaleLowerCase("ru").trim()));
-  return <main className={s.page}><div className={s.journalHeading}><h1>Журнал</h1><label className={s.search}>Поиск<input type="search" value={query} onChange={e=>setQuery(e.target.value)}/></label></div><div className={s.journalFlow}>{visible.map(p=><Piece key={p.index} index={p.index} onOpen={setSelected}/>)}</div>{!visible.length&&<p role="status">По этому запросу ничего не найдено.</p>}{selected!==null&&<PieceDialog index={selected} close={()=>setSelected(null)}/>}</main>;
+  const [query,setQuery]=useState("");
+  const visible=pieces.map((piece,index)=>({...piece,index})).filter(p=>`${p.name} ${p.materialTitle}`.toLocaleLowerCase("ru").includes(query.toLocaleLowerCase("ru").trim()));
+  return <main className={s.page}><div className={s.journalHeading}><h1>Журнал</h1><label className={s.search}>Поиск<input type="search" value={query} onChange={e=>setQuery(e.target.value)}/></label></div><div className={s.journalFlow}>{visible.map(p=><Piece key={p.index} index={p.index}/>)}</div>{!visible.length&&<p role="status">По этому запросу ничего не найдено.</p>}</main>;
 }

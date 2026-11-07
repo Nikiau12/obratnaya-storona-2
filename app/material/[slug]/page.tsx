@@ -7,14 +7,20 @@ import { BookCard } from "@/components/BookCard";
 import { MaterialTemplate } from "@/components/editorial/ReadingTemplates";
 import { books, getAuthor, getMaterial, materials } from "@/lib/content";
 import s from "@/components/editorial/Editorial.module.css";
-export function generateStaticParams(){return materials.map(m=>({slug:m.slug}));}
+import { getSketchFeature, sketchFeatures } from "@/lib/sketch-feature";
+import { SketchPublicationPage } from "@/components/sketch/FeaturePages";
+export function generateStaticParams(){return [...materials.map(m=>({slug:m.slug})),...sketchFeatures.slice(1).map(m=>({slug:m.slug}))];}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
- const m=getMaterial((await params).slug);if(!m)return {};
+ const slug=(await params).slug;
+ const sketch=getSketchFeature(slug);if(sketch)return {title:`${sketch.materialTitle} — Обратная сторона`,robots:{index:false,follow:true}};
+ const m=getMaterial(slug);if(!m)return {};
  const image=m.image?new URL(m.image,"https://obratnaya-storona-2.young-mite-9319.chatgpt.site").href:undefined;
  return {title:`${m.title} — Обратная сторона`,description:m.excerpt,openGraph:{title:m.title,description:m.excerpt,type:"article",images:image?[{url:image}]:[]},twitter:{card:image?"summary_large_image":"summary",title:m.title,images:image?[image]:[]}};
 }
 export default async function MaterialPage({params}:{params:Promise<{slug:string}>}){
- const material=getMaterial((await params).slug);if(!material)notFound();
+ const slug=(await params).slug;
+ const sketch=getSketchFeature(slug);if(sketch)return <SketchPublicationPage feature={sketch}/>;
+ const material=getMaterial(slug);if(!material)notFound();
  const author=getAuthor(material.authorSlug);
  const mentioned=books.filter(b=>material.mentionedBookSlugs?.includes(b.slug));
  const related=materials.filter(m=>m.slug!==material.slug && !m.draft).slice(0,2);
