@@ -1,9 +1,10 @@
 import { books } from "./content";
 
-export const publishers = [
+export type Publisher = {slug:string;name:string;description?:string};
+export const publishers:Publisher[] = [
   { slug: "individuum", name: "Individuum" },
   { slug: "jaromir-hladik-press", name: "Jaromir Hladik press" },
-  { slug: "nosorog", name: "Носорог" },
+  { slug: "nosorog", name: "Носорог", description:"Независимое издательство, выросшее из одноимённого литературного журнала." },
   { slug: "ivan-limbakh", name: "Издательство Ивана Лимбаха" },
   { slug: "teller-books-mit-press", name: "Teller Books / MIT Press" },
 ];

@@ -33,7 +33,7 @@ export function ReadingBlocks({ blocks }: { blocks?: ReadingBlock[] }) {
 
 export function BookReadingLinks({ book }: { book: Book }) {
   return <div className={s.bookLinks}>
-    <Link className={s.textLink} href={`/books/${book.slug}`}>Книга в книжном</Link>
+    <Link className={s.textLink} href={`/books/${book.slug}`}>Книга в витрине</Link>
     <Link className={s.textLink} href={publisherHref(book.publisher)}>{book.publisher}</Link>
     {book.externalUrl ? <a className={s.action} href={book.externalUrl} target="_blank" rel="noreferrer">Купить у издательства</a> : null}
   </div>;

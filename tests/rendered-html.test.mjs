@@ -246,5 +246,52 @@ test("all six sketch pairs connect home, journal, store and both detail pages", 
     assert.match(articleHtml,new RegExp(`data-variant="${i-1}"`));
     assert.match(bookHtml,new RegExp(`data-variant="${i-1}"`));
   }
-  for(const path of ["/material/sketch-07","/books/sketch-07"]) assert.equal((await render(path)).status,404);
+  for(const path of ["/material/sketch-07","/books/sketch-13"]) assert.equal((await render(path)).status,404);
+});
+
+test("every showcase book has a consistent detail route, with no invented publication for unlinked books",async()=>{
+  const store=await(await render("/books")).text();
+  for(let i=1;i<=12;i++){
+    const slug=`sketch-${String(i).padStart(2,"0")}`;
+    assert.ok(store.includes(`href="/books/${slug}"`));
+    const response=await render(`/books/${slug}`);assert.equal(response.status,200);
+    const html=await response.text();
+    assert.doesNotMatch(html,/Купить книгу|<dt>(Цена|Наличие)<\/dt>/);
+    if(i>6)assert.doesNotMatch(html,/Об этой книге|href="\/material\/sketch-/);
+  }
+  const about=await(await render("/about")).text();
+  assert.match(about,/Журнал и витрина/);assert.doesNotMatch(about,/Медиа и книжный|Все макеты/);
+});
+
+test("current content is searchable and publisher links retain catalog filtering",async()=>{
+  for(const [query,href] of [["облаком","/material/sketch-03"],["книги 12","/books/sketch-12"]]){
+    const html=await(await render(`/search?q=${encodeURIComponent(query)}`)).text();
+    assert.ok(html.includes(`href="${href}"`));
+  }
+  const catalog=await(await render("/books?publisher=nosorog&sort=reverse")).text();
+  assert.ok(catalog.indexOf('href="/books/sketch-08"')<catalog.indexOf('href="/books/sketch-03"'));
+  assert.doesNotMatch(catalog,/href="\/books\/sketch-01"/);
+  assert.equal((catalog.match(/role="tooltip"/g)||[]).length,1);
+});
+
+test("reading layouts support multiple related books and no related book without filler copy",async()=>{
+  for(const format of ["essay","cover-reviews","book-week","interview","object-week","visual"]){
+    const response=await render(`/preview/reading/${format}`);assert.equal(response.status,200);
+    const html=await response.text();assert.match(html,/noindex/);assert.ok(html.includes(`data-format="${format}"`));
+    assert.doesNotMatch(html,/Место для первого вопроса|Место для анонса|Будет добавлено/);
+    if(format==="cover-reviews")for(const slug of ["01","02","03"])assert.ok(html.includes(`href="/books/sketch-${slug}"`));
+    if(format==="object-week")assert.doesNotMatch(html,/href="\/books\/sketch-/);
+    if(format==="interview")assert.match(html,/Место для текста: Стихотворение/);
+  }
+  const relations=await(await render("/preview/relations")).text();
+  assert.equal((relations.match(/data-book="sketch-01"/g)||[]).length,1);
+});
+
+test("comparison, cover proportions and unconfigured media remain isolated from editorial content",async()=>{
+  const home=await(await render("/")).text();assert.match(home,/data-composition="current"/);
+  assert.doesNotMatch(home,/<audio|<video|Послушать|Загрузка/);
+  const comparison=await(await render("/preview/composition?variant=roomier")).text();assert.match(comparison,/data-composition="roomier"/);assert.match(comparison,/noindex/);
+  const covers=await(await render("/preview/covers")).text();
+  for(const [w,h] of [[500,900],[720,720],[1000,600],[400,1200]])assert.ok(covers.includes(`width="${w}" height="${h}"`));
+  const media=await(await render("/preview/media")).text();assert.match(media,/accept="audio\/\*"/);assert.match(media,/accept="video\/\*"/);assert.doesNotMatch(media,/<audio|<video|Послушать|Смотреть<\/button>/);
 });

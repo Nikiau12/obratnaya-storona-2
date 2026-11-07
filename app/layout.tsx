@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteChrome } from "@/components/SiteChrome";
 import "./globals.css";
+import "@/components/typography/fonts.css";
 
 const siteUrl = "https://obratnaya-storona-2.young-mite-9319.chatgpt.site";
 

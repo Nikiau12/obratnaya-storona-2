@@ -1,0 +1,20 @@
+.player { width:100%; max-width:560px; }
+.empty,.soundDrawing { width:100%; max-width:170px; margin:auto; }
+.empty svg,.soundDrawing svg { height:100px; }
+.player video { display:block; width:100%; max-height:360px; object-fit:contain; background:transparent; }
+.controls { display:flex; flex-wrap:wrap; gap:12px 18px; justify-content:center; margin-top:8px; }
+.controls button { border:0; background:none; color:inherit; padding:10px 2px; font:inherit; font-size:13px; cursor:pointer; min-height:44px; }
+.controls button:hover { opacity:.65; }
+.controls button:disabled { cursor:wait; opacity:.5; }
+.timeline { display:grid; gap:7px; margin-top:5px; }
+.timeline input { width:100%; accent-color:var(--ink); cursor:pointer; min-height:28px; margin:0; }
+.timeline span { font:10px var(--sans); text-align:center; font-variant-numeric:tabular-nums; }
+.player p { font-size:12px; line-height:1.4; }
+.lab { max-width:1100px; margin:auto; padding:40px clamp(24px,5vw,80px) 100px; }
+.lab h1 { font:400 clamp(32px,5vw,64px)/1.15 var(--display); margin:0 0 60px; }
+.labGrid { display:grid; grid-template-columns:1fr 1fr; gap:80px; }
+.labGrid section { min-width:0; }
+.labGrid h2 { font:400 27px var(--display); margin-bottom:25px; }
+.file { display:block; font-size:13px; margin-bottom:35px; }
+.file input { display:block; width:100%; font:12px var(--sans); margin-top:15px; }
+@media(max-width:700px){.labGrid{grid-template-columns:1fr;gap:60px}.empty svg{height:65px}}

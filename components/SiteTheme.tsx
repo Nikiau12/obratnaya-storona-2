@@ -30,7 +30,7 @@ function subscribe(onChange: () => void) {
 }
 
 export function SiteThemeProvider({ children }: { children: ReactNode }) {
-  const theme = useSyncExternalStore(subscribe, readTheme, () => "black");
+  const theme = useSyncExternalStore<SiteTheme>(subscribe, readTheme, () => "black");
 
   function setTheme(nextTheme: SiteTheme) {
     try {

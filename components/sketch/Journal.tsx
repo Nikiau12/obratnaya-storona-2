@@ -1,16 +1,17 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { sketchFeatures } from "@/lib/sketch-feature";
-import { DrawnObject, DummyCover } from "./Objects";
+import { sketchFeatures,featureBooks,type SketchFeature } from "@/lib/sketch-feature";
+import { DrawnObject } from "./Objects";
+import { Cover } from "./Cover";
 import s from "./Sketch.module.css";
 
 export const pieces = sketchFeatures;
 
-export function Piece({index,onHover,onFocus,inlineBook=false}:{index:number;onHover?:(index:number|null)=>void;onFocus?:(index:number|null)=>void;inlineBook?:boolean}) {
-  const item=pieces[index];
+export function Piece({index,feature,onHover,onFocus,inlineBook=false}:{index:number;feature?:SketchFeature;onHover?:(index:number|null)=>void;onFocus?:(index:number|null)=>void;inlineBook?:boolean}) {
+  const item=feature??pieces[index];
   const visual=<><span className={s.pieceDrawing}><DrawnObject kind={item.kind}/></span><span className={s.pieceTitle}>{item.materialTitle}</span></>;
-  return <article className={s.piece} data-piece={index} onPointerEnter={event=>{if(event.pointerType!=="touch")onHover?.(index);}} onPointerLeave={()=>onHover?.(null)} onFocus={()=>onFocus?.(index)} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget))onFocus?.(null);}}><Link className={s.pieceButton} href={item.materialHref} aria-label={`Читать публикацию: ${item.materialTitle}`}>{visual}</Link>{inlineBook&&<Link className={s.inlineBook} href={item.bookHref} aria-label={`Книга в публикации: ${item.bookTitle}`}><DummyCover index={item.index}/><span>{item.bookTitle}</span></Link>}</article>;
+  return <article className={s.piece} data-piece={index} onPointerEnter={event=>{if(event.pointerType!=="touch")onHover?.(index);}} onPointerLeave={()=>onHover?.(null)} onFocus={()=>onFocus?.(index)} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget))onFocus?.(null);}}><Link className={s.pieceButton} href={item.materialHref} aria-label={`Читать публикацию: ${item.materialTitle}`}>{visual}</Link>{inlineBook&&featureBooks(item).map(book=><Link key={book.slug} className={s.inlineBook} href={book.href} aria-label={`Книга в публикации: ${book.title}`}><Cover book={book}/><span>{book.title}</span></Link>)}</article>;
 }
 
 export function SketchJournal(){

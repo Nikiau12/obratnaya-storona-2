@@ -111,12 +111,12 @@ export function HomeComposition({ features, books, quote, preview = false }: Pro
               );
             })}
           </div>
-          <div className={styles.archiveLink}><Link href="/materials">Медиа</Link></div>
+          <div className={styles.archiveLink}><Link href="/materials">Журнал</Link></div>
         </main>
 
         <aside className={styles.shelf} aria-label="Книжная полка">
           <div className={styles.shelfSticky}>
-            <Link className={styles.shelfHeading} href="/books">Книжный</Link>
+            <Link className={styles.shelfHeading} href="/books">Витрина</Link>
             <div className={styles.shelfBooks} data-active={Boolean(active)} aria-label={selected.length ? `Книги к материалу: ${active?.title}` : "В этом материале нет связанных книг"}>
               {shelfGroups.map((group) => <div key={group.id} className={styles.shelfGroup}
                 data-shelf-group={group.id} data-grouped={group.books.length > 1} data-many={group.books.length > 3}

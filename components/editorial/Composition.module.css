@@ -36,7 +36,7 @@
 .mediaEntry[data-position="4"] { grid-column:3/11; }
 .mediaEntry[data-position="4"] [data-material-card] { display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1fr); gap:55px; align-items:center; }
 .editorialPause { grid-column:2/9; margin:10px 0; max-width:590px; }
-.editorialPause blockquote { font:italic clamp(29px,3.2vw,45px)/1.3 Georgia,serif; margin:0; color:var(--accent); }
+.editorialPause blockquote { font:italic clamp(29px,3.2vw,45px)/1.3 var(--display); margin:0; color:var(--accent); }
 .editorialPause figcaption { font-size:12px; line-height:1.6; color:var(--muted); max-width:280px; margin-top:25px; }
 .bookControls { max-width:850px; margin:0 0 60px; }
 .bookOptions.bookOptions label { flex:0 1 220px; }

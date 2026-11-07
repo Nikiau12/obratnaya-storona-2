@@ -1,6 +1,11 @@
 import Link from "next/link";
 import s from "@/components/editorial/Editorial.module.css";
 const items = [
+  ["/preview/composition?variant=roomier", "Сравнение композиции главной"],
+  ["/preview/reading/cover-reviews", "Шесть макетов публикаций без текстов"],
+  ["/preview/relations", "Связи с несколькими книгами и без книги"],
+  ["/preview/covers", "Форматы обложек"],
+  ["/preview/media", "Аудио и видео"],
   ["/preview/typography", "Два варианта типографики", "Одна главная: книжный вариант с Literata и журнальный с Golos Text."],
   ["/preview/materials", "Исходные материалы", "Предыдущий архив с настоящими текстами; сохранён отдельно от ноябрьского эскиза."],
   ["/preview/catalog", "Исходный каталог", "Переданные ранее книги, их карточки и ссылки; сохранены отдельно от условной витрины."],

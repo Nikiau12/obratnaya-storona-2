@@ -1031,3 +1031,16 @@ body:has(.editorial-territory)>footer{display:none}
 a, button, a *, button *, u, ins { text-decoration:none!important; }
 a::before, a::after, button::before, button::after { text-decoration:none!important; }
 a:hover, button:hover { text-decoration:none!important; }
+
+/* Approved typography A: locally hosted Literata and Golos Text. */
+:root {
+  --sans:"Golos Text","Helvetica Neue",Arial,sans-serif;
+  --display:"Literata",Georgia,serif;
+  --reading:"Literata",Georgia,serif;
+  --home-heading-font:var(--display);
+  --home-heading-weight:400;
+  --home-heading-leading:1.16;
+  --home-brand-leading:1;
+  --home-brand-tracking:-.045em;
+}
+body { font-optical-sizing:auto; }

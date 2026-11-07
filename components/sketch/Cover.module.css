@@ -1,0 +1,2 @@
+.cover { display:block; width:100%; max-width:min(100%,calc(var(--cover-max-height,10000px)*var(--cover-ratio))); }
+.cover img { display:block; width:100%; height:auto; object-fit:contain; }
