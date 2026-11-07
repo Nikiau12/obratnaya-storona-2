@@ -29,8 +29,10 @@
     <link rel="apple-touch-icon" href="/card/apple-touch-icon.png" />
     <link rel="manifest" href="/card/site.webmanifest" />
     <title>Обратная сторона</title>
-    <script type="module" crossorigin src="/card/assets/index-DUJGvLTC.js"></script>
+    <script>try{document.documentElement.dataset.theme=localStorage.getItem('obratnaya-storona-theme')==='white'?'white':'black'}catch{document.documentElement.dataset.theme='black'}</script>
+    <script type="module" crossorigin src="/card/scene.js"></script>
     <link rel="stylesheet" crossorigin href="/card/assets/index-DRRo84mM.css">
+    <link rel="stylesheet" href="/card/embedded.css">
   </head>
   <body>
     <div id="app"></div>

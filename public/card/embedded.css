@@ -1,0 +1,17 @@
+/* Only the embedded scene follows the journal's colour setting. */
+html[data-theme="black"],html[data-theme="black"] body { background:#000; color:#f5f5f2; color-scheme:dark; }
+html[data-theme="black"] .shell { color:#f5f5f2; }
+html[data-theme="black"] .shell::after { background:none; }
+html[data-theme="black"] :is(.intro,.info-panel,.node-text) { color:#f5f5f2; text-shadow:0 0 7px #000; }
+html[data-theme="black"] :is(.lede,.info-copy,.info-copy em) { color:#ddd; }
+html[data-theme="black"] .node-label { color:#aaa; }
+html[data-theme="black"] :is(.node-label.is-active,.node-label.is-connected) { color:#f5f5f2; }
+html[data-theme="black"] .node-dot { background:#eee; }
+html[data-theme="black"] .node-label.is-upcoming .node-dot { background:#080808; border-color:#ddd; }
+html[data-theme="black"] .node-status { color:#aaa; }
+html[data-theme="black"] .node-lines line { stroke:#ffffff33; }
+html[data-theme="black"] .node-lines line.is-lit { stroke:#ffffff75; }
+html[data-theme="black"] .constellation-dot { fill:#ffffff45; }
+html[data-theme="black"] .node-label:focus-visible { outline-color:#f5f5f2; }
+a,button,a *,button * { text-decoration:none!important; }
+@media(prefers-reduced-motion:reduce){* { animation:none!important; transition:none!important; }}

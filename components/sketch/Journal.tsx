@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { sketchFeature } from "@/lib/sketch-feature";
-import { DrawnObject, type ObjectKind } from "./Objects";
+import { DrawnObject, DummyCover, type ObjectKind } from "./Objects";
 import { SketchDialog } from "./Dialog";
 import s from "./Sketch.module.css";
 
@@ -15,10 +15,10 @@ export const pieces: {kind:ObjectKind;name:string;title:string}[] = [
   {kind:"flower",name:"Цветок",title:"И ещё один текст"},
 ];
 
-export function Piece({index,onOpen}:{index:number;onOpen:(index:number)=>void}) {
+export function Piece({index,onOpen,onHover,onFocus,inlineBook=false}:{index:number;onOpen:(index:number)=>void;onHover?:(index:number|null)=>void;onFocus?:(index:number|null)=>void;inlineBook?:boolean}) {
   const item=pieces[index];
   const visual=<><span className={s.pieceDrawing}><DrawnObject kind={item.kind}/></span><span className={s.pieceTitle}>{item.title}</span></>;
-  return <article className={s.piece} data-piece={index}>{index===0?<Link className={s.pieceButton} href={sketchFeature.materialHref} aria-label={`Читать публикацию: ${item.title}`}>{visual}</Link>:<button className={s.pieceButton} onClick={()=>onOpen(index)} aria-label={`Открыть эскиз: ${item.name}`}>{visual}</button>}</article>;
+  return <article className={s.piece} data-piece={index} onPointerEnter={event=>{if(event.pointerType!=="touch")onHover?.(index);}} onPointerLeave={()=>onHover?.(null)} onFocus={()=>onFocus?.(index)} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget))onFocus?.(null);}}>{index===0?<Link className={s.pieceButton} href={sketchFeature.materialHref} aria-label={`Читать публикацию: ${item.title}`}>{visual}</Link>:<button className={s.pieceButton} onClick={()=>onOpen(index)} aria-label={`Открыть эскиз: ${item.name}`}>{visual}</button>}{inlineBook&&index===0&&<Link className={s.inlineBook} href={sketchFeature.bookHref} aria-label={`Книга в публикации: ${sketchFeature.bookTitle}`}><DummyCover index={0}/><span>{sketchFeature.bookTitle}</span></Link>}</article>;
 }
 
 export function PieceDialog({index,close}:{index:number;close:()=>void}) {

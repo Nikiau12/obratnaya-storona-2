@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 import { SiteThemeProvider } from "./SiteTheme";
+import { PortalRestoration } from "./sketch/Portal";
 import s from "./editorial/Editorial.module.css";
 
 export function SiteChrome({ children }: { children: ReactNode }) {
@@ -11,5 +12,5 @@ export function SiteChrome({ children }: { children: ReactNode }) {
   const content = pathname === "/" || pathname === "/preview/home" || pathname === "/preview/typography"
     ? children
     : <div className={s.shell}><SiteHeader /><div id="page-content" tabIndex={-1}>{children}</div><SiteFooter /></div>;
-  return <SiteThemeProvider>{content}</SiteThemeProvider>;
+  return <SiteThemeProvider><PortalRestoration />{content}</SiteThemeProvider>;
 }
