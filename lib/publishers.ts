@@ -2,6 +2,8 @@ import { books } from "./content";
 
 export type Publisher = {slug:string;name:string;description?:string};
 export const publishers:Publisher[] = [
+  {slug:"teller-books",name:"Teller Books"},
+  {slug:"chlorine-city",name:"Издательство города Хлор"},
   { slug: "individuum", name: "Individuum" },
   { slug: "jaromir-hladik-press", name: "Jaromir Hladik press" },
   { slug: "nosorog", name: "Носорог", description:"Независимое издательство, выросшее из одноимённого литературного журнала." },

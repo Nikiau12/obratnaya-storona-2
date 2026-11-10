@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {FeatureVisual} from "./Journal";
 import { sketchFeature, sketchBooks, bookFeatures, featureBooks, type SketchFeature, type SketchBook } from "@/lib/sketch-feature";
 import { DrawnObject } from "./Objects";
 import { Cover } from "./Cover";
@@ -18,14 +19,14 @@ export function SketchPublicationPage({feature=sketchFeature}:{feature?:SketchFe
     <PageNavigation />
     <article>
       <header className={s.articleHero}>
-        <div className={s.heroDrawing}>{feature.format==="book-week"&&books[0]?<Link href={books[0].href} aria-label={`Открыть книгу: ${books[0].title}`}><Cover book={books[0]} priority/></Link>:<DrawnObject kind={feature.kind} />}</div>
+        <div className={s.heroDrawing}>{feature.format==="book-week"&&books[0]?<Link href={books[0].href} aria-label={`Открыть книгу: ${books[0].title}`}><Cover book={books[0]} priority/></Link>:<FeatureVisual feature={feature}/>}</div>
         <div className={s.articleTitle}>
           <h1>{feature.materialTitle}</h1>
         </div>
       </header>
       <div className={s.readingLayout} data-has-books={showAside}>
         <div className={s.reading}>
-          <PublicationBlocks feature={feature}/>
+          {!feature.isClientDraft&&<PublicationBlocks feature={feature}/>}
         </div>
         {showAside&&<aside className={s.relatedBook} aria-label="Книга в публикации">
           <p className={s.eyebrow}>Книга в публикации</p>
@@ -56,7 +57,7 @@ export function SketchBookPage({book=sketchBooks[0]}:{book?:SketchBook}) {
     {related.length>0&&<section className={s.bookJournal} aria-labelledby="book-journal-title">
       <h2 id="book-journal-title">Об этой книге<br />в журнале</h2>
       <div>{related.map(feature=><Link key={feature.slug} href={feature.materialHref} className={s.relatedArticle}>
-        <div><DrawnObject kind={feature.kind} /></div>
+        <div><FeatureVisual feature={feature}/></div>
         <span className={s.relatedArticleTitle}>{feature.materialTitle}</span>
         <span className={s.textLink}>Читать публикацию</span>
       </Link>)}</div>

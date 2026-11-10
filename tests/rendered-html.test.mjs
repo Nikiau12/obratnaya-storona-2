@@ -20,7 +20,7 @@ test("renders the editorial homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /Обратная сторона/);
-  assert.match(html, /Название публикации/);
+  assert.match(html, /Переводчик Петр Епифанов/);
   assert.match(html, /Витрина книг/);
   assert.match(html, /Открыть заметку у глаза/);
   assert.match(html, /constellation/);
@@ -203,75 +203,32 @@ test("visual and object layouts preserve image dimensions without draft captions
   assert.doesNotMatch(object, /Купить|Цена|В наличии/);
 });
 
-// Follow the public entry points, then check both directions of the new pair.
-test("the sketch publication and book form a navigable pair without invented sales details", async () => {
-  const paths = ["/", "/materials", "/books", "/material/sketch-01", "/books/sketch-01"];
-  const pages = new Map();
-  for (const path of paths) {
-    const response = await render(path);
-    assert.equal(response.status, 200, path);
-    pages.set(path, await response.text());
+test("client headlines and independent shelf have working detail routes without invented relations",async()=>{
+ const home=await(await render("/")).text(),journal=await(await render("/materials")).text(),store=await(await render("/books")).text();
+ assert.equal((home.match(/<article\b/g)||[]).length,5);
+ assert.equal((home.match(/data-book="sketch-/g)||[]).length,6);
+ assert.doesNotMatch(home,/Название публикации|Название книги|Место для анонса/);
+ for(let i=1;i<=6;i++){
+  const slug=`sketch-${String(i).padStart(2,"0")}`;
+  for(const html of [home,store])assert.ok(html.includes(`href="/books/${slug}"`));
+  const book=await render(`/books/${slug}`);assert.equal(book.status,200);
+  const bookHtml=await book.text();assert.doesNotMatch(bookHtml,/Купить книгу|Об этой книге|href="\/material\/sketch-/);
+  if(i<=5){
+   for(const html of [home,journal])assert.ok(html.includes(`href="/material/${slug}"`));
+   const article=await render(`/material/${slug}`);assert.equal(article.status,200);
+   assert.doesNotMatch(await article.text(),/href="\/books\/sketch-|Место для текста/);
   }
-  for (const path of ["/", "/materials", "/books/sketch-01"]) {
-    assert.match(pages.get(path), /href="\/material\/sketch-01"/, path);
-  }
-  for (const path of ["/", "/books", "/material/sketch-01"]) {
-    assert.match(pages.get(path), /href="\/books\/sketch-01"/, path);
-  }
-  for (const path of ["/material/sketch-01", "/books/sketch-01"]) {
-    assert.match(pages.get(path), /noindex/);
-    assert.match(pages.get(path), /Место для текста/);
-    assert.doesNotMatch(pages.get(path), /Купить книгу|Купить у издательства|<dt>(Цена|Наличие)<\/dt>/);
-  }
-  assert.doesNotMatch(pages.get("/books/sketch-01"), /Ссылка на покупку|Будет добавлена/);
+ }
+ for(const path of ["/material/sketch-06","/books/sketch-07"])assert.equal((await render(path)).status,404);
 });
 
-test("all six sketch pairs connect home, journal, store and both detail pages", async () => {
-  const home=await (await render("/")).text();
-  const journal=await (await render("/materials")).text();
-  const store=await (await render("/books")).text();
-  for (let i=1;i<=6;i++) {
-    const slug=`sketch-${String(i).padStart(2,"0")}`;
-    for(const html of [home,journal]) assert.ok(html.includes(`href="/material/${slug}"`),slug);
-    for(const html of [home,store]) assert.ok(html.includes(`href="/books/${slug}"`),slug);
-    const publication=await render(`/material/${slug}`),book=await render(`/books/${slug}`);
-    assert.equal(publication.status,200);assert.equal(book.status,200);
-    const articleHtml=await publication.text(),bookHtml=await book.text();
-    assert.ok(articleHtml.includes(`href="/books/${slug}"`));
-    assert.ok(bookHtml.includes(`href="/material/${slug}"`));
-    for(const html of [articleHtml,bookHtml]) {
-      assert.match(html,/noindex/);
-      assert.doesNotMatch(html,/Купить книгу|<dt>(Цена|Наличие)<\/dt>|Место для анонса|Ссылка на покупку/);
-    }
-    assert.match(articleHtml,new RegExp(`data-variant="${i-1}"`));
-    assert.match(bookHtml,new RegExp(`data-variant="${i-1}"`));
-  }
-  for(const path of ["/material/sketch-07","/books/sketch-13"]) assert.equal((await render(path)).status,404);
-});
-
-test("every showcase book has a consistent detail route, with no invented publication for unlinked books",async()=>{
-  const store=await(await render("/books")).text();
-  for(let i=1;i<=12;i++){
-    const slug=`sketch-${String(i).padStart(2,"0")}`;
-    assert.ok(store.includes(`href="/books/${slug}"`));
-    const response=await render(`/books/${slug}`);assert.equal(response.status,200);
-    const html=await response.text();
-    assert.doesNotMatch(html,/Купить книгу|<dt>(Цена|Наличие)<\/dt>/);
-    if(i>6)assert.doesNotMatch(html,/Об этой книге|href="\/material\/sketch-/);
-  }
-  const about=await(await render("/about")).text();
-  assert.match(about,/Журнал и витрина/);assert.doesNotMatch(about,/Медиа и книжный|Все макеты/);
-});
-
-test("current content is searchable and publisher links retain catalog filtering",async()=>{
-  for(const [query,href] of [["облаком","/material/sketch-03"],["книги 12","/books/sketch-12"]]){
-    const html=await(await render(`/search?q=${encodeURIComponent(query)}`)).text();
-    assert.ok(html.includes(`href="${href}"`));
-  }
-  const catalog=await(await render("/books?publisher=nosorog&sort=reverse")).text();
-  assert.ok(catalog.indexOf('href="/books/sketch-08"')<catalog.indexOf('href="/books/sketch-03"'));
-  assert.doesNotMatch(catalog,/href="\/books\/sketch-01"/);
-  assert.equal((catalog.match(/role="tooltip"/g)||[]).length,1);
+test("client content is searchable and publisher filtering selects the supplied books",async()=>{
+ for(const [query,href] of [["Беньямина","/material/sketch-02"],["Инохоса","/books/sketch-02"]]){
+  const html=await(await render(`/search?q=${encodeURIComponent(query)}`)).text();assert.ok(html.includes(`href="${href}"`));
+ }
+ const catalog=await(await render("/books?publisher=chlorine-city")).text();
+ for(const slug of ["02","05"])assert.ok(catalog.includes(`href="/books/sketch-${slug}"`));
+ assert.doesNotMatch(catalog,/href="\/books\/sketch-01"/);
 });
 
 test("reading layouts support multiple related books and no related book without filler copy",async()=>{

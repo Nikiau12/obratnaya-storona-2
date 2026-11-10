@@ -11,7 +11,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
   return (
     <header className={`${styles.header} ${home ? styles.home : ""}`}>
       <Link href={home ? "#main-content" : "#page-content"} className={styles.skip}>К содержанию</Link>
-      <Link className={styles.brand} href="/" aria-label="Обратная сторона — на главную">Обратная<br />сторона</Link>
+      <div className={styles.brandGroup}><Link className={styles.brand} href="/" aria-label="Обратная сторона — на главную">Обратная<br />сторона</Link>{home&&<p className={styles.tagline}>Констелляция независимых книжных практик</p>}</div>
       <nav className={styles.nav} aria-label="Основная навигация">
         {links.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
       </nav>

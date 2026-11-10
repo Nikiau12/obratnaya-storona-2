@@ -195,3 +195,37 @@
   .pieceTitle { font-size:26px; }
   .sound,.quote { width:30%; padding:0; align-self:flex-end; }
 }
+
+/* Client's static November composition. The shelf belongs to page flow. */
+.editorialImage { display:block; width:100%; height:auto; object-fit:contain; }
+[data-static="true"] .pieceDrawing,[data-static="true"] .drawing,[data-static="true"] .blackHole>span { animation:none!important; transition:none!important; }
+.root[data-static="true"] .homeFlow { row-gap:95px; }
+.root[data-static="true"] .homeFlow [data-piece="0"] { grid-column:1/9; margin:0; }
+.root[data-static="true"] .homeFlow [data-piece="0"] .pieceDrawing { max-width:560px; margin-bottom:15px; }
+.root[data-static="true"] .homeFlow [data-piece="1"] { grid-column:7/13; margin-top:0; }
+.root[data-static="true"] .homeFlow [data-piece="2"] { grid-column:1/6; margin-top:-70px; }
+.root[data-static="true"] .homeFlow [data-piece="3"] { grid-column:7/13; margin-top:80px; }
+.root[data-static="true"] .homeFlow [data-piece="4"] { grid-column:1/8; margin-top:0; }
+.root[data-static="true"] .homeFlow [data-piece="2"] .pieceDrawing { max-width:200px; }
+.root[data-static="true"] .sound { grid-column:2/5; grid-row:4; padding-top:0; }
+.root[data-static="true"] .quote { grid-column:9/13;grid-row:5; }
+.root[data-static="true"] .shelfBooks { max-height:none; overflow:visible; }
+.root[data-static="true"] .shelfBook { opacity:1; width:145px; transition:none; }
+.page[data-static="true"] .journalFlow [data-piece="0"] { grid-column:1/8; }
+.page[data-static="true"] .journalFlow [data-piece="1"] { grid-column:9/13; margin-top:100px; }
+.page[data-static="true"] .journalFlow [data-piece="2"] { grid-column:2/6; grid-row:2; }
+.page[data-static="true"] .journalFlow [data-piece="3"] { grid-column:8/13; grid-row:2; margin-top:100px; }
+.page[data-static="true"] .journalFlow [data-piece="4"] { grid-column:1/8; grid-row:3; }
+.page[data-static="true"] .journalFlow [data-piece="0"] .pieceDrawing { max-width:560px; }
+.page[data-static="true"] .journalFlow [data-piece="2"] .pieceDrawing { max-width:200px; }
+@media(max-width:760px){
+ .root[data-static="true"] .homeFlow,.page[data-static="true"] .journalFlow { display:flex;flex-direction:column;gap:65px; }
+ .root[data-static="true"] .homeFlow [data-piece],.page[data-static="true"] .journalFlow [data-piece] { width:88%;margin:0; }
+ .root[data-static="true"] .homeFlow [data-piece="0"],.page[data-static="true"] .journalFlow [data-piece="0"] { width:100%; }
+ .root[data-static="true"] .homeFlow [data-piece="1"],.root[data-static="true"] .homeFlow [data-piece="3"],.page[data-static="true"] .journalFlow [data-piece="1"],.page[data-static="true"] .journalFlow [data-piece="3"] { align-self:flex-end; }
+ .root[data-static="true"] .shelf { width:100%;margin-top:45px; }
+ .root[data-static="true"] .shelfTop { display:block; }
+ .root[data-static="true"] .shelfBooks { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:35px 25px;padding:0;align-items:start; }
+ .root[data-static="true"] .shelfBook { width:min(100%,145px);justify-self:center;text-align:center; }
+ .root[data-static="true"] .sound,.root[data-static="true"] .quote { width:100px;align-self:flex-end;padding:0; }
+}
