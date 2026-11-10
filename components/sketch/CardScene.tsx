@@ -23,8 +23,7 @@ export function CardHole() {
 }
 
 export function RoomLines() {
-  return <svg className={s.roomLines} viewBox="0 0 1000 240" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-    <path className={s.roomWide} d="M190 0V104M0 168L190 104L1000 228" fill="none" stroke="currentColor" vectorEffect="non-scaling-stroke"/>
-    <path className={s.roomNarrow} d="M380 0V104M0 168L380 104L1000 228" fill="none" stroke="currentColor" vectorEffect="non-scaling-stroke"/>
+  return <svg className={s.roomLines} viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+    <path d="M150 0V104M0 140L150 104L320 145" fill="none" stroke="currentColor" vectorEffect="non-scaling-stroke"/>
   </svg>;
 }

@@ -21,7 +21,7 @@ export function SketchHome({composition="current",features=sketchFeatures}:{comp
   const selected=features[active]?.bookSlugs??[];
   const piece=(index:number)=><Piece index={index} feature={features[index]} onHover={setHovered} onFocus={setFocused} inlineBook/>;
   return <div className={s.root} data-composition={composition} data-static={isClient}><SiteHeader home/><main id="main-content" tabIndex={-1} className={s.home}>
-    <div className={`${s.editorial} ${isClient?s.cardEditorial:""}`}>
+    <div className={s.editorial}>
       <div className={`${s.opening} ${isClient?s.cardOpening:""}`}>{isClient&&<RoomLines/>}<PortalLink className={isClient?s.cardPortal:s.portal} label="Чёрная дыра: открыть визитку Обратной стороны" animate={!isClient}>{isClient?<CardHole/>:<BlackHole/>}</PortalLink><h1 className="sr-only">Журнал</h1><div className={s.eye}><Note label="Открыть заметку у глаза" content={<div className={s.textLines} aria-hidden="true"><i/><i/><i/></div>}><DrawnObject kind="eye"/></Note></div></div>
       <div className={s.homeFlow} ref={flow}>
         {piece(0)}{piece(1)}{piece(2)}
