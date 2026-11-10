@@ -18,3 +18,9 @@
 .file { display:block; font-size:13px; margin-bottom:35px; }
 .file input { display:block; width:100%; font:12px var(--sans); margin-top:15px; }
 @media(max-width:700px){.labGrid{grid-template-columns:1fr;gap:60px}.empty svg{height:65px}}
+
+/* A rare invitation to play; the film itself never autoplays. */
+.player[data-playing="false"] video { animation:mediaNudge 13s ease-in-out infinite;transform-origin:center; }
+.player:is(:hover,:focus-within) video { animation-play-state:paused; }
+@keyframes mediaNudge { 0%,92%,100% { transform:rotate(0); } 95% { transform:rotate(-.8deg); } 98% { transform:rotate(.4deg); } }
+@media(prefers-reduced-motion:reduce) { .player video { animation:none!important; } }
