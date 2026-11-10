@@ -11,3 +11,7 @@ The 1200×825 design viewport scales into the existing homepage block. Only the 
 The adapter supports pause/resume, reduced-motion still frame, offscreen/tab suspension, responsive pixel density and React cleanup. Existing eye and video animations remain.
 
 This supersedes the earlier CSS motion description in static-card-scene-2026-11-10.md. GitHub only; no deployment through Sites.
+
+## Eyelid refinement
+
+The eye no longer scales vertically. Upper and lower lid paths close fully over a fixed iris using an animated clip path; lashes follow the upper lid. Closing takes about 108ms, closed hold 36ms, reopening 192ms. Five blinks have staggered gaps within a 24-second cycle. The shared pause control and reduced-motion preference still apply.

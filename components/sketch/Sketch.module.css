@@ -120,8 +120,6 @@
 .piece[data-piece="2"] { --reply-tilt:0deg; }
 .piece[data-piece="4"] { --reply-tilt:-1deg; }
 @keyframes drawingReply { 45% { transform:translateY(-2px) rotate(var(--reply-tilt,-2deg)); } }
-.eye .objectButton:is(:hover,:focus-visible) .drawing { animation:eyeBlink 360ms ease-in-out; transform-origin:center; }
-@keyframes eyeBlink { 0%,100% { transform:rotate(-12deg) scaleY(1); } 48% { transform:rotate(-12deg) scaleY(.12); } }
 .portal:is(:hover,:focus-visible) .blackHole>span { animation:holeReply 420ms ease-out; }
 @keyframes holeReply { 50% { transform:scale(1.04,.88); } }
 .portal[data-leaving="true"] .blackHole>span { animation:none; }
@@ -260,15 +258,25 @@
 }
 
 /* Katya's ambient motion: the reading layout stays still. */
-.cardOpening .eyeLid { transform-origin:120px 105px;animation:quietBlink 8.7s ease-in-out infinite; }
-@keyframes quietBlink { 0%,91%,95%,100% { transform:scaleY(1); } 93% { transform:scaleY(.07); } }
 .motionToggle { position:absolute;bottom:14px;left:0;background:none;border:0;padding:10px 0;color:var(--ink);font:11px var(--sans);cursor:pointer;min-height:44px; }
 .engraving img { transition:transform .35s ease; }
 .engraving:is(:hover,:focus-visible) img { transform:rotate(-1.5deg) translateY(-2px); }
 .root[data-motion="paused"] *, .root[data-motion="paused"] *::before,.root[data-motion="paused"] *::after { animation-play-state:paused!important; }
 .root[data-motion="paused"] .engraving img { transform:none;transition:none; }
 @media(prefers-reduced-motion:reduce) {
- .cardOpening .eyeLid { animation:none!important; }
  .engraving img { transform:none!important;transition:none!important; }
  .motionToggle { display:none; }
 }
+
+/* Eyelids close over a stationary iris; the outline and lashes keep their width. */
+.eyeUpper { --eye-open:path("M18 117C65 37 161 38 224 102");--eye-closed:path("M18 117C65 132 161 125 224 102"); }
+.eyeLower { --eye-open:path("M18 117C80 172 153 162 224 102");--eye-closed:path("M18 117C65 132 161 125 224 102"); }
+.eyeAperture { --eye-open:path("M18 117C65 37 161 38 224 102C153 162 80 172 18 117Z");--eye-closed:path("M18 117C65 132 161 125 224 102C161 125 65 132 18 117Z"); }
+.eyeLashes { --eye-open:path("M32 98L19 78M49 80L39 56M73 66L69 41M101 59L102 30M132 58L139 32M160 65L173 41M190 81L206 61");--eye-closed:path("M32 120L19 139M49 123L39 146M73 124L69 149M101 123L102 152M132 120L139 146M160 115L173 139M190 109L206 129"); }
+.cardOpening :is(.eyeUpper,.eyeLower,.eyeAperture,.eyeLashes) { animation:naturalBlink 24s linear infinite; }
+@keyframes naturalBlink {
+  0%,16%,17.4%,32%,33.4%,54%,55.4%,72%,73.4%,96%,97.4%,100% { d:var(--eye-open);animation-timing-function:cubic-bezier(.4,0,1,1); }
+  16.45%,32.45%,54.45%,72.45%,96.45% { d:var(--eye-closed); }
+  16.6%,32.6%,54.6%,72.6%,96.6% { d:var(--eye-closed);animation-timing-function:cubic-bezier(0,0,.3,1); }
+}
+@media(prefers-reduced-motion:reduce) { .cardOpening :is(.eyeUpper,.eyeLower,.eyeAperture,.eyeLashes) { animation:none!important; } }
