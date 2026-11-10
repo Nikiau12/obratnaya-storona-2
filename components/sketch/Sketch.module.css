@@ -258,14 +258,10 @@
 }
 
 /* Katya's ambient motion: the reading layout stays still. */
-.motionToggle { position:absolute;bottom:14px;left:0;background:none;border:0;padding:10px 0;color:var(--ink);font:11px var(--sans);cursor:pointer;min-height:44px; }
 .engraving img { transition:transform .35s ease; }
 .engraving:is(:hover,:focus-visible) img { transform:rotate(-1.5deg) translateY(-2px); }
-.root[data-motion="paused"] *, .root[data-motion="paused"] *::before,.root[data-motion="paused"] *::after { animation-play-state:paused!important; }
-.root[data-motion="paused"] .engraving img { transform:none;transition:none; }
 @media(prefers-reduced-motion:reduce) {
  .engraving img { transform:none!important;transition:none!important; }
- .motionToggle { display:none; }
 }
 
 /* Eyelids close over a stationary iris; the outline and lashes keep their width. */

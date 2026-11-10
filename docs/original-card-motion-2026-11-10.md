@@ -15,3 +15,5 @@ This supersedes the earlier CSS motion description in static-card-scene-2026-11-
 ## Eyelid refinement
 
 The eye no longer scales vertically. Upper and lower lid paths close fully over a fixed iris using an animated clip path; lashes follow the upper lid. Closing takes about 108ms, closed hold 36ms, reopening 192ms. Five blinks have staggered gaps within a 24-second cycle. The shared pause control and reduced-motion preference still apply.
+
+The visible pause/resume control was subsequently removed at the user's explicit request. Reduced-motion preference and background/offscreen suspension remain active.
