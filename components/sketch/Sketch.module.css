@@ -260,16 +260,6 @@
 }
 
 /* Katya's ambient motion: the reading layout stays still. */
-.fallingObject { transform-box:fill-box;transform-origin:center;animation:fallIntoHole 18s ease-in infinite;animation-delay:var(--fall-delay); }
-@keyframes fallIntoHole {
-  0%,12% { opacity:0;transform:translate(0,-16px) rotate(-5deg) scale(1); }
-  20% { opacity:1;transform:translate(0,0) rotate(0) scale(1); }
-  48% { opacity:1;transform:translate(calc(var(--fall-x) * .35),calc(var(--fall-y) * .22)) rotate(calc(var(--fall-turn) * .3)) scale(.9); }
-  66% { opacity:.95;transform:translate(var(--fall-x),var(--fall-y)) rotate(var(--fall-turn)) scale(.12); }
-  70%,100% { opacity:0;transform:translate(var(--fall-x),var(--fall-y)) rotate(var(--fall-turn)) scale(0); }
-}
-.holeRings { transform-origin:150px 166px;animation:ringBreath 9s ease-in-out infinite; }
-@keyframes ringBreath { 50% { transform:scale(1.035,.98);opacity:.75; } }
 .cardOpening .eyeLid { transform-origin:120px 105px;animation:quietBlink 8.7s ease-in-out infinite; }
 @keyframes quietBlink { 0%,91%,95%,100% { transform:scaleY(1); } 93% { transform:scaleY(.07); } }
 .motionToggle { position:absolute;bottom:14px;left:0;background:none;border:0;padding:10px 0;color:var(--ink);font:11px var(--sans);cursor:pointer;min-height:44px; }
@@ -278,7 +268,7 @@
 .root[data-motion="paused"] *, .root[data-motion="paused"] *::before,.root[data-motion="paused"] *::after { animation-play-state:paused!important; }
 .root[data-motion="paused"] .engraving img { transform:none;transition:none; }
 @media(prefers-reduced-motion:reduce) {
- .fallingObject,.holeRings,.cardOpening .eyeLid { animation:none!important; }
+ .cardOpening .eyeLid { animation:none!important; }
  .engraving img { transform:none!important;transition:none!important; }
  .motionToggle { display:none; }
 }
