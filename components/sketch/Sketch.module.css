@@ -229,3 +229,19 @@
  .root[data-static="true"] .shelfBook { width:min(100%,145px);justify-self:center;text-align:center; }
  .root[data-static="true"] .sound,.root[data-static="true"] .quote { width:100px;align-self:flex-end;padding:0; }
 }
+
+/* Quotations and found objects are alternate entrances to the catalog. */
+.clientQuote { display:block; font:italic clamp(27px,2.8vw,42px)/1.15 Georgia,serif; text-align:left; }
+.root[data-static="true"] .quote { grid-column:8/13; grid-row:4; width:100%; padding:35px 0 0; }
+.quote .popover { top:100%;right:0;max-width:100%;width:270px;font-size:14px; }
+.quote .popover a { display:block;padding:4px;line-height:1.5; }
+.root[data-static="true"] .sound { grid-column:1/6;grid-row:4;width:100%; }
+.mediaBookLink { display:block;width:max-content;max-width:100%;margin:12px auto 0;font:16px Georgia,serif; }
+.engraving { display:block;grid-column:9/13;grid-row:5;max-width:230px;justify-self:end; }
+.engraving img { display:block;width:100%;height:auto; }
+.root[data-static="true"] .homeFlow [data-piece="4"] { grid-row:5;align-self:center; }
+@media(max-width:760px){
+ .root[data-static="true"] .sound { width:90%;align-self:flex-start; }
+ .root[data-static="true"] .quote { width:80%;align-self:flex-end;padding:0; }
+ .engraving { width:58%;align-self:flex-end; }
+}

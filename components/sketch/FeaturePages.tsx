@@ -46,10 +46,10 @@ export function SketchBookPage({book=sketchBooks[0]}:{book?:SketchBook}) {
       <div className={s.bookCover}><Cover book={book} priority/></div>
       <div className={s.bookInfo}>
         <h1 id="book-title">{book.title}</h1>
-        <p className={s.author}>{book.author}</p>
+        {book.author&&<p className={s.author}>{book.author}</p>}
         <TextSpace label="Описание книги" lines={4} />
         <dl className={s.bookDetails}>
-          <div><dt>Издательство</dt><dd>{book.publisher.name}</dd></div><div><dt>Год издания</dt><dd>—</dd></div><div><dt>Страницы</dt><dd>—</dd></div>
+          <div><dt>Издательство</dt><dd>{book.publisher.name}</dd></div><div><dt>Год издания</dt><dd>{book.year??"—"}</dd></div><div><dt>Страницы</dt><dd>{book.pages??"—"}</dd></div>
         </dl>
         {book.purchaseUrl ? <div className={s.purchase}><a className={s.textLink} href={book.purchaseUrl} target="_blank" rel="noreferrer">Купить книгу</a></div> : null}
       </div>

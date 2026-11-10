@@ -1,3 +1,3 @@
-export type EditorialMedia = {kind:"audio"|"video";src:string;poster?:string;label?:string};
-// Set only when an editorial recording is provided. Never synthesize content.
-export const homeMedia:EditorialMedia|null=null;
+export type EditorialMedia = {kind:"audio"|"video";src:string;poster?:string;label?:string;hasAudio?:boolean};
+// Supplied by Katya: https://t.me/nosorogmagazine/3108. This clip has no audio track.
+export const homeMedia:EditorialMedia={kind:"video",src:"/katya/iguana-film.mp4",poster:"/katya/iguana-film-poster.jpg",label:"Игуана — видео из журнала Носорог",hasAudio:false};

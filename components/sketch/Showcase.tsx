@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { sketchBooks } from "@/lib/sketch-feature";
+import { catalogBooks as sketchBooks } from "@/lib/sketch-feature";
 import { publishers } from "@/lib/publishers";
 import { Cover } from "./Cover";
 import { PublisherList } from "./PublisherList";

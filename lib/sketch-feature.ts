@@ -13,8 +13,13 @@ const selection=[
  {title:"Зависимость, отвлечение, скука: эмоциональные среды цифровой повседневности",author:"Сусанна Паасонен",publisher:publisher("teller-books"),image:{src:"/katya/cover-5.png",width:674,height:1038,sourceWidth:1680,sourceHeight:1680,viewport:[500,331,674,1038]}},
 ];
 export const sketchBooks=selection.map((book,index)=>({...book,index,slug:`sketch-${String(index+1).padStart(2,"0")}`,href:`/books/sketch-${String(index+1).padStart(2,"0")}`,image:book.image as SketchImage,purchaseUrl:null as string|null}));
-export type SketchBook = (typeof sketchBooks)[number];
-export function getSketchBook(slug:string) { return sketchBooks.find(book=>book.slug===slug); }
+export type SketchBook = (typeof sketchBooks)[number] & {year?:string;pages?:number};
+// Items reached through quotations and media belong to the catalog, not the six-book shelf.
+export const catalogBooks:SketchBook[]=[...sketchBooks,
+ {index:6,slug:"nosorog-19",href:"/books/nosorog-19",title:"Носорог №19",author:"",publisher:publisher("nosorog"),year:"2024",pages:208,purchaseUrl:null,image:{src:"/katya/nosorog-19.png",width:366,height:512,sourceWidth:720,sourceHeight:720,viewport:[177,104,366,512]}},
+ {index:7,slug:"iguana",href:"/books/iguana",title:"Игуана",author:"Анна-Мария Ортезе",publisher:publisher("nosorog"),purchaseUrl:null,image:{src:"/katya/iguana.png",width:752,height:1038,sourceWidth:1680,sourceHeight:1680,viewport:[461,331,752,1038]}},
+];
+export function getSketchBook(slug:string) { return catalogBooks.find(book=>book.slug===slug); }
 
 const sketches = [
   {kind:"spider",name:"Паучок",materialTitle:"Название публикации"},

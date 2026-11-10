@@ -7,7 +7,7 @@ import { MaterialCard } from "@/components/MaterialCard";
 import { books,getBook,materials } from "@/lib/content";
 import { publisherHref } from "@/lib/publishers";
 import s from "@/components/editorial/Editorial.module.css";
-import { getSketchBook, sketchBooks } from "@/lib/sketch-feature";
+import { getSketchBook, catalogBooks as sketchBooks } from "@/lib/sketch-feature";
 import { SketchBookPage } from "@/components/sketch/FeaturePages";
 export function generateStaticParams(){return [...books.map(b=>({slug:b.slug})),...sketchBooks.slice(1).map(b=>({slug:b.slug}))];}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const slug=(await params).slug;const sketch=getSketchBook(slug);if(sketch)return {title:`${sketch.title} — Обратная сторона`,robots:{index:false,follow:true}};const b=getBook(slug);return b?{title:`${b.title} — Обратная сторона`,description:b.description||undefined}:{};}

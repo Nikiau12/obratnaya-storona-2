@@ -1,6 +1,6 @@
 import { materials, books, authors } from "./content";
 import { publishers } from "./publishers";
-import { sketchFeatures, sketchBooks } from "./sketch-feature";
+import { sketchFeatures, catalogBooks as sketchBooks } from "./sketch-feature";
 
 export type SearchEntry = {type:string;title:string;subtitle:string;href:string;search:string};
 // Current journal and showcase first; earlier editorial sources remain findable.

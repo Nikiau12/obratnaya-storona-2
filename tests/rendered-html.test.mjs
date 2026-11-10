@@ -248,9 +248,28 @@ test("reading layouts support multiple related books and no related book without
 
 test("comparison, cover proportions and unconfigured media remain isolated from editorial content",async()=>{
   const home=await(await render("/")).text();assert.match(home,/data-composition="current"/);
-  assert.doesNotMatch(home,/<audio|<video|Послушать|Загрузка/);
+  assert.doesNotMatch(home,/<audio|Послушать|autoPlay|autoplay/);
+  assert.match(home,/<video/);
   const comparison=await(await render("/preview/composition?variant=roomier")).text();assert.match(comparison,/data-composition="roomier"/);assert.match(comparison,/noindex/);
   const covers=await(await render("/preview/covers")).text();
   for(const [w,h] of [[500,900],[720,720],[1000,600],[400,1200]])assert.ok(covers.includes(`width="${w}" height="${h}"`));
   const media=await(await render("/preview/media")).text();assert.match(media,/accept="audio\/\*"/);assert.match(media,/accept="video\/\*"/);assert.doesNotMatch(media,/<audio|<video|Послушать|Смотреть<\/button>/);
+});
+
+
+test("quote and supplied video lead to real catalog entries without changing the six-book shelf",async()=>{
+ const home=await(await render("/")).text();
+ assert.match(home,/Мы уже завели наши часы/);
+ assert.match(home,/Икозамерон. Джакомо Казанова, «Носорог» №19/);
+ assert.match(home,/href="\/books\/nosorog-19"/);
+ assert.match(home,/href="\/books\/iguana"/);
+ assert.match(home,/iguana-film.mp4/);
+ assert.doesNotMatch(home,/autoplay|autoPlay|Включить звук|Без звука/);
+ assert.equal((home.match(/data-book="sketch-/g)||[]).length,6);
+ const catalog=await(await render("/books")).text();
+ for(const [slug,title] of [["nosorog-19","Носорог №19"],["iguana","Игуана"]]){
+  assert.ok(catalog.includes(`href="/books/${slug}"`));
+  const response=await render(`/books/${slug}`);assert.equal(response.status,200);
+  const html=await response.text();assert.ok(html.includes(title));assert.doesNotMatch(html,/Купить книгу|<dt>(Цена|Наличие)<\/dt>/);
+ }
 });
