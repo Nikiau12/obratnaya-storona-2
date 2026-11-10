@@ -24,3 +24,7 @@ Built-in image_gen, background-extraction. User-supplied engraving used as edit 
 - A separate audio recording has not been supplied; no invented recording or false audio control.
 - Ambient animation and falling objects remain a later pass after this composition is reviewed.
 - No publication through ChatGPT Sites. Source is pushed to the primary GitHub repository; public hosting migration is separate.
+
+## Trial book destination
+
+At the user's request, the engraving now opens `/books/nosorog-19` to preview a direct object-to-edition link. This is a provisional design association, not a claim that the engraving comes from this edition. No visible caption was added. Confirm the actual target with Katya later.

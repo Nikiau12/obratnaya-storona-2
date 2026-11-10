@@ -27,7 +27,7 @@ export function SketchHome({composition="current",features=sketchFeatures}:{comp
         {piece(0)}{piece(1)}{piece(2)}
         {piece(3)}<div className={s.sound}><MediaObject source={isClient?homeMedia:null}/>{isClient&&<Link className={s.mediaBookLink} href="/books/iguana">Игуана</Link>}</div>
         <div className={s.quote}>{isClient?<Note label="Мы уже завели наши часы — источник цитаты" content={<Link href="/books/nosorog-19">Икозамерон. Джакомо Казанова, «Носорог» №19</Link>}><span className={s.clientQuote}>Мы уже завели наши часы</span></Note>:<Note label="Прочитать цитату" content={<div className={s.textLines} aria-hidden="true"><i/><i/><i/></div>}><span className={s.uh}>Ух…</span></Note>}</div>
-        {isClient&&<Link className={s.engraving} href="/books" aria-label="Открыть витрину"><img src="/katya/engraving.png" alt="" width={1380} height={1140} loading="lazy"/></Link>}
+        {isClient&&<Link className={s.engraving} href="/books/nosorog-19" aria-label="Открыть издание: Носорог №19"><img src="/katya/engraving.png" alt="" width={1380} height={1140} loading="lazy"/></Link>}
         {piece(4)}{features[5]&&piece(5)}
       </div><Link className={s.more} href="/materials">Весь журнал</Link>
     </div>
