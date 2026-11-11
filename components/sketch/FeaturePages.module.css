@@ -90,3 +90,11 @@
   .page[data-format="object-week"] .heroDrawing { width:85%; max-width:320px; }
   .page[data-format="book-week"] .heroDrawing { width:165px; margin:0; }
 }
+
+.navigation,.bottomNav,.textLink,.purchase,.templateNav { font-size:25px; line-height:1.25; }
+.author,.eyebrow,.bookDetails,.purchase p,.coverCaption { font-size:23px; line-height:1.3; }
+.bookDetails { max-width:460px; }
+.page h1 { font-size:clamp(48px,5.5vw,80px); line-height:1.15; overflow-wrap:normal; }
+.relatedBook h2,.reviewSection h2 { font-size:34px; line-height:1.2; }
+.relatedArticleTitle { font-size:44px; line-height:1.15; }
+@media(max-width:600px){.page h1{font-size:44px}.bookDetails div{gap:16px}.relatedArticleTitle{font-size:38px}}
