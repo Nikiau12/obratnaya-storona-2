@@ -46,7 +46,7 @@
 @media(max-width:900px){.readingLayout{margin-left:0;gap:40px;grid-template-columns:minmax(0,1fr) 170px}.articleHero{gap:35px}.bookHero,.bookJournal{gap:45px}.bookCover{width:210px}.bookJournal>h2{margin-left:0}}
 @media(max-width:600px){.page{padding-top:24px;padding-bottom:55px}.articleHero{display:flex;flex-direction:column;align-items:start;gap:18px;padding:40px 0 60px}.heroDrawing{width:170px;margin-left:10px}.articleTitle{padding-top:0}.page h1{font-size:clamp(28px,7vw,38px);line-height:1.2;margin-top:20px}.readingLayout{display:block}.relatedBook{position:static;margin-top:70px;max-width:250px}.relatedBookLink>span{width:145px}.lines{gap:16px}.textSpace{margin-bottom:42px}.quoteSpace{margin:48px 0 48px auto}.bookHero{display:flex;flex-direction:column;gap:45px;margin:40px 0 65px}.bookCover{width:195px;margin:0 auto}.bookInfo{width:100%}.bookInfo .textSpace{margin-top:35px}.bookJournal{display:block;margin-top:75px}.bookJournal>h2{font-size:32px;margin:0 0 35px}.relatedArticle{margin-left:35px}.relatedArticleTitle{font-size:29px}.bottomNav{margin-top:75px}}
 
-.page a:hover { opacity:.65; }
+.page a:not(:has(img, svg, canvas, video)):hover, .relatedArticleTitle:hover, .relatedBookLink h2:hover, .reviewSection>a h2:hover { opacity:.65; }
 .templateNav { display:flex; flex-wrap:wrap; gap:14px 25px; max-width:1440px; margin:20px auto; padding:0 clamp(24px,5vw,80px); font-size:13px; }
 .templateNav a[aria-current="page"] { font-weight:600; }
 .readingLayout[data-has-books="false"] { display:block; max-width:850px; margin-inline:auto; }

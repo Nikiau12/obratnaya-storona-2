@@ -12,9 +12,9 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
   const pathname = usePathname();
   const { theme, setTheme } = useSiteTheme();
   return (
-    <header className={styles.header}>
+    <header className={styles.header} data-home={home}>
       <Link href={home ? "#main-content" : "#page-content"} className={styles.skip}>К содержанию</Link>
-      <div className={styles.brandGroup}><Link className={styles.brand} href="/" aria-label="Обратная сторона — на главную">Обратная<br />сторона</Link>{home&&<p className={styles.tagline}>Констелляция независимых книжных практик</p>}</div>
+      <div className={styles.brandGroup}><Link className={styles.brand} href="/" aria-label="Обратная сторона — на главную">Обратная сторона</Link>{home&&<p className={styles.tagline}>Констелляция независимых книжных практик</p>}</div>
       {home&&<div className={styles.room} aria-hidden="true"><RoomLines/><CardHole/></div>}
       <div className={styles.navigation}>
       <nav className={styles.nav} aria-label="Основная навигация">

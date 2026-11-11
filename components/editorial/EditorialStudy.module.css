@@ -14,7 +14,8 @@
 }
 
 .root :is(a, button):focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
-.root a:hover { opacity: .7; }
+.root a:not(:has(img, svg, canvas, video)):not(:has(h2)):hover { opacity:.7; }
+.root .bookTitle:hover { opacity:.7; }
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 164px;
@@ -223,3 +224,10 @@
  .journal > .press h2{font-size:43px}
  .journal > .map h2{font-size:46px}
 }
+
+.story h2 span:hover { opacity:.65; }
+
+.bookTitle { font:400 25px/1.16 var(--display); letter-spacing:normal; font-variant-ligatures:none; }
+.film > a { font:400 30px/1.2 var(--display); }
+.quotation button { font-size:44px!important; }
+@media(max-width:760px){.quotation button{font-size:36px!important}.bookTitle{font-size:24px}}

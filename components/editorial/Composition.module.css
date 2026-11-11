@@ -52,7 +52,7 @@
 .bookFlow [data-book-cover] { height:auto; justify-content:flex-start; padding:14px 5px; margin-bottom:30px; }
 .bookFlow [data-book-cover] > span { width:85%; max-width:260px; transform:rotate(-3deg); }
 .bookFlow [data-book-card]:nth-child(even) [data-book-cover] > span { transform:rotate(3deg); }
-.bookFlow [data-book-cover]:hover > span { transform:rotate(0deg); }
+
 .bookFlow [data-book-card] h3 { font-size:clamp(18px,1.65vw,24px); max-width:300px; }
 .infoPage[data-kind="about"] header { grid-template-columns:repeat(12,minmax(0,1fr)); gap:30px; margin-bottom:140px; }
 .infoPage[data-kind="about"] header > h1 { grid-column:1/7; }

@@ -135,7 +135,7 @@ export function HomeComposition({ features, books, quote, preview = false }: Pro
         </aside>
       </div>
 
-      <footer className={styles.homeFooter}><span>Обратная сторона</span><p>Медиа и книжный.<br />Независимые издательства и самиздат.</p><Link href="/about">О нас</Link></footer>
+
     </div>
   );
 }
