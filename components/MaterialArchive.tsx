@@ -17,7 +17,7 @@ export function MaterialArchive({ materials, children }: { materials: Material[]
   function reset(){setQuery("");setFormat("Все");setRubric("Все рубрики");setAuthor("Все авторы");setTag("Все теги");setSort("catalog");}
   return <section className={c.archive} aria-label="Архив публикаций">
     <div className={c.controls}>
-      <label className={s.searchField}>Поиск по материалам<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Название, автор, рубрика или тег" /></label>
+      <label className={s.searchField}><span className="sr-only">Поиск по материалам</span><input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Название, автор, рубрика или тег" /></label>
       <div className={s.filterRow} aria-label="Фильтр по формату">{["Все",...new Set(materials.map(m=>m.format))].map(item=><button key={item} aria-pressed={format===item} onClick={()=>setFormat(item)}>{item}</button>)}</div>
       <div className={c.filterActions}><button className={s.share} aria-expanded={expanded} aria-controls={filterId} onClick={()=>setExpanded(!expanded)}>{expanded ? "Скрыть фильтры" : "Дополнительные фильтры"}</button>{filtered || sort!=="catalog" ? <button className={s.share} onClick={reset}>Сбросить фильтры</button> : null}</div>
       <div id={filterId} hidden={!expanded}><div className={`${s.selectRow} ${c.advanced}`}>
@@ -26,7 +26,7 @@ export function MaterialArchive({ materials, children }: { materials: Material[]
         <label>Тег<select value={tag} onChange={e=>setTag(e.target.value)}>{["Все теги",...new Set(materials.flatMap(m=>m.tags))].map(t=><option key={t}>{t}</option>)}</select></label>
         <label>Порядок<select value={sort} onChange={e=>setSort(e.target.value)}><option value="catalog">Порядок каталога</option><option value="title">По названию</option></select></label>
       </div></div>
-    </div>{children}<p className={s.count} aria-live="polite">Найдено: {visible.length}</p>
+    </div>{children}
     {visible.length ? <div className={c.mediaFlow}>{visible.map((material,index)=><Fragment key={material.slug}><div className={c.mediaEntry} data-position={index%5}><MaterialCard material={material}/></div>{index===1 && !filtered && sort==="catalog" ? <figure className={c.editorialPause}><blockquote>«{homeQuote.text}»</blockquote><figcaption>{homeQuote.attribution}</figcaption></figure> : null}</Fragment>)}</div> : <p className={s.empty}>Ничего не найдено. Измените запрос или сбросьте фильтры.</p>}
   </section>;
 }

@@ -30,8 +30,8 @@ export function SketchHome({composition="current",features=sketchFeatures}:{comp
         {piece(3)}
         <div className={s.sound}><MediaObject source={isClient?homeMedia:null}/>{isClient&&<Link className={s.mediaBookLink} href="/books/iguana">Игуана</Link>}</div>
         {piece(4)}{features[5]&&piece(5)}
-      </div><Link className={s.more} href="/materials">Весь журнал</Link>
+      </div>
     </div>
-    <aside className={s.shelf} aria-label="Витрина книг"><div className={s.shelfTop}><Link href="/books">Витрина</Link></div><div className={s.shelfBooks} data-reading-piece={active}>{books.map(book=><Link href={book.href} key={book.slug} className={s.shelfBook} data-book={book.slug} data-selected={isClient||selected.includes(book.slug)} aria-label={`Открыть книгу: ${book.title}`}><Cover book={book}/><span>{book.title}</span></Link>)}</div><Link href="/books" className={s.more}>Вся витрина</Link></aside>
+    <aside className={s.shelf} aria-label="Витрина книг"><div className={s.shelfTop}><Link href="/books">Витрина</Link></div><div className={s.shelfBooks} data-reading-piece={active}>{books.map(book=><Link href={book.href} key={book.slug} className={s.shelfBook} data-book={book.slug} data-selected={isClient||selected.includes(book.slug)} aria-label={`Открыть книгу: ${book.title}`}><Cover book={book}/><span>{book.title}</span></Link>)}</div></aside>
   </main><SiteFooter/></div>;
 }

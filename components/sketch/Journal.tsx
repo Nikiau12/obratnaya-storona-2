@@ -17,7 +17,7 @@ export function Piece({index,feature,onHover,onFocus,inlineBook=false}:{index:nu
 export function SketchJournal(){
   const [query,setQuery]=useState("");
   const visible=pieces.map((piece,index)=>({...piece,index})).filter(p=>`${p.name} ${p.materialTitle}`.toLocaleLowerCase("ru").includes(query.toLocaleLowerCase("ru").trim()));
-  return <main className={s.page} data-static="true"><div className={s.journalHeading}><h1>Журнал</h1><label className={s.search}>Поиск<input type="search" value={query} onChange={e=>setQuery(e.target.value)}/></label></div><div className={s.journalFlow}>{visible.map(p=><Piece key={p.index} index={p.index}/>)}</div>{!visible.length&&<p role="status">По этому запросу ничего не найдено.</p>}</main>;
+  return <main className={s.page} data-static="true"><div className={s.journalHeading}><h1>Журнал</h1><label className={s.search}><span className="sr-only">Поиск публикаций</span><input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Название публикации"/></label></div><div className={s.journalFlow}>{visible.map(p=><Piece key={p.index} index={p.index}/>)}</div>{!visible.length&&<p role="status">По этому запросу ничего не найдено.</p>}</main>;
 }
 
 export function FeatureVisual({feature}:{feature:SketchFeature}) {

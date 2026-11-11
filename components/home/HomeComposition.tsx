@@ -100,7 +100,6 @@ export function HomeComposition({ features, books, quote, preview = false }: Pro
                       <h2>{feature.title}</h2>
                       {feature.subtitle ? <p className={styles.subtitle}>{feature.subtitle}</p> : null}
                       {!feature.draft && feature.excerpt ? <p className={styles.excerpt}>{feature.excerpt}</p> : null}
-                      <span className={styles.read}>Читать</span>
                     </div>
                   </a>
                   {relatedBooks.length > 0 ? <div className={styles.inlineBooks}>

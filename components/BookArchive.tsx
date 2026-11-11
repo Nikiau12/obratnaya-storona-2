@@ -15,14 +15,13 @@ export function BookArchive({books}:{books:Book[]}) {
   function reset(){setQuery("");setPublisher("Все");setSort("catalog");setAvailability(false);}
   return <section className={c.bookArchive} aria-label="Каталог книг">
     <div className={c.bookControls}>
-      <label className={s.searchField}>Поиск по книгам<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Название, автор или издательство" /></label>
+      <label className={s.searchField}><span className="sr-only">Поиск по книгам</span><input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Название, автор или издательство" /></label>
       <div className={c.filterActions}><button className={s.share} aria-expanded={expanded} aria-controls={filterId} onClick={()=>setExpanded(!expanded)}>{expanded ? "Скрыть фильтры" : "Издательства и порядок"}{active ? " · применены" : ""}</button>{active || query.trim() ? <button className={s.share} onClick={reset}>Сбросить фильтры</button> : null}</div>
       <div id={filterId} hidden={!expanded}>
         <div className={s.filterRow} aria-label="Фильтр по издательству">{["Все",...new Set(books.map(b=>b.publisher))].map(name=><button key={name} aria-pressed={name===publisher} onClick={()=>setPublisher(name)}>{name}</button>)}</div>
         <div className={`${s.selectRow} ${c.bookOptions}`}><label>Порядок<select value={sort} onChange={e=>setSort(e.target.value)}><option value="catalog">Порядок каталога</option><option value="title">По названию</option></select></label><label className={s.muted}><span><input type="checkbox" checked={availability} onChange={e=>setAvailability(e.target.checked)} /> Только в наличии</span></label></div>
       </div>
     </div>
-    <p className={s.count} aria-live="polite">Найдено: {visible.length}</p>
     {visible.length ? <div className={c.bookFlow}>{visible.map(book=><BookCard book={book} key={book.slug} />)}</div> : <p className={s.empty}>Книги не найдены. Измените запрос или сбросьте фильтры.</p>}
   </section>;
 }

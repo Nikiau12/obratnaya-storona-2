@@ -34,7 +34,6 @@ function Masthead() {
           <button type="button" aria-label="Чёрный фон" aria-pressed={theme === "black"} onClick={() => setTheme("black")}><i className={s.black} /></button>
           <button type="button" aria-label="Белый фон" aria-pressed={theme === "white"} onClick={() => setTheme("white")}><i className={s.white} /></button>
         </div>
-        <Link href="/search">Поиск</Link>
       </div>
     </div>
   </header>;
@@ -79,7 +78,6 @@ export function EditorialStudy() {
           <MediaObject source={homeMedia} />
           <Link href="/books/iguana">Игуана</Link>
         </div>
-        <Link className={s.allJournal} href="/materials">Весь журнал</Link>
       </div>
 
       <aside className={s.shelf} aria-label="Витрина книг">
@@ -92,7 +90,6 @@ export function EditorialStudy() {
             </Link>
           </li>)}
         </ol>
-        <Link className={s.allBooks} href="/books">Вся витрина</Link>
       </aside>
     </main>
     <SiteFooter />

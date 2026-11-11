@@ -17,11 +17,9 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
       </nav>
       <div className={styles.actions}>
         <div className={styles.themePicker} role="group" aria-label="Цвет фона">
-          <span>Фон</span>
           <button type="button" onClick={() => setTheme("black")} aria-pressed={theme === "black"} aria-label="Чёрный фон" title="Чёрный фон"><i className={styles.blackSwatch} /></button>
           <button type="button" onClick={() => setTheme("white")} aria-pressed={theme === "white"} aria-label="Белый фон" title="Белый фон"><i className={styles.whiteSwatch} /></button>
         </div>
-        <Link className={styles.search} href="/search">Поиск</Link>
       </div>
     </header>
   );
