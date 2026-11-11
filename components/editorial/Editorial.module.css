@@ -18,7 +18,7 @@
 .sectionHead { display:flex; align-items:baseline; justify-content:space-between; gap:24px; margin-bottom:35px; }
 .sectionHead h2 { margin:0; }
 .footer { display:grid; grid-template-columns:1fr 1fr auto; gap:35px; padding:50px clamp(22px,5vw,80px) 70px; background:var(--paper); color:var(--muted); border:0; margin:0; font-size:14px; }
-.footerBrand { font-family:var(--home-heading-font,Georgia,"Times New Roman",serif); font-weight:var(--home-heading-weight,400); font-size:24px; letter-spacing:normal; color:var(--ink); }
+.footerBrand { font-family:var(--home-heading-font,var(--sans)); font-weight:var(--home-heading-weight,400); font-size:24px; letter-spacing:normal; color:var(--ink); }
 .footer p { margin:0; line-height:1.6; font-size:14px; }
 .footer nav { display:flex; flex-wrap:wrap; gap:15px 24px; max-width:320px; }
 .footer a:hover { text-decoration:none; text-underline-offset:5px; }
@@ -65,7 +65,7 @@
 .bookHeroCover { width:min(100%,330px); justify-self:center; margin:15px 0 40px; }
 .bookHero .title { font-size:clamp(30px,3.8vw,52px); }
 .bookAuthor { font-size:24px; line-height:1.4; margin-bottom:30px; }
-.bookDescription { max-width:580px; font-family:Georgia,serif; font-size:20px; line-height:1.7; }
+.bookDescription { max-width:580px; font-family:var(--sans); font-size:20px; line-height:1.7; }
 .details { margin:35px 0; font-size:14px; }
 .details div { display:grid; grid-template-columns:100px minmax(0,1fr); gap:15px; margin:15px 0; }
 .details dt { color:var(--muted); }
@@ -85,7 +85,7 @@
 .reviewChapter:nth-of-type(even) .chapterCopy { grid-column:1; grid-row:1; }
 .reviewChapter:nth-of-type(even) .chapterCover > a { transform:rotate(5deg); }
 .chapterCopy h2 { font-family:var(--display); font-weight:450; font-size:clamp(27px,3vw,40px); line-height:1.25; letter-spacing:normal; margin:12px 0 35px; }
-.prose { font-family:Georgia,"Times New Roman",serif; font-size:20px; line-height:1.8; overflow-wrap:break-word; }
+.prose { font-family:var(--sans); font-size:20px; line-height:1.8; overflow-wrap:break-word; }
 .prose p { margin:0 0 1.4em; }
 .prose sup { font-family:var(--sans); font-size:12px; line-height:0; margin-left:3px; }
 .prose sup a { color:var(--accent); padding:4px; text-decoration:none; }
@@ -96,7 +96,7 @@
 .readingGrid { display:grid; grid-template-columns:210px minmax(0,700px); gap:65px; justify-content:center; align-items:start; }
 .readingAside { position:sticky; top:40px; font-size:14px; line-height:1.6; display:grid; gap:22px; }
 .readingAside .action { font-size:13px; }
-.pullQuote { margin:55px -25px; font-family:Georgia,serif; font-size:clamp(25px,3vw,37px); font-style:italic; line-height:1.4; color:var(--accent); }
+.pullQuote { margin:55px -25px; font-family:var(--sans); font-size:clamp(25px,3vw,37px); font-style:italic; line-height:1.4; color:var(--accent); }
 .footnotes { margin-top:70px; font-size:16px; line-height:1.65; }
 .footnotes h2 { font-family:var(--sans); font-size:20px; }
 .footnotes ol { padding-left:24px; }
@@ -110,7 +110,7 @@
 .interview { max-width:950px; margin:auto; }
 .question { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); gap:40px; margin:0 0 60px; }
 .question h2 { color:var(--accent); font-family:var(--sans); font-size:22px; line-height:1.4; font-weight:450; }
-.poem { white-space:pre-wrap; font-family:Georgia,serif; font-size:20px; line-height:1.8; margin:35px 0; overflow-wrap:anywhere; }
+.poem { white-space:pre-wrap; font-family:var(--sans); font-size:20px; line-height:1.8; margin:35px 0; overflow-wrap:anywhere; }
 .dialogue { display:grid; grid-template-columns:150px minmax(0,1fr); gap:40px; margin:0 0 35px; }
 .dialogue h2 { font-family:var(--sans); font-size:13px; font-weight:400; line-height:1.5; margin:10px 0; color:var(--muted); }
 .dialogue[data-role="question"] .prose { color:var(--accent); }
@@ -157,7 +157,7 @@
 .infoHero h1 { font-size:clamp(65px,10vw,140px); }
 .infoHero .intro { margin:0 0 45px; }
 .infoSection { display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr); gap:60px; margin:0 0 110px; scroll-margin-top:35px; }
-.contentSpace { min-height:150px; max-width:650px; color:var(--muted); font-family:Georgia,serif; font-size:clamp(22px,2.5vw,32px); line-height:1.55; }
+.contentSpace { min-height:150px; max-width:650px; color:var(--muted); font-family:var(--sans); font-size:clamp(22px,2.5vw,32px); line-height:1.55; }
 .contentSpace p { margin:0; }
 .infoDestinations { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
 .infoDestinations h3 { margin:0 0 20px; font-size:clamp(27px,3vw,42px); font-weight:450; }

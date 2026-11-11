@@ -19,7 +19,9 @@ The copy, six books, source images and destinations are reused from the current 
 
 ## Behavior and implementation
 
-Ambient CSS animations are disabled inside this preview and `CardHole` is paused. The video plays only when requested. The quote's source can be opened by mouse, touch or keyboard and closed with Escape. Both black and white themes remain available.
+The black hole uses the original business-card animation; its temporary preview pause was removed after the user reported the missing movement. Ambient CSS animation on the other editorial objects remains disabled. The video plays only when requested. The quote's source can be opened by mouse, touch or keyboard and closed with Escape. Both black and white themes remain available.
+
+The user subsequently selected Golos Text without serifs. The site now loads its existing local Cyrillic and Latin font files globally; headings, navigation, book captions and reading text share that family. Headline sizes and wrapping were adjusted for its wider proportions, with natural letter spacing throughout. The original business-card canvas and embedded artwork retain their own lettering.
 
 Resizing during review exposed a canvas `ResizeObserver` loop. The canvas now schedules backing-store updates in the next animation frame and cancels pending resize work on unmount. The preview also fixes the scene's aspect ratio independently of the canvas backing dimensions.
 

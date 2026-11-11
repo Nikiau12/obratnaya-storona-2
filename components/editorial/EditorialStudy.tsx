@@ -24,7 +24,7 @@ function Masthead() {
       <Link href="/" className={s.wordmark} aria-label="Обратная сторона — на главную">Обратная<br />сторона</Link>
       <p>Констелляция независимых книжных практик</p>
     </div>
-    <div className={s.room} aria-hidden="true"><RoomLines /><CardHole paused /></div>
+    <div className={s.room} aria-hidden="true"><RoomLines /><CardHole /></div>
     <div className={s.navigation}>
       <nav aria-label="Основная навигация">
         {navigation.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
@@ -49,7 +49,7 @@ function Story({ feature, className }: { feature: SketchFeature; className: stri
   </article>;
 }
 
-// The approved, still editorial composition. No editorial relationships are
+// The editorial composition with the original business-card motion. No relationships are
 // inferred from the proximity of stories and books.
 export function EditorialStudy() {
   return <div className={s.root} data-composition="editorial">

@@ -1,5 +1,5 @@
 .root {
-  --reading-face: Georgia, "Times New Roman", serif;
+  --reading-face: var(--sans);
   --page-gutter: clamp(24px, 4vw, 72px);
   max-width: 1664px;
   margin-inline: auto;
@@ -7,7 +7,7 @@
   background: var(--paper);
 }
 
-/* Judge placement and scale first. Playback still starts only on request. */
+/* The editorial objects stay still; the original hole uses its canvas loop. */
 .root *, .root *::before, .root *::after {
   animation: none !important;
   transition: none !important;
@@ -26,7 +26,7 @@
   padding: 34px var(--page-gutter) 42px;
 }
 
-.wordmark { display: block; width: fit-content; font: 400 54px/1 var(--reading-face); letter-spacing: normal; }
+.wordmark { display: block; width: fit-content; font: 500 50px/1.06 var(--reading-face); letter-spacing: normal; }
 .identity p { max-width: 225px; margin: 20px 0 0; font: 13px/1.35 var(--sans); }
 .room { position: relative; width: min(100%, 270px); aspect-ratio: 1200/825; margin-top: -20px; justify-self: start; pointer-events: none; }
 .room canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -60,31 +60,31 @@
 .lead > a { max-width: 1040px; }
 .lead .visual { width: 49%; max-width: 420px; aspect-ratio: 6.9; overflow: hidden; margin: 0 0 24px 38%; }
 .lead .visual img { width: 100%; height: 100%; object-fit: cover; }
-.lead h2 { font-size: clamp(36px, 3.5vw, 54px); line-height: 1.12; letter-spacing: normal; }
+.lead h2 { font-size: clamp(33px, 3.2vw, 48px); line-height: 1.16; letter-spacing: normal; }
 
 .dreams { grid-column: 1 / 6; margin-top: 12px; }
 .dreams .visual { width: 165px; max-width: 65%; margin: 0 0 18px auto; }
-.dreams h2 { font-size: clamp(27px, 2.55vw, 38px); max-width: 355px; }
+.dreams h2 { font-size: clamp(25px, 2.25vw, 34px); max-width: 355px; }
 .reviews { grid-column: 7 / -1; margin-top: 22px; }
 .reviews > a { display: grid; grid-template-columns: minmax(90px, .65fr) 1fr; align-items: center; gap: 24px; }
 .reviews .visual { max-width: 170px; }
-.reviews h2 { font-size: clamp(25px, 2.35vw, 35px); }
+.reviews h2 { font-size: clamp(23px, 2vw, 30px); }
 
 .interlude { grid-column: 1 / -1; display: grid; grid-template-columns: 135px 1fr 60px; gap: 35px; align-items: center; margin: 8px 0 10px; }
 .engraving { display: block; }
 .engraving img { width: 100%; height: auto; }
 :global(html[data-site-theme="black"]) .engraving img { filter: invert(1); }
 .quotation { justify-self: center; }
-.quotation button { font: italic 400 clamp(35px, 3.8vw, 57px)/1.15 var(--reading-face); letter-spacing: normal; text-align: left; }
+.quotation button { font: 400 clamp(32px, 3.4vw, 50px)/1.2 var(--reading-face); letter-spacing: normal; text-align: left; }
 .eye { width: 60px; align-self: start; margin-top: 10px; }
 
 .press { grid-column: 2 / -1; margin: 20px 0 8px; }
 .press > a { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 28px; }
 .press .visual { grid-column: 2; grid-row: 1; max-width: 300px; justify-self: center; }
-.press h2 { grid-column: 1; grid-row: 1; font-size: clamp(32px, 3.25vw, 49px); }
+.press h2 { grid-column: 1; grid-row: 1; font-size: clamp(30px, 2.9vw, 44px); }
 
 .map { grid-column: 1 / 9; padding-top: 30px; }
-.map h2 { font-size: clamp(34px, 3.7vw, 54px); line-height: 1.12; }
+.map h2 { font-size: clamp(32px, 3.3vw, 48px); line-height: 1.16; }
 .film { grid-column: 10 / -1; padding-top: 45px; min-width: 0; text-align: center; }
 .film > a { display: inline-block; padding: 10px 0; font: 17px/1.2 var(--reading-face); }
 .allJournal { grid-column: 1 / -1; justify-self: end; font: 14px var(--sans); padding: 15px 0; }
@@ -106,7 +106,7 @@
 
 @media (max-width: 1100px) {
   .masthead { grid-template-columns: 240px minmax(140px, 1fr) auto; gap: 18px; }
-  .wordmark { font-size: 49px; }
+  .wordmark { font-size: 43px; }
   .navigation nav { gap: 20px; font-size: 16px; }
   .room { margin-top: 0; }
   .layout { grid-template-columns: minmax(0, 1fr) 135px; gap: 35px; }
@@ -125,7 +125,7 @@
 
 @media (max-width: 760px) {
   .masthead { grid-template-columns: minmax(0, 1fr) 132px; gap: 20px 10px; padding-top: 25px; padding-bottom: 26px; }
-  .wordmark { font-size: clamp(42px, 8.7vw, 57px); }
+  .wordmark { font-size: clamp(34px, 7.5vw, 49px); }
   .identity p { font-size: 11px; max-width: 190px; margin-top: 16px; }
   .room { grid-column: 2; grid-row: 1; width: 160px; max-width: none; margin-left: -20px; margin-top: 10px; }
   .navigation { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 3px 18px; padding: 0; }
@@ -137,23 +137,23 @@
   .journal { gap: 45px 18px; }
   .lead { padding: 0; }
   .lead .visual { width: 70%; margin: 0 0 20px auto; }
-  .lead h2 { font-size: clamp(30px, 6.3vw, 44px); line-height: 1.15; letter-spacing: normal; }
+  .lead h2 { font-size: clamp(27px, 5.8vw, 40px); line-height: 1.2; letter-spacing: normal; }
   .dreams { grid-column: 1 / -1; margin: 0; }
   .dreams .visual { width: 130px; margin: 0 0 12px auto; }
-  .dreams h2 { font-size: 29px; }
+  .dreams h2 { font-size: 26px; }
   .reviews { grid-column: 1 / -1; margin: 0; }
   .reviews > a { display: grid; grid-template-columns: minmax(72px, .45fr) 1fr; gap: 20px; }
   .reviews .visual { width: 100%; max-width: 135px; margin: 0; }
-  .reviews h2 { font-size: 26px; }
+  .reviews h2 { font-size: 23px; }
   .interlude { grid-template-columns: 74px minmax(0, 1fr); gap: 17px; margin: 10px 0; }
-  .quotation button { font-size: clamp(28px, 5.8vw, 37px); letter-spacing: normal; }
+  .quotation button { font-size: clamp(24px, 5.2vw, 34px); letter-spacing: normal; }
   .press { grid-column: 1 / -1; margin: 0; }
   .press > a { display: flex; flex-direction: column; gap: 16px; }
   .press .visual { width: 53%; align-self: flex-end; }
   .press h2 { width: 92%; align-self: flex-start; }
   .press h2 { font-size: clamp(25px, 5.6vw, 34px); }
   .map { grid-column: 1 / -1; padding: 0; }
-  .map h2 { font-size: clamp(37px, 7vw, 50px); max-width: 480px; }
+  .map h2 { font-size: clamp(29px, 6.3vw, 44px); max-width: 480px; }
   .film { grid-column: 5 / -1; padding: 0; max-width: 300px; justify-self: end; }
   .allJournal { padding: 0; }
   .shelf { text-align: left; }
@@ -175,10 +175,10 @@
 @media (max-width: 360px) {
   .masthead { grid-template-columns: minmax(0, 1fr) 95px; }
   .room { width: 125px; }
-  .wordmark { font-size: 38px; }
+  .wordmark { font-size: 31px; }
   .reviews { grid-column: 1 / -1; }
-  .reviews h2 { font-size: 24px; }
+  .reviews h2 { font-size: 21px; }
   .interlude { grid-template-columns: 62px minmax(0, 1fr); gap: 12px; }
-  .quotation button { font-size: 25px; }
-  .map h2 { font-size: 32px; }
+  .quotation button { font-size: 22px; }
+  .map h2 { font-size: 28px; }
 }
