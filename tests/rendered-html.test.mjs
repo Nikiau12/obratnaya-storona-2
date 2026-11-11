@@ -25,7 +25,7 @@ test("renders the editorial homepage", async () => {
   assert.match(html, /Мы уже завели наши часы/);
   assert.match(html, /data-composition="editorial"/);
   assert.equal((html.match(/<header\b/g) || []).length, 1);
-  assert.match(html, /constellation/);
+  assert.doesNotMatch(html, /href="\/constellation"/);
   assert.match(html, /Чёрный фон/);
   assert.match(html, /Белый фон/);
   assert.doesNotMatch(html, /data-ink-trail/);
@@ -53,7 +53,7 @@ test("renders archives and discovery pages", async () => {
     ["/books", /Витрина/],
     ["/authors", /Авторы/],
     ["/rubrics", /Рубрики/],
-    ["/search", /Что вы хотите найти/],
+    ["/search", /Поиск/],
     ["/about", /О нас/],
     ["/contribute", /Предложить текст/],
     ["/bureau", /Бюро/],

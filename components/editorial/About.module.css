@@ -1,0 +1,19 @@
+.page { max-width:1664px; padding:36px clamp(24px,4vw,72px) 90px; margin:auto; }
+.page h1 { margin:0; font:400 clamp(42px,4.2vw,62px)/1.1 var(--sans); }
+.composition { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:0 24px; margin-top:72px; }
+.statement { grid-column:4/-1; margin:0; font:400 clamp(44px,5.5vw,84px)/1.12 var(--sans); letter-spacing:normal; }
+.statement span { display:block; }
+.statement span:last-child { margin-left:12%; }
+.destinations { grid-column:4/-1; display:flex; gap:36px; margin-top:48px; }
+.destinations a { display:inline-flex; align-items:center; min-height:44px; font:400 18px/1.4 var(--sans); }
+.destinations a:hover { opacity:.6; }
+.destinations a:focus-visible { outline:1px solid var(--ink); outline-offset:5px; }
+@media(max-width:1100px){.statement,.destinations{grid-column:2/-1}.statement{font-size:clamp(40px,6.4vw,70px)}}
+@media(max-width:760px){
+ .page{padding-top:24px;padding-bottom:60px}
+ .page h1{font-size:42px}
+ .composition{display:block;margin-top:56px}
+ .statement{font-size:clamp(27px,7vw,49px);line-height:1.2}
+ .statement span:last-child{margin-left:8%}
+ .destinations{margin-top:32px;gap:32px}
+}
