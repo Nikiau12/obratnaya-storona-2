@@ -1,8 +1,11 @@
 "use client";
-import { useId, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { sketchFeatures,featureBooks,type SketchFeature } from "@/lib/sketch-feature";
-import { DrawnObject } from "./Objects";
+import { FeatureVisual } from "./FeatureVisual";
+export { FeatureVisual } from "./FeatureVisual";
+import { EditorialStory } from "../editorial/EditorialStory";
+import c from "../editorial/Collection.module.css";
 import { Cover } from "./Cover";
 import s from "./Sketch.module.css";
 
@@ -17,18 +20,5 @@ export function Piece({index,feature,onHover,onFocus,inlineBook=false}:{index:nu
 export function SketchJournal(){
   const [query,setQuery]=useState("");
   const visible=pieces.map((piece,index)=>({...piece,index})).filter(p=>`${p.name} ${p.materialTitle}`.toLocaleLowerCase("ru").includes(query.toLocaleLowerCase("ru").trim()));
-  return <main className={s.page} data-static="true"><div className={s.journalHeading}><h1>Журнал</h1><label className={s.search}><span className="sr-only">Поиск публикаций</span><input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Название публикации"/></label></div><div className={s.journalFlow}>{visible.map(p=><Piece key={p.index} index={p.index}/>)}</div>{!visible.length&&<p role="status">По этому запросу ничего не найдено.</p>}</main>;
-}
-
-export function FeatureVisual({feature}:{feature:SketchFeature}) {
- const clipId=useId();
- const image=feature.image;
- if(image?.viewport){const [x,y,w,h]=image.viewport;return <svg className={s.editorialImage} viewBox={`${x} ${y} ${w} ${h}`} width={w} height={h} aria-hidden="true" focusable="false">
-  {image.clipPath&&<defs><clipPath id={clipId}><path d={image.clipPath}/></clipPath></defs>}
-  <image href={image.src} width={image.sourceWidth} height={image.sourceHeight} clipPath={image.clipPath?`url(#${clipId})`:undefined}/>
- </svg>;}
-
- if(feature.image)return <img className={s.editorialImage} src={feature.image.src} width={feature.image.width} height={feature.image.height} alt={feature.image.alt??""}/>;
- if(feature.isClientDraft)return null;
- return <DrawnObject kind={feature.kind}/>;
+  return <main className={`${s.page} ${c.page}`}><div className={c.heading}><h1>Журнал</h1><label className={s.search}><span className="sr-only">Поиск публикаций</span><input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Название публикации"/></label></div><div className={c.journal} data-filtered={Boolean(query.trim())}>{visible.map(p=><EditorialStory key={p.slug} feature={p} className={c.entry}/>)}</div>{!visible.length&&<p role="status">По этому запросу ничего не найдено.</p>}</main>;
 }

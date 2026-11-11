@@ -1,58 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { sketchBooks, sketchFeatures, type SketchFeature } from "@/lib/sketch-feature";
+import { sketchBooks, sketchFeatures } from "@/lib/sketch-feature";
 import { homeMedia } from "@/lib/home-media";
 import { SiteFooter } from "../SiteFooter";
-import { useSiteTheme } from "../SiteTheme";
-import { CardHole, RoomLines } from "../sketch/CardScene";
+import { SiteHeader } from "../SiteHeader";
+import { EditorialStory as Story } from "./EditorialStory";
 import { Cover } from "../sketch/Cover";
 import { Note } from "../sketch/Interactions";
-import { FeatureVisual } from "../sketch/Journal";
 import { MediaObject } from "../sketch/MediaObject";
 import { PaintedEye } from "./PaintedEye";
 import s from "./EditorialStudy.module.css";
-
-const navigation = [["О нас", "/about"], ["Журнал", "/materials"], ["Витрина", "/books"]] as const;
-
-function Masthead() {
-  const { theme, setTheme } = useSiteTheme();
-
-  return <header className={s.masthead}>
-    <Link href="#main-content" className={s.skip}>К содержанию</Link>
-    <div className={s.identity}>
-      <Link href="/" className={s.wordmark} aria-label="Обратная сторона — на главную">Обратная<br />сторона</Link>
-      <p>Констелляция независимых книжных практик</p>
-    </div>
-    <div className={s.room} aria-hidden="true"><RoomLines /><CardHole /></div>
-    <div className={s.navigation}>
-      <nav aria-label="Основная навигация">
-        {navigation.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
-      </nav>
-      <div className={s.utilities}>
-        <div className={s.themes} role="group" aria-label="Цвет фона">
-          <button type="button" aria-label="Чёрный фон" aria-pressed={theme === "black"} onClick={() => setTheme("black")}><i className={s.black} /></button>
-          <button type="button" aria-label="Белый фон" aria-pressed={theme === "white"} onClick={() => setTheme("white")}><i className={s.white} /></button>
-        </div>
-      </div>
-    </div>
-  </header>;
-}
-
-function Story({ feature, className }: { feature: SketchFeature; className: string }) {
-  return <article className={`${s.story} ${className}`}>
-    <Link href={feature.materialHref} aria-label={`Читать публикацию: ${feature.materialTitle}`}>
-      {feature.image && <div className={s.visual}><FeatureVisual feature={feature} /></div>}
-      <h2>{feature.materialTitle}</h2>
-    </Link>
-  </article>;
-}
 
 // The editorial composition with the original business-card motion. No relationships are
 // inferred from the proximity of stories and books.
 export function EditorialStudy() {
   return <div className={s.root} data-composition="editorial">
-    <Masthead />
+    <SiteHeader home />
     <main id="main-content" tabIndex={-1} className={s.layout}>
       <div className={s.journal}>
         <h1 className="sr-only">Журнал</h1>
