@@ -10,7 +10,7 @@ import { Cover } from "../sketch/Cover";
 import { Note } from "../sketch/Interactions";
 import { FeatureVisual } from "../sketch/Journal";
 import { MediaObject } from "../sketch/MediaObject";
-import { DrawnObject } from "../sketch/Objects";
+import { PaintedEye } from "./PaintedEye";
 import s from "./EditorialStudy.module.css";
 
 const navigation = [["О нас", "/about"], ["Журнал", "/materials"], ["Витрина", "/books"]] as const;
@@ -70,7 +70,7 @@ export function EditorialStudy() {
               <span>Мы уже завели<br />наши часы</span>
             </Note>
           </div>
-          <div className={s.eye} aria-hidden="true"><DrawnObject kind="eye" /></div>
+          <div className={s.eye} aria-hidden="true"><PaintedEye /></div>
         </div>
 
         <Story feature={sketchFeatures[3]} className={s.press} />

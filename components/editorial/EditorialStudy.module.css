@@ -70,13 +70,14 @@
 .reviews .visual { max-width: 170px; }
 .reviews h2 { font-size: clamp(23px, 2vw, 30px); }
 
-.interlude { grid-column: 1 / -1; display: grid; grid-template-columns: 135px 1fr 60px; gap: 35px; align-items: center; margin: 8px 0 10px; }
+.interlude { grid-column: 1 / -1; display: grid; grid-template-columns: 135px minmax(0, 1fr) 135px; gap: 35px; align-items: center; margin: 8px 0 10px; }
 .engraving { display: block; }
 .engraving img { width: 100%; height: auto; }
 :global(html[data-site-theme="black"]) .engraving img { filter: invert(1); }
 .quotation { justify-self: center; }
 .quotation button { font: 400 clamp(32px, 3.4vw, 50px)/1.2 var(--reading-face); letter-spacing: normal; text-align: left; }
-.eye { width: 60px; align-self: start; margin-top: 10px; }
+.eye { width: 135px; align-self: start; justify-self: end; margin-top: 10px; }
+.eye svg { display: block; width: 100%; height: auto; }
 
 .press { grid-column: 2 / -1; margin: 20px 0 8px; }
 .press > a { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 28px; }
@@ -115,7 +116,7 @@
   .reviews > a { display: block; }
   .reviews .visual { width: 105px; margin: 0 auto 18px; }
   .interlude { grid-template-columns: 95px 1fr; gap: 25px; }
-  .eye { display: none; }
+  .eye { width: 115px; grid-column: 2; margin-top: 0; }
   .quotation button { font-size: 37px; }
   .press { grid-column: 1 / -1; }
   .press > a { gap: 15px; }
@@ -146,6 +147,7 @@
   .reviews .visual { width: 100%; max-width: 135px; margin: 0; }
   .reviews h2 { font-size: 23px; }
   .interlude { grid-template-columns: 74px minmax(0, 1fr); gap: 17px; margin: 10px 0; }
+  .eye { width: 100px; margin-top: 4px; }
   .quotation button { font-size: clamp(24px, 5.2vw, 34px); letter-spacing: normal; }
   .press { grid-column: 1 / -1; margin: 0; }
   .press > a { display: flex; flex-direction: column; gap: 16px; }
