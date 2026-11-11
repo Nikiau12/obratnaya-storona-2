@@ -3,7 +3,7 @@ import {FeatureVisual} from "./Journal";
 import { sketchFeature, sketchBooks, bookFeatures, featureBooks, type SketchFeature, type SketchBook } from "@/lib/sketch-feature";
 import { DrawnObject } from "./Objects";
 import { Cover } from "./Cover";
-import { TextSpace, PublicationBlocks } from "./PublicationBlocks";
+import { PublicationBlocks } from "./PublicationBlocks";
 import s from "./FeaturePages.module.css";
 
 export function SketchPublicationPage({feature=sketchFeature}:{feature?:SketchFeature}) {
@@ -37,9 +37,8 @@ export function SketchBookPage({book=sketchBooks[0]}:{book?:SketchBook}) {
       <div className={s.bookInfo}>
         <h1 id="book-title">{book.title}</h1>
         {book.author&&<p className={s.author}>{book.author}</p>}
-        <TextSpace label="Описание книги" lines={4} />
         <dl className={s.bookDetails}>
-          <div><dt>Издательство</dt><dd>{book.publisher.name}</dd></div><div><dt>Год издания</dt><dd>{book.year??"—"}</dd></div><div><dt>Страницы</dt><dd>{book.pages??"—"}</dd></div>
+          <div><dt>Издательство</dt><dd>{book.publisher.name}</dd></div>{book.year&&<div><dt>Год издания</dt><dd>{book.year}</dd></div>}{book.pages&&<div><dt>Страницы</dt><dd>{book.pages}</dd></div>}
         </dl>
         {book.purchaseUrl ? <div className={s.purchase}><a className={s.textLink} href={book.purchaseUrl} target="_blank" rel="noreferrer">Купить книгу</a></div> : null}
       </div>
