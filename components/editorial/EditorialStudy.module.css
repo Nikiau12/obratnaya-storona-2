@@ -1,0 +1,184 @@
+.root {
+  --reading-face: Georgia, "Times New Roman", serif;
+  --page-gutter: clamp(24px, 4vw, 72px);
+  max-width: 1664px;
+  margin-inline: auto;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* Judge placement and scale first. Playback still starts only on request. */
+.root *, .root *::before, .root *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.root :is(a, button):focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+.root a:hover { opacity: .7; }
+.skip { position: fixed; top: 12px; left: 12px; z-index: 100; padding: 12px; background: var(--paper); transform: translateY(-200%); }
+.skip:focus { transform: none; }
+
+.masthead {
+  display: grid;
+  grid-template-columns: 280px minmax(180px, 1fr) auto;
+  align-items: start;
+  gap: 32px;
+  padding: 34px var(--page-gutter) 42px;
+}
+
+.wordmark { display: block; width: fit-content; font: 400 54px/1 var(--reading-face); letter-spacing: normal; }
+.identity p { max-width: 225px; margin: 20px 0 0; font: 13px/1.35 var(--sans); }
+.room { position: relative; width: min(100%, 270px); aspect-ratio: 1200/825; margin-top: -20px; justify-self: start; pointer-events: none; }
+.room canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.room > svg { width: 100%; height: auto; aspect-ratio: 320/220; opacity: .25; }
+.navigation { padding-top: 6px; }
+.navigation nav { display: flex; gap: clamp(22px, 3vw, 44px); font: 17px/1.3 var(--sans); }
+.navigation nav a { display: flex; align-items: center; min-height: 44px; }
+.utilities { display: flex; justify-content: flex-end; align-items: center; gap: 24px; margin-top: 20px; font: 13px/1.3 var(--sans); }
+.utilities > a { padding-block: 13px; }
+.themes { display: flex; gap: 1px; }
+.themes button { display: grid; place-items: center; width: 36px; height: 44px; border: 0; padding: 0; background: none; color: inherit; cursor: pointer; }
+.themes i { display: block; width: 15px; height: 15px; border: 1px solid color-mix(in srgb, var(--ink) 50%, transparent); border-radius: 50%; }
+.themes button[aria-pressed="true"] i { outline: 1px solid currentColor; outline-offset: 4px; }
+.black { background: #000; }
+.white { background: #fff; }
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 164px;
+  gap: clamp(44px, 5vw, 84px);
+  padding: 0 var(--page-gutter) 72px;
+}
+
+.journal { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-content: start; gap: 70px 22px; min-width: 0; }
+.story { min-width: 0; }
+.story > a { display: block; }
+.story h2 { margin: 0; font: 400 34px/1.14 var(--reading-face); letter-spacing: normal; text-wrap: balance; }
+.visual :is(img, svg) { display: block; width: 100%; height: auto; }
+
+.lead { grid-column: 1 / -1; padding-top: 6px; }
+.lead > a { max-width: 1040px; }
+.lead .visual { width: 49%; max-width: 420px; aspect-ratio: 6.9; overflow: hidden; margin: 0 0 24px 38%; }
+.lead .visual img { width: 100%; height: 100%; object-fit: cover; }
+.lead h2 { font-size: clamp(36px, 3.5vw, 54px); line-height: 1.12; letter-spacing: normal; }
+
+.dreams { grid-column: 1 / 6; margin-top: 12px; }
+.dreams .visual { width: 165px; max-width: 65%; margin: 0 0 18px auto; }
+.dreams h2 { font-size: clamp(27px, 2.55vw, 38px); max-width: 355px; }
+.reviews { grid-column: 7 / -1; margin-top: 22px; }
+.reviews > a { display: grid; grid-template-columns: minmax(90px, .65fr) 1fr; align-items: center; gap: 24px; }
+.reviews .visual { max-width: 170px; }
+.reviews h2 { font-size: clamp(25px, 2.35vw, 35px); }
+
+.interlude { grid-column: 1 / -1; display: grid; grid-template-columns: 135px 1fr 60px; gap: 35px; align-items: center; margin: 8px 0 10px; }
+.engraving { display: block; }
+.engraving img { width: 100%; height: auto; }
+:global(html[data-site-theme="black"]) .engraving img { filter: invert(1); }
+.quotation { justify-self: center; }
+.quotation button { font: italic 400 clamp(35px, 3.8vw, 57px)/1.15 var(--reading-face); letter-spacing: normal; text-align: left; }
+.eye { width: 60px; align-self: start; margin-top: 10px; }
+
+.press { grid-column: 2 / -1; margin: 20px 0 8px; }
+.press > a { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 28px; }
+.press .visual { grid-column: 2; grid-row: 1; max-width: 300px; justify-self: center; }
+.press h2 { grid-column: 1; grid-row: 1; font-size: clamp(32px, 3.25vw, 49px); }
+
+.map { grid-column: 1 / 9; padding-top: 30px; }
+.map h2 { font-size: clamp(34px, 3.7vw, 54px); line-height: 1.12; }
+.film { grid-column: 10 / -1; padding-top: 45px; min-width: 0; text-align: center; }
+.film > a { display: inline-block; padding: 10px 0; font: 17px/1.2 var(--reading-face); }
+.allJournal { grid-column: 1 / -1; justify-self: end; font: 14px var(--sans); padding: 15px 0; }
+
+.shelf { min-width: 0; text-align: center; }
+.shelf h2 { margin: 0 0 30px; font: 400 27px/1.15 var(--reading-face); letter-spacing: normal; }
+.shelf ol { list-style: none; display: grid; gap: 33px; margin: 0; padding: 0; }
+.shelf li { width: 100%; max-width: 139px; margin-inline: auto; }
+.shelf li > a { display: block; }
+.bookTitle { display: block; margin-top: 11px; font: 12px/1.25 var(--sans); text-wrap: pretty; }
+.allBooks { display: inline-block; margin-top: 28px; padding-block: 12px; font: 14px var(--sans); }
+
+@media (min-width: 1440px) {
+  .layout { grid-template-columns: minmax(0, 1fr) 180px; }
+  .journal { row-gap: 64px; }
+  .shelf li { max-width: 139px; }
+  .shelf ol { gap: 29px; }
+}
+
+@media (max-width: 1100px) {
+  .masthead { grid-template-columns: 240px minmax(140px, 1fr) auto; gap: 18px; }
+  .wordmark { font-size: 49px; }
+  .navigation nav { gap: 20px; font-size: 16px; }
+  .room { margin-top: 0; }
+  .layout { grid-template-columns: minmax(0, 1fr) 135px; gap: 35px; }
+  .shelf li { max-width: 120px; }
+  .journal { gap: 58px 18px; }
+  .reviews > a { display: block; }
+  .reviews .visual { width: 105px; margin: 0 auto 18px; }
+  .interlude { grid-template-columns: 95px 1fr; gap: 25px; }
+  .eye { display: none; }
+  .quotation button { font-size: 37px; }
+  .press { grid-column: 1 / -1; }
+  .press > a { gap: 15px; }
+  .map { grid-column: 1 / 8; }
+  .film { grid-column: 9 / -1; }
+}
+
+@media (max-width: 760px) {
+  .masthead { grid-template-columns: minmax(0, 1fr) 132px; gap: 20px 10px; padding-top: 25px; padding-bottom: 26px; }
+  .wordmark { font-size: clamp(42px, 8.7vw, 57px); }
+  .identity p { font-size: 11px; max-width: 190px; margin-top: 16px; }
+  .room { grid-column: 2; grid-row: 1; width: 160px; max-width: none; margin-left: -20px; margin-top: 10px; }
+  .navigation { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 3px 18px; padding: 0; }
+  .navigation nav { gap: 23px; font-size: 15px; }
+  .utilities { margin: 0; gap: 10px; font-size: 12px; }
+  .themes button { width: 30px; }
+  .themes i { width: 12px; height: 12px; }
+  .layout { display: flex; flex-direction: column; gap: 60px; padding-bottom: 40px; }
+  .journal { gap: 45px 18px; }
+  .lead { padding: 0; }
+  .lead .visual { width: 70%; margin: 0 0 20px auto; }
+  .lead h2 { font-size: clamp(30px, 6.3vw, 44px); line-height: 1.15; letter-spacing: normal; }
+  .dreams { grid-column: 1 / -1; margin: 0; }
+  .dreams .visual { width: 130px; margin: 0 0 12px auto; }
+  .dreams h2 { font-size: 29px; }
+  .reviews { grid-column: 1 / -1; margin: 0; }
+  .reviews > a { display: grid; grid-template-columns: minmax(72px, .45fr) 1fr; gap: 20px; }
+  .reviews .visual { width: 100%; max-width: 135px; margin: 0; }
+  .reviews h2 { font-size: 26px; }
+  .interlude { grid-template-columns: 74px minmax(0, 1fr); gap: 17px; margin: 10px 0; }
+  .quotation button { font-size: clamp(28px, 5.8vw, 37px); letter-spacing: normal; }
+  .press { grid-column: 1 / -1; margin: 0; }
+  .press > a { display: flex; flex-direction: column; gap: 16px; }
+  .press .visual { width: 53%; align-self: flex-end; }
+  .press h2 { width: 92%; align-self: flex-start; }
+  .press h2 { font-size: clamp(25px, 5.6vw, 34px); }
+  .map { grid-column: 1 / -1; padding: 0; }
+  .map h2 { font-size: clamp(37px, 7vw, 50px); max-width: 480px; }
+  .film { grid-column: 5 / -1; padding: 0; max-width: 300px; justify-self: end; }
+  .allJournal { padding: 0; }
+  .shelf { text-align: left; }
+  .shelf h2 { margin-bottom: 28px; font-size: 32px; }
+  .shelf ol { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 20px; align-items: start; }
+  .shelf li { max-width: 135px; text-align: center; }
+  .bookTitle { font-size: 11px; }
+  .allBooks { margin-top: 25px; }
+}
+
+@media (max-width: 440px) {
+  .navigation { gap: 0; }
+  .navigation nav { justify-content: space-between; width: 100%; }
+  .utilities { width: 100%; justify-content: space-between; }
+  .shelf ol { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 35px 30px; }
+  .shelf li { max-width: 135px; }
+}
+
+@media (max-width: 360px) {
+  .masthead { grid-template-columns: minmax(0, 1fr) 95px; }
+  .room { width: 125px; }
+  .wordmark { font-size: 38px; }
+  .reviews { grid-column: 1 / -1; }
+  .reviews h2 { font-size: 24px; }
+  .interlude { grid-template-columns: 62px minmax(0, 1fr); gap: 12px; }
+  .quotation button { font-size: 25px; }
+  .map h2 { font-size: 32px; }
+}

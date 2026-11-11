@@ -2,7 +2,7 @@
   --sans:"Golos Text","Helvetica Neue",Arial,sans-serif;
   --home-heading-leading:1.12;
   --home-brand-leading:1;
-  --home-brand-tracking:-.045em;
+  --home-brand-tracking:normal;
   background:var(--paper);
   color:var(--ink);
   font-family:var(--sans);

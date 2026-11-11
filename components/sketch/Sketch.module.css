@@ -1,7 +1,7 @@
 .root,.page { --accent:var(--ink); --muted:color-mix(in srgb,var(--ink) 60%,var(--paper)); font-family:var(--sans); color:var(--ink); background:var(--paper); }
 .root { min-height:100vh; }
 .page { max-width:1600px; margin:auto; padding:55px clamp(24px,4.5vw,80px) 110px; }
-.page h1 { font:normal clamp(42px,5.5vw,74px)/1 Georgia,"Times New Roman",serif; letter-spacing:-.045em; margin:0; }
+.page h1 { font:normal clamp(42px,5.5vw,74px)/1 Georgia,"Times New Roman",serif; letter-spacing:normal; margin:0; }
 .home { max-width:1600px; margin:auto; padding:0 clamp(24px,4.5vw,80px) 90px; display:grid; grid-template-columns:minmax(0,1fr) 220px; column-gap:clamp(40px,5vw,90px); }
 .editorial { min-width:0; }
 .opening { display:grid; grid-template-columns:1fr 1fr 160px; align-items:center; min-height:195px; gap:20px; }
@@ -20,7 +20,7 @@
 .pieceDrawing { display:block; max-width:240px; margin-bottom:20px; }
 .drawing { display:block; width:100%; height:auto; overflow:visible; }
 
-.pieceTitle { font:var(--home-heading-weight,400) clamp(25px,2.3vw,36px)/var(--home-heading-leading,1.08) var(--home-heading-font,Georgia,"Times New Roman",serif); letter-spacing:-.025em; display:block; }
+.pieceTitle { font:var(--home-heading-weight,400) clamp(25px,2.3vw,36px)/var(--home-heading-leading,1.08) var(--home-heading-font,Georgia,"Times New Roman",serif); letter-spacing:normal; display:block; }
 .pieceButton:hover .pieceTitle { text-decoration:none; text-decoration-thickness:1px; text-underline-offset:5px; }
 .byline { font-size:12px; margin:12px 0; color:var(--muted); }
 .excerpt { font-size:15px; line-height:1.5; max-width:245px; color:var(--muted); margin:0; }
@@ -96,7 +96,7 @@
 .dialog::backdrop { background:#0009; backdrop-filter:blur(3px); }
 .dialogBody { padding:35px clamp(24px,6vw,70px) 60px; }
 .close { display:block; margin:0 0 40px auto; padding:8px 0; border:0;  color:inherit; background:none; cursor:pointer; }
-.dialogBody h2 { font:normal 40px/1.1 Georgia,serif; letter-spacing:-.035em; }
+.dialogBody h2 { font:normal 40px/1.1 Georgia,serif; letter-spacing:normal; }
 .dialogDrawing { max-width:250px; margin:35px auto; }.sampleText { font:20px/1.8 Georgia,serif; }
 .bookDialog { display:grid; grid-template-columns:160px 1fr; gap:40px; margin-top:30px; font-size:16px; line-height:1.6; }.purchasePlaceholder { font-size:13px; color:var(--muted); }
 .constellation { width:100%; height:80dvh; border:0; background:var(--paper); }
