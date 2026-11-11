@@ -2,7 +2,7 @@
 
 Local preview: http://localhost:3000/preview/editorial
 
-The current homepage remains at `/`. This proposal is an isolated `noindex` route, saved in the main project's GitHub repository, without a Sites deployment.
+Initially prepared as an isolated `noindex` route and saved in GitHub. On 11 November the user requested publication: this composition now serves `/`, while the previous homepage is retained at `/preview/previous` for comparison. The `/preview/editorial` route also remains available and is excluded from indexing.
 
 ## Composition
 

@@ -49,10 +49,10 @@ function Story({ feature, className }: { feature: SketchFeature; className: stri
   </article>;
 }
 
-// A separate, still composition for review. Content and destinations are shared
-// with the live homepage; no editorial relationships are inferred from proximity.
+// The approved, still editorial composition. No editorial relationships are
+// inferred from the proximity of stories and books.
 export function EditorialStudy() {
-  return <div className={s.root}>
+  return <div className={s.root} data-composition="editorial">
     <Masthead />
     <main id="main-content" tabIndex={-1} className={s.layout}>
       <div className={s.journal}>

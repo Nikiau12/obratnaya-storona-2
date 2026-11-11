@@ -22,7 +22,9 @@ test("renders the editorial homepage", async () => {
   assert.match(html, /Обратная сторона/);
   assert.match(html, /Переводчик Петр Епифанов/);
   assert.match(html, /Витрина книг/);
-  assert.match(html, /Открыть заметку у глаза/);
+  assert.match(html, /Мы уже завели наши часы/);
+  assert.match(html, /data-composition="editorial"/);
+  assert.equal((html.match(/<header\b/g) || []).length, 1);
   assert.match(html, /constellation/);
   assert.match(html, /Чёрный фон/);
   assert.match(html, /Белый фон/);
@@ -156,7 +158,7 @@ test("missing content returns 404 and demo media has no fake playback controls",
 });
 
 test("preview publications are isolated from the homepage and archive", async () => {
-  for (const path of ["/preview", "/preview/interview", "/preview/object", "/preview/visual", "/preview/home", "/preview/shop"]) {
+  for (const path of ["/preview", "/preview/interview", "/preview/object", "/preview/visual", "/preview/home", "/preview/shop", "/preview/editorial", "/preview/previous"]) {
     const response = await render(path);
     assert.equal(response.status, 200, path);
     const html = await response.text();
@@ -248,7 +250,7 @@ test("reading layouts support multiple related books and no related book without
 });
 
 test("comparison, cover proportions and unconfigured media remain isolated from editorial content",async()=>{
-  const home=await(await render("/")).text();assert.match(home,/data-composition="current"/);
+  const home=await(await render("/")).text();assert.match(home,/data-composition="editorial"/);
   assert.doesNotMatch(home,/<audio|Послушать|autoPlay|autoplay/);
   assert.match(home,/<video/);
   const comparison=await(await render("/preview/composition?variant=roomier")).text();assert.match(comparison,/data-composition="roomier"/);assert.match(comparison,/noindex/);
