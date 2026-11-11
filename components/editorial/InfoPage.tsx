@@ -6,7 +6,7 @@ import about from "./About.module.css";
 export function InfoPage({ kind }: { kind: "about" | "bureau" }) {
   const bureau = kind === "bureau";
   if (!bureau) return <main className={about.page}>
-    <h1>О нас</h1>
+    <h1 className="sr-only">О нас</h1>
     <div className={about.composition}>
       <p className={about.statement}><span>Констелляция</span><span>независимых</span><span>книжных практик</span></p>
       <nav className={about.destinations} aria-label="Разделы Обратной стороны"><Link href="/materials">Журнал</Link><Link href="/books">Витрина</Link></nav>

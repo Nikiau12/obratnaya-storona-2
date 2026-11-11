@@ -20,7 +20,7 @@ export function SketchShowcase({initialPublisher="",initialQuery="",initialSort=
   const selectedPublisher=publishers.find(item=>item.slug===publisher);
   if(sort==="reverse")visible.reverse();
   return <main className={`${s.page} ${c.page} ${c.store}`}>
-    <div className={s.storeHeading} data-store-heading><h1>Витрина</h1><p>Кураторская выборка<br/>независимых издательств<br/>и самиздата.</p></div>
+    <div className={s.storeHeading} data-store-heading><h1 className="sr-only">Витрина</h1><p>Кураторская выборка<br/>независимых издательств<br/>и самиздата.</p></div>
     <div className={s.storeLayout} data-store-layout><section className={s.storeMain} aria-label="Каталог книг">
       <div className={s.mobilePublishers}><ChoiceMenu label="Издательства" value={publisher} onChange={setPublisher} options={[{value:"",label:"Все издательства"},...publishers.map(item=>({value:item.slug,label:item.name}))]}/>{selectedPublisher?.description&&<p>{selectedPublisher.description}</p>}</div>
       <div className={s.storeControls} data-store-controls><label className={controls.search}><span className="sr-only">Поиск книг</span><input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Книга или издательство"/></label><ChoiceMenu label="Порядок книг" value={sort} onChange={setSort} options={[{value:"order",label:"Порядок витрины"},{value:"reverse",label:"В обратном порядке"}]}/></div>
