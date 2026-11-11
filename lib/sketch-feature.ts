@@ -2,7 +2,7 @@ import { publishers } from "./publishers";
 
 // Existing sketch titles and drawings. Keep content separate from presentation.
 // Client headlines and verified publisher metadata; purchase URLs remain unconfirmed.
-export type SketchImage = { src: string; width: number; height: number; alt?: string; viewport?: [number,number,number,number]; sourceWidth?:number; sourceHeight?:number };
+export type SketchImage = { src: string; width: number; height: number; alt?: string; viewport?: [number,number,number,number]; sourceWidth?:number; sourceHeight?:number; clipPath?:string };
 const publisher=(slug:string)=>publishers.find(p=>p.slug===slug)!;
 const selection=[
  {title:"Острые крыши",author:"Дороти Ричардсон",publisher:publisher("nosorog"),image:{src:"/katya/cover-0.png",width:752,height:1038,sourceWidth:1680,sourceHeight:1680,viewport:[461,331,752,1038]}},
@@ -45,7 +45,7 @@ const headlines=[
  "Печень: Пять книг самиздат-проекта «Другарня ШАЛАШ»",
  "Карта русскоязычного независимого книгоиздания",
 ];
-const illustrations=[{"src": "/katya/ungaretti.png", "width": 2172, "height": 724, "alt": ""}, {"src": "/katya/gold.png", "width": 1536, "height": 1024, "alt": ""}, {"src": "/katya/head.png", "width": 1078, "height": 1459, "alt": ""}, {"src": "/katya/printer.png", "width": 1536, "height": 1024, "alt": ""}];
+const illustrations:SketchImage[]=[{"src": "/katya/ungaretti.png", "width": 2172, "height": 724, "alt": ""}, {"src": "/katya/gold.png", "width": 1536, "height": 1024, "alt": ""}, {src:"/books/saturn-autumn.png",width:300,height:470,sourceWidth:1600,sourceHeight:1600,viewport:[620,555,300,470],clipPath:"M630 690C634 651 662 620 702 592C718 572 744 558 774 569C819 569 858 578 883 614C900 646 911 695 909 731L895 765L891 802L879 840L874 891L850 922L843 948L810 968L790 965L818 1018L768 1018L700 965L665 919L668 865L679 830L659 807L649 768L639 742Z",alt:""}, {"src": "/katya/printer.png", "width": 1536, "height": 1024, "alt": ""}];
 export const sketchFeatures:SketchFeature[]=headlines.map((materialTitle,index)=>({...demoFeatures[index],materialTitle,name:materialTitle,bookSlugs:[],isClientDraft:true,image:index<4?illustrations[index]:undefined}));
 export const sketchFeature = sketchFeatures[0];
 export function getSketchFeature(slug:string) { return sketchFeatures.find(feature=>feature.slug===slug); }
