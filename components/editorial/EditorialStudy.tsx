@@ -45,7 +45,6 @@ export function EditorialStudy() {
       </div>
 
       <aside className={s.shelf} aria-label="Витрина книг">
-        <h2><Link href="/books">Витрина</Link></h2>
         <ol>
           {sketchBooks.map((book, index) => <li key={book.slug}>
             <Link href={book.href} data-book={book.slug} aria-label={`Открыть книгу: ${book.title}`}>

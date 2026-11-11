@@ -34,3 +34,8 @@
 }
 @media(max-width:440px){.nav{font-size:14px}}
 @media(max-width:360px){.header{grid-template-columns:minmax(0,1fr) 95px}.room{width:125px}.brand{font-size:31px}}
+
+.brand { font-family:var(--display); font-weight:400; font-size:80px; line-height:1; letter-spacing:normal; font-variant-ligatures:none; }
+@media(max-width:1100px){.brand{font-size:72px}}
+@media(max-width:760px){.brand{font-size:60px}}
+@media(max-width:360px){.brand{font-size:53px}}

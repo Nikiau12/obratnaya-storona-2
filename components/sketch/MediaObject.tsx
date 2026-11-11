@@ -41,6 +41,21 @@ function Player({source}:{source:EditorialMedia}){
   </div>;
 }
 
+function AmbientVideo({source}:{source:EditorialMedia}) {
+  const media=useRef<HTMLVideoElement|null>(null);
+  useEffect(()=>{
+    const node=media.current;if(!node)return;
+    let visible=true;
+    const sync=()=>{if(visible&&!document.hidden){void node.play().catch(()=>{});}else node.pause();};
+    const observer=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;sync();});
+    observer.observe(node);
+    document.addEventListener("visibilitychange",sync);
+    return()=>{observer.disconnect();document.removeEventListener("visibilitychange",sync);node.pause();};
+  },[]);
+  return <div className={s.player} data-kind="video"><video ref={media} src={source.src} poster={source.poster} autoPlay muted loop playsInline preload="metadata" aria-label={source.label??"Видео"}/></div>;
+}
+
 export function MediaObject({source}:{source:EditorialMedia|null}){
-  return source?<Player key={source.src} source={source}/>:<div className={s.empty} aria-hidden="true"><DrawnObject kind="wave"/></div>;
+  if(!source)return <div className={s.empty} aria-hidden="true"><DrawnObject kind="wave"/></div>;
+  return source.kind==="video"&&source.autoplay?<AmbientVideo key={source.src} source={source}/>:<Player key={source.src} source={source}/>;
 }

@@ -1,0 +1,3 @@
+Le Murmure by Jérémy Landes; Cyrillic by Alex Slobzheninov; Greek by George Triantafyllakos.
+Source: https://gitlab.com/velvetyne/murmure
+Unmodified webfont, SIL Open Font License 1.1.

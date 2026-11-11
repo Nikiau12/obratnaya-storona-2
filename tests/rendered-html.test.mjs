@@ -251,7 +251,7 @@ test("reading layouts support multiple related books and no related book without
 
 test("comparison, cover proportions and unconfigured media remain isolated from editorial content",async()=>{
   const home=await(await render("/")).text();assert.match(home,/data-composition="editorial"/);
-  assert.doesNotMatch(home,/<audio|Послушать|autoPlay|autoplay/);
+  assert.doesNotMatch(home,/<audio|Послушать/);
   assert.match(home,/<video/);
   const comparison=await(await render("/preview/composition?variant=roomier")).text();assert.match(comparison,/data-composition="roomier"/);assert.match(comparison,/noindex/);
   const covers=await(await render("/preview/covers")).text();
@@ -267,7 +267,8 @@ test("quote and supplied video lead to real catalog entries without changing the
  assert.match(home,/href="\/books\/nosorog-19"/);
  assert.match(home,/href="\/books\/iguana"/);
  assert.match(home,/iguana-film.mp4/);
- assert.doesNotMatch(home,/autoplay|autoPlay|Включить звук|Без звука/);
+ assert.match(home,/<video[^>]*autoPlay[^>]*muted[^>]*loop/);
+ assert.doesNotMatch(home,/Включить звук|Без звука|Смотреть<\/button>|Пауза<\/button>|Позиция воспроизведения/);
  assert.equal((home.match(/data-book="sketch-/g)||[]).length,6);
  const catalog=await(await render("/books")).text();
  for(const [slug,title] of [["nosorog-19","Носорог №19"],["iguana","Игуана"]]){
