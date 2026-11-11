@@ -13,7 +13,9 @@
   border-radius:3px;
   background:color-mix(in srgb,var(--ink) 5%,var(--paper));
   color:var(--ink);
-  font:400 16px/1.4 var(--sans);
+  font:400 26px/1.2 var(--display);
+  letter-spacing:normal;
+  font-variant-ligatures:none;
   transition:background 160ms;
 }
 .search input::placeholder { color:color-mix(in srgb,var(--ink) 65%,var(--paper)); opacity:1; }

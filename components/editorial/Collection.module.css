@@ -8,7 +8,7 @@
 .store.store [data-catalog] { column-gap:clamp(22px,3vw,48px); row-gap:64px; }
 .store.store [data-catalog] article { line-height:1.4; }
 .store.store aside[aria-label="Издательства"] { border:0; padding-left:0; }
-.store.store aside h2 { font:400 23px/1.2 var(--sans); }
+.store.store aside h2 { font:400 30px/1.2 var(--display); letter-spacing:normal; }
 @media(max-width:1100px){
  .store.store [data-store-layout] { grid-template-columns:minmax(0,1fr) 160px; gap:30px; }
  .store.store [data-catalog] { grid-template-columns:repeat(3,minmax(0,1fr)); }
