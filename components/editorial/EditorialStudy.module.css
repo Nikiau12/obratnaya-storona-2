@@ -144,12 +144,12 @@
 .journal > .lead { grid-column:1/12; padding-top:16px; }
 .journal > .lead .visual { width:56%; margin:0 0 30px; }
 .journal > .lead h2 { font-size:clamp(32px,3.1vw,48px); line-height:1.16; text-wrap:pretty; }
-.journal > .dreams { grid-column:1/6; margin:0; }
+.journal > .dreams { grid-column:1/5; margin:90px 0 0; }
 .journal > .dreams .visual { width:150px; margin:0 0 24px 12%; }
-.journal > .reviews { grid-column:7/-1; margin-top:100px; }
+.journal > .reviews { grid-column:6/-1; margin-top:0; }
 .journal > .reviews > a { display:block; }
-.journal > .reviews .visual { width:130px; margin:0 0 24px 18%; }
-.journal > .reviews h2 { max-width:400px; }
+.journal > .reviews .visual { width:82%; max-width:340px; margin:0 auto 28px; }
+.journal > .reviews h2 { max-width:400px; margin-left:6%; font-size:clamp(24px,2.15vw,32px); }
 .journal > .interlude { grid-template-columns:repeat(12,minmax(0,1fr)); gap:24px; margin:0; }
 .interlude .engraving { grid-column:1/4; grid-row:2; align-self:end; max-width:170px; }
 .interlude .quotation { grid-column:5/-1; grid-row:2; justify-self:start; align-self:center; }
@@ -170,9 +170,9 @@
  .journal{row-gap:76px}
  .journal > .lead{grid-column:1/-1}
  .journal > .lead h2{font-size:32px}
- .journal > .dreams{grid-column:1/7}
- .journal > .reviews{grid-column:8/-1;margin-top:85px}
- .journal > .reviews .visual{width:95px;margin-left:0}
+ .journal > .dreams{grid-column:1/6;margin-top:60px}
+ .journal > .reviews{grid-column:6/-1;margin-top:0}
+ .journal > .reviews .visual{width:90%;max-width:260px;margin:0 auto 24px}
  .journal > .reviews h2{font-size:22px}
  .interlude .quotation{grid-column:4/-1}
  .interlude .quotation button{font-size:34px}
@@ -186,10 +186,10 @@
  .journal > .lead h2{font-size:clamp(27px,5.8vw,40px)}
  .journal > .dreams{grid-column:1/11;margin:0}
  .journal > .dreams .visual{width:110px;margin:0 0 18px 12%}
- .journal > .reviews{grid-column:3/-1;margin:0}
+ .journal > .reviews{grid-column:2/-1;margin:0}
  .journal > .reviews > a{display:block}
- .journal > .reviews .visual{width:100px;margin:0 0 18px 10%}
- .journal > .reviews h2{font-size:25px}
+ .journal > .reviews .visual{width:85%;max-width:280px;margin:0 auto 24px}
+ .journal > .reviews h2{font-size:25px;margin-left:0}
  .journal > .interlude{gap:18px 12px}
  .interlude .engraving{grid-column:1/4}
  .interlude .quotation{grid-column:4/-1}

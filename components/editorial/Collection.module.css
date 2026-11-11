@@ -43,3 +43,12 @@
  .store.store [data-catalog] { grid-template-columns:repeat(2,minmax(0,1fr)); gap:44px 24px; }
 }
 @media(max-width:360px){.store.store [data-catalog]{column-gap:18px}}
+
+/* A full-size portrait gives the reviews a distinct visual weight. */
+.journal .entry[data-story="2"] > a { display:block; }
+.journal .entry[data-story="2"] > a > div { width:85%; max-width:320px; margin:0 auto 26px; }
+.journal .entry[data-story="2"] h2 { max-width:410px; }
+@media(max-width:760px){
+ .journal .entry[data-story="2"]{width:90%;align-self:flex-end}
+ .journal .entry[data-story="2"] > a > div{max-width:270px}
+}
