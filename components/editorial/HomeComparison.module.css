@@ -94,6 +94,39 @@
 .map { grid-column: 9 / -1; align-self: center; }
 .film { grid-column: 5 / 10; }
 
+/* On wide desktops the journal and the shelf share the floor of the card room. */
+@media (min-width: 1200px) and (hover: hover) and (pointer: fine) {
+  .trial[data-home-variant="collage"] {
+    isolation: isolate;
+    max-width: none;
+  }
+  .trial[data-home-variant="collage"] .header { background: transparent; }
+  .trial[data-home-variant="collage"] .header [data-room] {
+    --full-page-room: 1;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: auto;
+    height: auto;
+    margin: 0;
+    max-width: none;
+    aspect-ratio: auto;
+    pointer-events: none;
+  }
+  .trial[data-home-variant="collage"] .header [data-room] > svg { display: none; }
+  .trial[data-home-variant="collage"] .layout {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 2fr) minmax(0, 1fr);
+    column-gap: 0;
+  }
+  .trial[data-home-variant="collage"] .shelf { grid-column: 3; }
+  .trial[data-home-variant="collage"] :is(.journal h2 span, .quotation button span, .film > a,
+    .shelf li > a > span:last-child, [data-brand], [data-tagline], [data-navigation] a) {
+    background-color: var(--paper);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}
+
 /* An unboxed contents page. The title and specimen columns repeat on each row. */
 .trial[data-home-variant="balanced"] .journal {
   grid-template-columns: minmax(0, 1fr);
