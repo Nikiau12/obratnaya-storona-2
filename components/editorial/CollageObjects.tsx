@@ -32,56 +32,33 @@ export function CollagePortrait({ image }: { image: SketchImage }) {
   </svg>;
 }
 
-// Cuts follow the seams of the supplied photograph in its 720 × 480 coordinate space.
-const printerParts = {
-  lid: "M40 -7H670V156L582 173 193 202 47 122Z M171 75L500 52 489 104 197 130Z",
-  rollers: "M170 74L503 51 490 104 194 131Z",
-  leftPanel: "M45 119L196 201 198 474H41Z",
-  rightPanel: "M583 168L659 150 657 310 580 320Z",
-  front: "M194 201L582 166 579 237 553 264 223 301 222 355 196 361Z",
-  tray: "M196 358L220 355 248 417 294 430 296 436 625 394 562 325 562 309 582 322 649 309 636 432 244 480 194 467Z",
-};
-
+// Keep the original two photo cuts. The loose stock follows the lid, and the
+// ink follows the existing sheet in the tray when the body is rotated.
 export function CollagePrinter({ image }: { image: SketchImage }) {
   const id = useId();
-  const print = "#" + id + "photo";
-  const cut = (part: keyof typeof printerParts) => `url(#${id}${part})`;
-
-  return <svg viewBox="-54 -211 840 817" width="840" height="817" aria-hidden="true" focusable="false">
+  const photo = "#" + id + "print";
+  return <svg viewBox="0 -78 520 428" width="520" height="428" aria-hidden="true" focusable="false">
     <defs>
-      <image id={id + "photo"} href={image.src} width="720" height="480" />
-      {Object.entries(printerParts).map(([name, d]) =>
-        <clipPath key={name} id={id + name}><path d={d} clipRule="evenodd" /></clipPath>
-      )}
+      <image id={id + "print"} href={image.src} x="40" y="14" width="430" height="287" />
+      <clipPath id={id + "lid"}><path d="M0 0H505V98L99 149 0 157Z" /></clipPath>
+      <clipPath id={id + "body"}><path d="M0 160L99 151 505 99V356H0Z" /></clipPath>
+      <clipPath id={id + "feed"}><path d="M60 -85H430V66L156 91H60Z" /></clipPath>
     </defs>
-
-    {/* Loose stock fans out behind the exposed mechanism. */}
-    <g stroke="#9b9891" strokeWidth="1.5" strokeLinejoin="round">
-      <path fill="#f1efea" d="M273 168C212 67 117 32 49 -51L172 -130C209 -82 277 -27 338 66L358 142Z"/>
-      <path fill="#fff" d="M315 140C279 54 224 -19 205 -138L407 -183C406 -76 389 33 401 117Z"/>
-      <path fill="#f2f1ed" d="M384 134C405 38 472 -62 516 -133L665 -70C600 -18 525 66 497 154Z"/>
-      <path fill="#fff" d="M436 152C509 74 617 28 676 -24L723 88C661 122 572 135 512 174Z"/>
-      <path fill="#dad7d0" d="M172 -130L160 -98 139 -108Z M406 -183L388 -153 365 -173Z"/>
+    <g transform="rotate(-8 226 137) translate(-8 -8)">
+      <use href={photo} clipPath={`url(#${id}lid)`} />
+      <g clipPath={`url(#${id}feed)`} stroke="#96958f" strokeWidth="1" strokeLinejoin="round">
+        <path fill="#efefec" d="M181 97C179 70 165 25 144 2L224 -27C240 13 249 49 251 94Z" />
+        <path fill="#f5f4f0" d="M224 93C249 50 277 13 290 -21L362 -1C342 32 330 61 318 87Z" />
+        <path fill="#fff" d="M204 95C201 58 204 7 198 -45L285 -50C289 -1 276 54 273 90Z" />
+      </g>
     </g>
-
-    <g transform="translate(-45 -56) rotate(-12 204 97)" clipPath={cut("lid")}><use href={print}/></g>
-    <g transform="translate(20 21) rotate(8 340 88)" clipPath={cut("rollers")}><use href={print}/></g>
-    <g transform="translate(-53 21) rotate(10 145 256)" clipPath={cut("leftPanel")}><use href={print}/></g>
-    <g transform="translate(60 -7) rotate(-12 606 243)" clipPath={cut("rightPanel")}><use href={print}/></g>
-    <g transform="translate(67 30) rotate(8 424 402)" clipPath={cut("tray")}><use href={print}/></g>
-
-    {/* The strip curves out of the slot and folds toward the reader. */}
-    <path fill="#eae8e3" stroke="#9b9891" strokeWidth="1.4"
-      d="M223 291L521 254C540 305 569 353 624 392L313 436C286 378 246 337 223 291Z"/>
-    <g transform="matrix(1 -.14 .34 .97 312 435)">
-      <path fill="#fffefa" stroke="#aaa7a0" strokeWidth="1.4"
-        d="M0 0L312 0 319 166Q238 163 174 169T5 170Q10 97 0 0Z"/>
-      <text fill="#211e1b" x="21" y="42" fontSize="26" fontWeight="500">
+    <g transform="rotate(4 239 191) translate(5 6)" clipPath={`url(#${id}body)`}>
+      <use href={photo} />
+      <text transform="translate(178 194) rotate(-7.7)" fill="#24211f" fontSize="14" fontWeight="500">
         {shalashTitleLines.map((line, i) =>
-          <tspan key={line} x="21" fontSize={i === 0 ? 34 : undefined} dy={i === 0 ? 0 : 32}>{line}</tspan>
+          <tspan key={line} x={13 + i * 8} y={16 + i * 16} fontSize={i === 0 ? 17 : undefined}>{line}</tspan>
         )}
       </text>
     </g>
-    <g clipPath={cut("front")}><use href={print}/></g>
   </svg>;
 }
