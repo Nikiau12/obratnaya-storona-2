@@ -6,6 +6,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito-Italic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
 .collage {
   --site-font: "Nunito", Arial, sans-serif;
   --sans: var(--site-font);
@@ -65,8 +73,8 @@
 .dreams h2 { margin-left: 20%; }
 .collage .interlude { grid-column: 2 / -1; justify-content: space-between; padding-block: 18px; }
 .press { grid-column: 1 / 9; }
-.press > a > div { width: min(100%, 640px); margin: 0 0 10px auto; }
-.press h2 { margin-left: 12%; max-width: 18em; }
+.press > a > div { width: min(100%, 640px); margin: 0 0 0 auto; }
+.press svg text { font-style: italic; }
 .map { grid-column: 9 / -1; align-self: center; }
 .film { grid-column: 5 / 10; }
 

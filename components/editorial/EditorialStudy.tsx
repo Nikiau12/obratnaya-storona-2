@@ -38,7 +38,7 @@ export function EditorialStudy() {
           <div className={t.eye} aria-hidden="true"><PaintedEye /></div>
         </div>
 
-        <Story feature={sketchFeatures[3]} placement={t.press}
+        <Story feature={sketchFeatures[3]} placement={t.press} titleInArtwork
           artwork={sketchFeatures[3].image ? <CollagePrinter image={sketchFeatures[3].image} /> : undefined}
         />
         <Story feature={sketchFeatures[4]} placement={t.map} />

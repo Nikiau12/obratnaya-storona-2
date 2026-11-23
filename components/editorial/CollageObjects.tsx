@@ -20,7 +20,7 @@ export function CollagePrinter({ image }: { image: SketchImage }) {
     </g>
     <g transform="rotate(4 239 191) translate(5 6)" clipPath={`url(#${id}body)`}>
       <use href={photo} />
-      <text transform="translate(178 194) rotate(-7.7)" fill="#24211f" fontSize="14" fontWeight="500">
+      <text transform="translate(181 200) rotate(-7.7)" fill="#24211f" fontSize="14" fontWeight="500">
         {shalashTitleLines.map((line, i) =>
           <tspan key={line} x={13 + i * 8} y={16 + i * 16} fontSize={i === 0 ? 17 : undefined}>{line}</tspan>
         )}
