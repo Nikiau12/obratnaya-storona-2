@@ -1,37 +1,6 @@
 import { useId } from "react";
 import { shalashTitleLines, type SketchImage } from "@/lib/sketch-feature";
 
-// Coordinates follow the mask in the existing 300 × 470 cover crop.
-const maskEdge = "M109 151C134 150 157 142 184 139C215 141 248 150 266 171L271 201 258 238 253 276 238 319 224 369 207 394 173 408C157 411 147 400 140 388C119 363 111 332 105 302L96 263 93 221 83 205 101 199Z";
-const maskCuts = [
-  { edge: "M67 125H284V197L159 243 74 221Z", placement: "translate(-4 -4) rotate(-5 181 225)" },
-  { edge: "M74 221L159 243 283 197V291L176 312 91 339Z", placement: "translate(5 2)" },
-  { edge: "M89 339L176 312 281 291V424H81Z", placement: "translate(-4 5) rotate(4 189 323)" },
-];
-
-export function CollagePortrait({ image }: { image: SketchImage }) {
-  const id = useId();
-  if (!image.viewport) return <img src={image.src} alt={image.alt ?? ""} width={image.width} height={image.height} />;
-  const [x, y] = image.viewport;
-  return <svg viewBox="-15 -14 1480 1120" width="1480" height="1120" aria-hidden="true" focusable="false">
-    <defs>
-      <clipPath id={id + "mask"}><path d={maskEdge} /></clipPath>
-      <g id={id + "face"} clipPath={`url(#${id}mask)`}>
-        <image href={image.src} x={-x} y={-y} width={image.sourceWidth} height={image.sourceHeight} />
-      </g>
-      {maskCuts.map(({edge}, i) =>
-        <clipPath key={edge} id={id + "cut" + i}><path d={edge} /></clipPath>
-      )}
-    </defs>
-    <image href="/art/tree-acrobat.webp" width="1448" height="1086" />
-    <g transform="translate(467 60) scale(1.09)">
-      {maskCuts.map(({edge, placement}, i) =>
-        <g key={edge} transform={placement}><g clipPath={`url(#${id}cut${i})`}><use href={`#${id}face`} /></g></g>
-      )}
-    </g>
-  </svg>;
-}
-
 // Keep the original two photo cuts. The loose stock follows the lid, and the
 // ink follows the existing sheet in the tray when the body is rotated.
 export function CollagePrinter({ image }: { image: SketchImage }) {
