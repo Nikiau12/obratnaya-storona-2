@@ -62,8 +62,20 @@
   gap: clamp(28px, 3.6vw, 58px) clamp(8px, 1.2vw, 20px);
 }
 .reviews { grid-area: 1 / 1 / 3 / 9; }
-.reviews > a > div { width: 100%; margin: 0 0 12px; }
-.reviews img.wallMask { width: min(48%, 350px); margin-inline-start: 22%; }
+.reviews > a > div { width: min(48%, 350px); margin: 0 0 12px 22%; }
+/* Show just the brass hook and loop above the same cover cutout as the journal. */
+.reviews > a > div::before {
+  content: "";
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+  width: 23%;
+  aspect-ratio: 90 / 120;
+  margin: 0 auto -6%;
+  background: url("/art/wall-hook-mask.webp") 50% 0 / 411% auto no-repeat;
+  clip-path: polygon(0 0, 100% 0, 100% 64%, 75% 66%, 75% 100%, 43% 100%, 42% 68%, 0 66%);
+}
 .reviews h2 { margin: 0 12% 0 12%; max-width: 19em; }
 .lead { position: relative; grid-area: 1 / 9 / 2 / -1; align-self: center; }
 .lead > a > div {
@@ -101,7 +113,6 @@
   .collage .journal { grid-template-columns: minmax(0, 1fr); row-gap: 44px; }
   .collage .journal > * { grid-area: auto; }
   .collage .reviews > a { display: block; }
-  .collage .reviews > a > div { width: 100%; margin: 0; }
   .collage .reviews h2 { margin: 0 6% 0 11%; }
   .collage .lead > a > div { width: 91%; margin: 6px 0 24px -2%; }
   .collage .dreams h2 { margin-left: 5%; }
@@ -135,10 +146,9 @@
   .collage .journal { grid-template-columns: minmax(0, 1fr); }
   .collage .journal > * { grid-area: auto; }
   .collage .reviews > a { display: block; }
-  .collage .reviews > a > div { margin: 0 0 12px; }
-  .collage .reviews img.wallMask {
+  .collage .reviews > a > div {
     width: min(75%, 178px);
-    margin-inline-start: 2%;
+    margin: 0 0 12px 2%;
   }
   .collage .reviews h2, .collage .dreams h2 { margin-inline: 0; }
   .collage .lead, .collage .map { width: 100%; }
@@ -161,7 +171,7 @@
 @media (min-width: 600px) and (max-width: 900px) and (min-height: 540px) {
   .collage .reviews { grid-area: auto / 1 / auto / 11; }
   .collage .reviews > a { display: block; }
-  .collage .reviews img.wallMask { width: min(60%, 210px); }
+  .collage .reviews > a > div { width: min(60%, 210px); }
   .collage .lead { grid-area: auto / 3 / auto / -1; }
   .collage .lead > a > div { width: 78%; margin-left: 0; }
   .collage .dreams { grid-area: auto / 1 / auto / 10; }

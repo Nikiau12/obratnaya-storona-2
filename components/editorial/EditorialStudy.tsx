@@ -22,9 +22,7 @@ export function EditorialStudy() {
     <main id="main-content" tabIndex={-1} className={`${s.layout} ${t.layout}`}>
       <div className={t.journal} data-room-journal>
         <h1 className="sr-only">Журнал</h1>
-        <Story feature={sketchFeatures[2]} placement={t.reviews}
-          artwork={<img className={t.wallMask} src="/art/wall-hook-mask.webp" alt="" width={760} height={1122} />}
-        />
+        <Story feature={sketchFeatures[2]} placement={t.reviews} />
         <Story feature={sketchFeatures[0]} placement={t.lead} />
         <Story feature={sketchFeatures[1]} placement={t.dreams} />
 

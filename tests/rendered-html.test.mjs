@@ -36,6 +36,18 @@ test("renders the editorial homepage", async () => {
 });
 
 test("the homepage and former comparison links all render the collage", async () => {
+  function reviewPortrait(html) {
+    const article = html.match(/<article\b[^>]*data-story="2"[^>]*>[\s\S]*?<\/article>/)?.[0];
+    assert.ok(article);
+    return {
+      source: article.match(/<image href="([^"]+)"/)?.[1],
+      viewport: article.match(/viewBox="([^"]+)"/)?.[1],
+      outline: article.match(/<path d="([^"]+)"/)?.[1],
+    };
+  }
+  const journal = await render("/materials");
+  const journalPortrait = reviewPortrait(await journal.text());
+  assert.ok(journalPortrait.source && journalPortrait.viewport && journalPortrait.outline);
   for (const path of ["/", "/?composition=balanced", "/?composition=collage"]) {
     const response = await render(path);
     assert.equal(response.status, 200);
@@ -43,7 +55,7 @@ test("the homepage and former comparison links all render the collage", async ()
     assert.doesNotMatch(html, /Вариант композиции главной|А · В коллаже|Б · Собранная|data-home-variant=/);
     const order = [...html.matchAll(/<article\b[^>]*\bdata-story="(\d+)"/g)].map(match => Number(match[1]));
     assert.deepEqual(order, [2, 0, 1, 3, 4]);
-    assert.match(html, /wall-hook-mask\.webp/);
+    assert.deepEqual(reviewPortrait(html), journalPortrait);
     assert.equal((html.match(/<canvas\b/g) || []).length, 1);
     assert.doesNotMatch(html.match(/<header\b[^>]*>[\s\S]*?<\/header>/)?.[0] ?? "", /<canvas\b/);
     assert.doesNotMatch(html, /memory-tree\.webp/);
