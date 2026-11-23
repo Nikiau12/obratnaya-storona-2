@@ -70,32 +70,6 @@
 .map { grid-column: 9 / -1; align-self: center; }
 .film { grid-column: 5 / 10; }
 
-/* On wide desktops the journal and the shelf share the floor of the card room. */
-@media (min-width: 1200px) and (hover: hover) and (pointer: fine) {
-  .collage {
-    isolation: isolate;
-    max-width: none;
-  }
-  .collage .header { background: transparent; }
-  .collage .header [data-room] {
-    --full-page-room: 1;
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    width: auto;
-    height: auto;
-    margin: 0;
-    max-width: none;
-    aspect-ratio: auto;
-    pointer-events: none;
-  }
-  .collage .header [data-room] > svg { display: none; }
-  .collage .layout {
-    grid-template-columns: minmax(0, 1fr) 10%;
-    column-gap: 28%;
-  }
-}
-
 @media (max-width: 900px) {
   .collage .header { grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding-block: 10px 24px; }
   .header [data-brand-group] { grid-column: 1 / -1; grid-row: 1; }
@@ -127,4 +101,52 @@
   .collage .map { width: 77%; justify-self: end; }
   .collage .film { width: 68%; justify-self: center; }
   .collage .interlude { padding-block: 0; }
+}
+
+/* A tablet has enough room for the floor in either orientation. A phone
+   turned sideways still uses the compact scene in the masthead. */
+@media (min-width: 600px) and (min-height: 540px), (min-width: 1200px) {
+  .collage { isolation: isolate; max-width: none; }
+  .collage .header { background: transparent; }
+  .collage .header [data-room] {
+    --full-page-room: 1;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: auto;
+    height: auto;
+    margin: 0;
+    max-width: none;
+    aspect-ratio: auto;
+    pointer-events: none;
+  }
+  .collage .header [data-room] > svg { display: none; }
+  .collage .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max(104px, 10%);
+    column-gap: 28%;
+  }
+  .collage .shelf ol { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Give the tablet opening a wider floor, including large touch tablets
+   in landscape. The canvas measures this gap for the rim and flight paths. */
+@media (600px <= width < 1200px) and (min-height: 540px),
+       (min-width: 1200px) and (min-height: 540px) and (pointer: coarse) {
+  .collage .layout { column-gap: min(32%, calc(44vw - 102px)); }
+}
+
+@media (min-width: 600px) and (max-width: 900px) and (min-height: 540px) {
+  .collage .header[data-home="true"] [data-navigation] {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+  .collage .reviews { grid-area: auto / 1 / auto / 11; }
+  .collage .reviews > a { display: block; }
+  .collage .reviews img.wallMask { width: min(60%, 210px); }
+  .collage .lead { grid-area: auto / 3 / auto / -1; }
+  .collage .lead > a > div { width: 78%; margin-left: 0; }
+  .collage .dreams { grid-area: auto / 1 / auto / 10; }
+  .collage .press { grid-column: 1 / 11; }
+  .collage .map { grid-column: 4 / -1; }
 }
