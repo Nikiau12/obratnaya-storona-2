@@ -43,9 +43,11 @@ test("homepage comparison links render both compositions with the same supplied 
   const stories = html => [...html.matchAll(/<article\b[^>]*data-story="\d"[^>]*>[\s\S]*?<\/article>/g)]
     .map(([article]) => article.match(/<h2>([\s\S]*?)<\/h2>/)?.[1]);
   assert.equal(stories(collage).length, 5);
-  assert.deepEqual(stories(collage), stories(balanced));
+  assert.match(stories(collage)[0], /Рецензии на книжные обложки/);
+  assert.match(stories(balanced)[0], /Переводчик Петр Епифанов/);
+  assert.deepEqual(stories(collage).sort(), stories(balanced).sort());
   const destinations = html => [...html.matchAll(/href="(\/(?:books|material)\/[^"#?]+)"/g)].map(match => match[1]);
-  assert.deepEqual(destinations(collage), destinations(balanced));
+  assert.deepEqual(destinations(collage).sort(), destinations(balanced).sort());
   for (const html of [collage, balanced]) {
     assert.equal((html.match(/data-book="sketch-/g) || []).length, 6);
     assert.equal((html.match(/<video\b/g) || []).length, 1);

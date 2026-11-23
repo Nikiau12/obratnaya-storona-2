@@ -1,190 +1,158 @@
 @font-face {
-  font-family: "Onest";
-  src: url("/fonts/Onest-VF.ttf") format("truetype");
-  font-weight: 100 900;
+  font-family: "Nunito";
+  src: url("/fonts/Nunito-Medium.ttf") format("truetype");
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 .trial {
-  --site-font: "Onest", "Helvetica Neue", Arial, sans-serif;
+  --site-font: "Nunito", Arial, sans-serif;
   --sans: var(--site-font);
   --display: var(--site-font);
   --reading-face: var(--site-font);
-  font-size: 1.125rem;
-  line-height: 1.4;
+  --reading-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  font: 500 var(--reading-size)/1.3 var(--site-font);
+  letter-spacing: normal;
 }
-
 .switcher {
   position: sticky;
   top: 0;
   z-index: 60;
   display: flex;
   justify-content: flex-end;
-  gap: 6px;
-  padding: 12px var(--page-gutter);
+  gap: 4px;
+  padding: 6px var(--page-gutter);
   background: var(--paper);
 }
 .trial .switcher button {
   min-height: 40px;
-  padding: 8px 14px;
-  border: 1px solid transparent;
-  border-radius: 3px;
+  padding: 5px 12px;
+  border: 0;
+  border-radius: 20px;
   background: transparent;
   color: var(--ink);
-  font-size: .875rem !important;
-  line-height: 1.3;
+  font-size: .9375rem !important;
   cursor: pointer;
 }
-.trial .switcher button[aria-pressed="true"] { border-color: currentColor; }
-.trial .switcher button:hover { background: color-mix(in srgb, var(--ink) 6%, var(--paper)); }
+.trial .switcher button[aria-pressed="true"] {
+  color: var(--paper);
+  background: var(--ink);
+}
 
 .trial .header {
-  grid-template-columns: minmax(0,1fr) minmax(0,1.6fr) minmax(0,1fr);
-  min-height: 230px;
-  padding-top: 22px;
-  padding-bottom: 40px;
-  gap: 28px;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 14px;
+  padding-block: 18px 28px;
 }
-.header [data-brand-group] { align-self: start; }
-.header [data-brand] { font-size: clamp(1.5rem, 2.4vw, 2.25rem); line-height: 1.2; }
-.header [data-tagline] { margin-top: 14px; font-size: .9375rem; line-height: 1.4; }
-.header [data-room] { width: 210px; max-width: 100%; margin-top: 28px; }
+.header [data-brand] { font: 500 clamp(1.75rem, 2.4vw, 2.25rem)/1.15 var(--site-font); }
+.header [data-tagline] { margin-top: 6px; font: 500 clamp(.875rem, 1.25vw, 1.125rem)/1.3 var(--site-font); }
+.header [data-room] { width: min(100%, 158px); margin: 12px 0 0; }
 .header [data-navigation] { padding: 0; }
-.header [data-navigation-links] { font-size: 1.0625rem; gap: 22px; }
+.header [data-navigation-links] { gap: clamp(12px, 1.8vw, 28px); font: 500 var(--reading-size)/1.3 var(--site-font); }
+.header [data-navigation] > div { margin-top: 0; }
 
-.trial .layout { grid-template-columns: minmax(0,1fr) 150px; gap: clamp(40px,5vw,80px); }
-.trial .journal { row-gap: 105px; }
-.trial .journal > article[data-story] h2 {
-  font-size: clamp(1.375rem,1.8vw,1.625rem);
-  font-weight: 400;
-  line-height: 1.35;
-  text-wrap: pretty;
-  letter-spacing: normal;
+.trial .layout { grid-template-columns: minmax(0, 1fr) clamp(116px, 10vw, 156px); gap: clamp(30px, 6vw, 98px); }
+.journal { display: grid; align-content: start; min-width: 0; }
+.journal article h2 { font: 500 var(--reading-size)/1.3 var(--site-font); text-wrap: pretty; }
+.lead > a > div { aspect-ratio: 6.9; overflow: hidden; }
+.lead > a > div > img { width: 100%; height: 100%; object-fit: cover; }
+.interlude { display: flex; gap: clamp(12px, 3vw, 48px); align-items: center; }
+.engraving { display: block; max-width: 22%; width: 120px; }
+.engraving img, .eye svg { display: block; width: 100%; height: auto; }
+:global(html[data-site-theme="black"]) .engraving img { filter: invert(1); }
+.eye { width: 86px; max-width: 18%; }
+.trial .quotation button { font-size: var(--reading-size) !important; line-height: 1.3; text-align: left; }
+.quotation a, .film > a { font-size: 1rem; }
+.film { min-width: 0; }
+.film > a { display: inline-block; padding-block: 6px; }
+.shelf li > a > span:last-child { font: 500 1rem/1.3 var(--site-font); }
+.trial .shelf ol { gap: 36px; }
+.trial .shelf li { max-width: 130px; }
+
+/* A magazine spread. The portrait spans the two shorter pieces on its right. */
+.trial[data-home-variant="collage"] .journal {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(38px, 4.5vw, 72px) clamp(10px, 1.35vw, 22px);
 }
-.trial .journal > .lead h2 { font-size: clamp(1.5rem,2.2vw,2rem); max-width: 850px; }
-.trial .journal > .dreams h2 { font-size: 1.25rem; }
-.trial .journal > .reviews h2 { font-size: 1.375rem; }
-.trial .journal > .map h2 { font-size: clamp(1.5rem,2.1vw,1.875rem); }
-.trial .quotation button { font-size: clamp(1.375rem,2vw,1.875rem) !important; line-height: 1.35; }
-.trial .quotation button:focus-visible { outline-offset: 6px; }
-.trial .shelf ol { gap: 40px; }
-.trial .shelf li { max-width: 125px; }
-.shelf li > a > span:last-child { font-size: .875rem; line-height: 1.35; }
-.trial .film > a { font-size: 1rem; line-height: 1.4; }
-.trial .interlude [role], .trial .interlude a { font-size: 1rem; line-height: 1.4; }
+.reviews { grid-area: 1 / 1 / 3 / 7; }
+.reviews > a > div { width: min(84%, 340px); margin: 0 auto 16px 4%; }
+.reviews h2 { margin-inline-start: 17%; max-width: 20em; }
+.lead { grid-area: 1 / 7 / 2 / -1; align-self: center; }
+.lead > a > div { width: min(88%, 350px); margin: 0 0 18px auto; }
+.dreams { grid-area: 2 / 8 / 3 / -1; align-self: end; }
+.dreams > a > div { width: 42%; max-width: 120px; margin: 0 0 10px auto; }
+.trial[data-home-variant="collage"] .interlude { grid-column: 2 / -1; justify-content: space-between; padding-block: 24px; }
+.press { grid-column: 1 / 8; }
+.press > a > div { width: min(85%, 420px); margin: 0 0 16px auto; }
+.press h2 { max-width: 18em; }
+.map { grid-column: 9 / -1; align-self: center; }
+.film { grid-column: 5 / 10; }
 
-/* A: type follows the existing free composition, sharing its uneven rhythm. */
-.trial[data-home-variant="collage"] .journal > .lead { grid-column: 1/12; }
-.trial[data-home-variant="collage"] .journal > .dreams { margin-top: 80px; }
-.trial[data-home-variant="collage"] .journal > .reviews h2 { margin-top: 100px; }
-
-/* B: independent images keep their scale; text follows repeated reading edges. */
-.trial[data-home-variant="balanced"] .journal { row-gap: 90px; column-gap: 28px; }
-.trial[data-home-variant="balanced"] .journal > .lead { grid-column: 1/-1; padding: 0; }
-.trial[data-home-variant="balanced"] .lead > a {
+/* An unboxed contents page. The title and specimen columns repeat on each row. */
+.trial[data-home-variant="balanced"] .journal {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: clamp(24px, 2.8vw, 46px);
+}
+.trial[data-home-variant="balanced"] .journal > * { grid-area: auto; }
+.trial[data-home-variant="balanced"] .journal article > a {
   display: grid;
-  grid-template-columns: repeat(12,minmax(0,1fr));
-  align-items: start;
-  gap: 28px;
-}
-.trial[data-home-variant="balanced"] .lead > a > div {
-  grid-column: 8/-1;
-  grid-row: 1;
-  width: 100%;
-  max-width: 380px;
-  margin: 8px 0 0;
-}
-.trial[data-home-variant="balanced"] .lead h2 { grid-column: 1/8; grid-row: 1; }
-.trial[data-home-variant="balanced"] .journal > .dreams { grid-column: 1/6; margin: 0; }
-.trial[data-home-variant="balanced"] .journal > .reviews { grid-column: 7/-1; margin: 0; }
-.trial[data-home-variant="balanced"] :is(.dreams,.reviews) > a { display: flex; flex-direction: column; gap: 28px; align-items: start; }
-.trial[data-home-variant="balanced"] :is(.dreams,.reviews) > a > div {
-  display: flex;
+  grid-template-columns: minmax(0, 1fr) clamp(110px, 16vw, 240px);
   align-items: center;
-  justify-content: flex-start;
-  height: 440px;
+  gap: clamp(20px, 4vw, 70px);
+  min-height: 68px;
+}
+.trial[data-home-variant="balanced"] .journal article h2 { grid-area: 1 / 1; margin: 0; max-width: 34em; }
+.trial[data-home-variant="balanced"] .journal article > a > div {
+  grid-area: 1 / 2;
   width: 100%;
   max-width: none;
   margin: 0;
+  justify-self: center;
 }
-.trial[data-home-variant="balanced"] .dreams > a > div > :is(img,svg) { width: 110px; height: auto; }
-.trial[data-home-variant="balanced"] .reviews > a > div > svg { width: auto; max-width: 100%; height: 100%; }
-.trial[data-home-variant="balanced"] .journal > :is(.dreams,.reviews) h2 { font-size: 1.375rem; margin: 0; max-width: none; }
-.trial[data-home-variant="balanced"] .interlude { align-items: center; }
-.trial[data-home-variant="balanced"] .journal > .press { margin: 0; }
-.trial[data-home-variant="balanced"] .press > a { gap: 28px; }
-.trial[data-home-variant="balanced"] .press > a > div { grid-column: 1/7; max-width: 460px; }
-.trial[data-home-variant="balanced"] .press h2 { grid-column: 7/-1; }
-.trial[data-home-variant="balanced"] .journal > .map { grid-column: 1/7; }
-.trial[data-home-variant="balanced"] .journal > .film { grid-column: 7/-1; padding: 0; max-width: 360px; }
+.trial[data-home-variant="balanced"] .journal :is(.dreams, .reviews, .press) > a > div { width: min(100%, var(--specimen-width)); }
+.dreams { --specimen-width: 88px; }
+.reviews { --specimen-width: 78px; }
+.press { --specimen-width: 140px; }
+.trial[data-home-variant="balanced"] .interlude { justify-content: center; }
+.trial[data-home-variant="balanced"] .engraving { width: 62px; }
+.trial[data-home-variant="balanced"] .eye { width: 60px; }
+.trial[data-home-variant="balanced"] .film { width: min(48%, 240px); justify-self: end; }
 
-@media (min-width:1101px) {
-  .trial[data-home-variant="balanced"] .header { row-gap: 12px; }
-  .trial[data-home-variant="balanced"] .header [data-navigation] {
-    grid-column: 2;
-    grid-row: 2;
-    justify-self: center;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    width: max-content;
+@media (max-width: 900px) {
+  .trial .header { grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding-block: 10px 24px; }
+  .header [data-brand-group] { grid-column: 1 / -1; grid-row: 1; }
+  .header [data-room] { grid-area: 2 / 1; width: min(100%, 112px); margin: 0; }
+  .trial .header [data-navigation] { grid-area: 2 / 2; width: auto; display: flex; align-items: center; gap: 12px; }
+  .header [data-navigation-links] { font-size: 1.125rem; }
+}
+@media (max-width: 760px) {
+  .trial { --page-gutter: clamp(16px, 4vw, 28px); }
+  .switcher { justify-content: center; }
+  .trial .layout { gap: 52px; }
+  .trial[data-home-variant="collage"] .journal { column-gap: 8px; }
+  .trial .shelf ol { row-gap: 32px; }
+}
+@media (max-width: 580px) {
+  .trial .header { gap: 8px; padding-inline: var(--page-gutter); }
+  .trial .header [data-navigation] { display: grid; justify-items: end; gap: 0; }
+  .header [data-navigation-links] { font-size: 1.0625rem; gap: 14px; }
+  .header [data-tagline] { font-size: clamp(.75rem, 3.2vw, .9375rem); }
+  .trial[data-home-variant="collage"] .journal { grid-template-columns: minmax(0, 1fr); row-gap: 44px; }
+  .trial[data-home-variant="collage"] .journal > * { grid-area: auto; }
+  .trial[data-home-variant="collage"] .reviews > a { display: grid; grid-template-columns: 1.1fr 1fr; align-items: end; gap: 14px; }
+  .trial[data-home-variant="collage"] .reviews > a > div { width: 100%; margin: 0; }
+  .trial[data-home-variant="collage"] .reviews h2 { margin: 0 0 8px; }
+  .trial[data-home-variant="collage"] .lead { width: 92%; justify-self: end; }
+  .trial[data-home-variant="collage"] .dreams { width: 76%; }
+  .trial[data-home-variant="collage"] .press { width: 88%; }
+  .trial[data-home-variant="collage"] .map { width: 77%; justify-self: end; }
+  .trial[data-home-variant="collage"] .film { width: 68%; justify-self: center; }
+  .trial[data-home-variant="collage"] .interlude { padding-block: 0; }
+  .trial[data-home-variant="balanced"] .journal article > a {
+    grid-template-columns: minmax(0, 1fr) clamp(64px, 20vw, 112px);
+    gap: 14px;
   }
-  .trial[data-home-variant="balanced"] .header [data-navigation] > div { margin-top: 0; }
-}
-
-@media (min-width:761px) and (max-width:1100px) {
-  .trial .header { grid-template-columns: 1fr 1fr; min-height: 250px; gap: 16px 28px; }
-  .header [data-brand-group] { grid-column: 1/-1; }
-  .header [data-room] { grid-row: 2; margin: 0; width: 170px; }
-  .header [data-navigation] { grid-column: 2; grid-row: 2; }
-  .trial .layout { grid-template-columns: minmax(0,1fr) 120px; gap: 34px; }
-  .trial .journal { row-gap: 75px; }
-  .trial .journal > .lead h2 { font-size: 1.625rem; }
-  .trial .journal > .reviews h2 { margin-top: 0; }
-  .trial[data-home-variant="balanced"] .journal { column-gap: 20px; row-gap: 70px; }
-  .trial[data-home-variant="balanced"] .lead > a { gap: 20px; }
-  .trial[data-home-variant="balanced"] .lead h2 { grid-column: 1/9; }
-  .trial[data-home-variant="balanced"] .lead > a > div { grid-column: 9/-1; }
-  .trial[data-home-variant="balanced"] :is(.dreams,.reviews) > a > div { height: 350px; }
-}
-
-@media (max-width:760px) {
-  .switcher { padding-block: 8px; justify-content: center; }
-  .trial .switcher button { padding-inline: 12px; }
-  .trial .header { grid-template-columns: repeat(2,minmax(0,1fr)); min-height: 0; gap: 24px 12px; padding-top: 20px; padding-bottom: 42px; }
-  .header [data-brand-group] { grid-column: 1/-1; }
-  .header [data-brand] { font-size: 1.625rem; }
-  .header [data-tagline] { font-size: .75rem; margin-top: 12px; }
-  .header [data-room] { grid-column: 1; grid-row: 2; width: 150px; margin: 0; }
-  .trial .header [data-navigation] { grid-column: 1/-1; grid-row: 3; }
-  .header [data-navigation-links] { gap: 12px; font-size: 1rem; }
-  .trial .layout { display: flex; gap: 64px; }
-  .trial .journal { row-gap: 62px; }
-  .trial .journal > article[data-story] h2 { font-size: 1.375rem; line-height: 1.35; }
-  .trial .journal > .lead h2 { font-size: 1.5rem; }
-  .trial .journal > .dreams h2 { font-size: 1.25rem; }
-  .trial .quotation button { font-size: 1.25rem !important; }
-  .trial .shelf li { max-width: 130px; }
-  .trial[data-home-variant="collage"] .journal > .lead { grid-column: 1/-1; }
-  .trial[data-home-variant="collage"] .journal > .dreams { margin: 0; }
-  .trial[data-home-variant="collage"] .journal > .reviews h2 { margin: 0; }
-  .trial[data-home-variant="balanced"] .journal { row-gap: 56px; column-gap: 12px; }
-  .trial[data-home-variant="balanced"] .lead > a { display: flex; flex-direction: column; gap: 24px; }
-  .trial[data-home-variant="balanced"] .lead > a > div { width: 85%; max-width: 380px; margin: 0; }
-  .trial[data-home-variant="balanced"] .journal > :is(.dreams,.reviews,.press,.map,.film) { grid-column: 1/-1; width: 100%; margin: 0; }
-  .trial[data-home-variant="balanced"] :is(.dreams,.reviews) > a { gap: 24px; }
-  .trial[data-home-variant="balanced"] :is(.dreams,.reviews) > a > div { height: auto; }
-  .trial[data-home-variant="balanced"] .dreams > a > div > :is(img,svg) { width: 100px; }
-  .trial[data-home-variant="balanced"] .reviews > a > div > svg { width: 75%; height: auto; max-width: 300px; }
-  .trial[data-home-variant="balanced"] .press > a { display: flex; flex-direction: column; align-items: start; gap: 24px; }
-  .trial[data-home-variant="balanced"] .press > a > div { width: 85%; max-width: 380px; }
-  .trial[data-home-variant="balanced"] .press h2 { width: 100%; align-self: flex-start; }
-  .trial[data-home-variant="balanced"] .journal > .film { justify-self: start; width: 75%; text-align: left; }
-}
-
-@media (max-width:360px) {
-  .header [data-brand] { font-size: 1.5rem; }
-  .header [data-tagline] { font-size: .6875rem; }
-  .header [data-navigation-links] { font-size: .9375rem; }
+  .trial[data-home-variant="balanced"] .reviews { --specimen-width: 50px; }
+  .trial[data-home-variant="balanced"] .journal { row-gap: 24px; }
 }

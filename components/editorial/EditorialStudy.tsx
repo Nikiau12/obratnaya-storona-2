@@ -16,6 +16,12 @@ import t from "./HomeComparison.module.css";
 
 export type HomeVariant = "collage" | "balanced";
 
+const openingOrder = {
+  collage: [2, 0, 1],
+  balanced: [0, 1, 2],
+} as const;
+const openingPlacements = [t.lead, t.dreams, t.reviews];
+
 // The editorial composition with the original business-card motion. No relationships are
 // inferred from the proximity of stories and books.
 export function EditorialStudy({ initialVariant = "collage" }: { initialVariant?: HomeVariant }) {
@@ -39,27 +45,27 @@ export function EditorialStudy({ initialVariant = "collage" }: { initialVariant?
     </div>
     <SiteHeader home className={t.header} />
     <main id="main-content" tabIndex={-1} className={`${s.layout} ${t.layout}`}>
-      <div className={`${s.journal} ${t.journal}`}>
+      <div className={t.journal}>
         <h1 className="sr-only">Журнал</h1>
-        <Story feature={sketchFeatures[0]} className={`${s.lead} ${t.lead}`} />
-        <Story feature={sketchFeatures[1]} className={`${s.dreams} ${t.dreams}`} />
-        <Story feature={sketchFeatures[2]} className={`${s.reviews} ${t.reviews}`} />
+        {openingOrder[variant].map(index => (
+          <Story key={sketchFeatures[index].slug} feature={sketchFeatures[index]} placement={openingPlacements[index]} />
+        ))}
 
-        <div className={`${s.interlude} ${t.interlude}`}>
-          <Link className={s.engraving} href="/books/nosorog-19" aria-label="Открыть издание: Носорог №19">
+        <div className={t.interlude}>
+          <Link className={t.engraving} href="/books/nosorog-19" aria-label="Открыть издание: Носорог №19">
             <img src="/katya/engraving.png" alt="" width={1380} height={1140} loading="lazy" />
           </Link>
-          <div className={`${s.quotation} ${t.quotation}`}>
+          <div className={t.quotation}>
             <Note label="Мы уже завели наши часы — источник цитаты" content={<Link href="/books/nosorog-19">Икозамерон. Джакомо Казанова, «Носорог» №19</Link>}>
               <span>Мы уже завели<br />наши часы</span>
             </Note>
           </div>
-          <div className={s.eye} aria-hidden="true"><PaintedEye /></div>
+          <div className={t.eye} aria-hidden="true"><PaintedEye /></div>
         </div>
 
-        <Story feature={sketchFeatures[3]} className={`${s.press} ${t.press}`} />
-        <Story feature={sketchFeatures[4]} className={`${s.map} ${t.map}`} />
-        <div className={`${s.film} ${t.film}`}>
+        <Story feature={sketchFeatures[3]} placement={t.press} />
+        <Story feature={sketchFeatures[4]} placement={t.map} />
+        <div className={t.film}>
           <MediaObject source={homeMedia} />
           <Link href="/books/iguana">Игуана</Link>
         </div>
