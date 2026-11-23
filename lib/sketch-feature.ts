@@ -38,11 +38,12 @@ export const demoFeatures = sketches.map((item,index) => {
   return {...item,index,slug,format:sketchFormats[index],materialHref:`/material/${slug}`,bookSlugs:[slug],bookHref:`/books/${slug}`,bookTitle:`Название книги ${number}`,purchaseUrl:null as string | null};
 });
 export type SketchFeature = Omit<(typeof demoFeatures)[number],"materialTitle"|"name"> & {materialTitle:string;name:string;image?:SketchImage;isClientDraft?:boolean};
+export const shalashTitleLines = ["Печень:", "Пять книг", "самиздат-проекта", "«Другарня ШАЛАШ»"];
 const headlines=[
  "Переводчик Петр Епифанов о божественной педагогике и «невинности» как о главной цели своего поэтического поиска Джузеппе Унгаретти",
  "Психоаналитик имярек толкует сны Вальтера Беньямина",
  "Рецензии на книжные обложки: Брехт, Сен-Сеньков, Бордуновский",
- "Печень: Пять книг самиздат-проекта «Другарня ШАЛАШ»",
+ shalashTitleLines.join(" "),
  "Карта русскоязычного независимого книгоиздания",
 ];
 const illustrations:SketchImage[]=[{"src": "/katya/ungaretti.png", "width": 2172, "height": 724, "alt": ""}, {"src": "/katya/gold.png", "width": 1536, "height": 1024, "alt": ""}, {src:"/books/saturn-autumn.png",width:300,height:470,sourceWidth:1600,sourceHeight:1600,viewport:[620,555,300,470],clipPath:"M630 690C634 651 662 620 702 592C718 572 744 558 774 569C819 569 858 578 883 614C900 646 911 695 909 731L895 765L891 802L879 840L874 891L850 922L843 948L810 968L790 965L818 1018L768 1018L700 965L665 919L668 865L679 830L659 807L649 768L639 742Z",alt:""}, {"src": "/katya/printer.png", "width": 1536, "height": 1024, "alt": ""}];
