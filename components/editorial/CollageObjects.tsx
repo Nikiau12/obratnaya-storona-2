@@ -1,18 +1,18 @@
 import { useId } from "react";
 import { shalashTitleLines, type SketchImage } from "@/lib/sketch-feature";
 
-export function FoldedPortrait() {
-  const fold = useId();
+export function HangingPortrait() {
+  const branchOverlap = useId();
   // Tree cutout from Dalí's The Persistence of Memory: https://www.moma.org/collection/works/79018
-  // The foreground sliver passes over the back of the fold and disappears beneath the temple.
   const tree = <image href="/art/memory-tree.webp" width="750" height="538.5" />;
   return <svg viewBox="32 17 668 514" width="668" height="514" aria-hidden="true" focusable="false">
     <defs>
-      <clipPath id={fold}><path d="M378 165H413Q417 174 417 185L378 192Z" /></clipPath>
+      {/* Only the far tip of the hook passes behind the horizontal branch. */}
+      <clipPath id={branchOverlap}><rect x="557" y="153" width="22" height="32" /></clipPath>
     </defs>
     {tree}
-    <image href="/art/folded-masked-face.webp" x="357" y="122" width="329" height="298.75" />
-    <g clipPath={`url(#${fold})`}>{tree}</g>
+    <image href="/art/hooked-masked-face.webp" x="434.5" y="154.5" width="222.6" height="358.2" />
+    <g clipPath={`url(#${branchOverlap})`}>{tree}</g>
   </svg>;
 }
 
