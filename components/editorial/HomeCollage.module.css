@@ -93,12 +93,6 @@
     grid-template-columns: minmax(0, 1fr) 10%;
     column-gap: 28%;
   }
-  .collage :is(.journal h2 span, .quotation button span, .film > a,
-    .shelf li > a > span:last-child, [data-brand], [data-tagline], [data-navigation] a) {
-    background-color: var(--paper);
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-  }
 }
 
 @media (max-width: 900px) {
