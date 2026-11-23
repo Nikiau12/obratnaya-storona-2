@@ -30,11 +30,8 @@ export function CollagePrinter({ image }: { image: SketchImage }) {
     </defs>
     <g transform="rotate(-8 226 137) translate(-8 -8)">
       <use href={photo} clipPath={`url(#${id}lid)`} />
-      <g clipPath={`url(#${id}feed)`} stroke="#96958f" strokeWidth="1" strokeLinejoin="round">
-        <path fill="#efefec" d="M181 97C179 70 165 25 144 2L224 -27C240 13 249 49 251 94Z" />
-        <path fill="#f5f4f0" d="M224 93C249 50 277 13 290 -21L362 -1C342 32 330 61 318 87Z" />
-        <path fill="#fff" d="M204 95C201 58 204 7 198 -45L285 -50C289 -1 276 54 273 90Z" />
-      </g>
+      <image href="/art/printer-feed-paper.webp" x="136" y="-56" width="234" height="156"
+        clipPath={`url(#${id}feed)`} />
     </g>
     <g transform="rotate(4 239 191) translate(5 6)" clipPath={`url(#${id}body)`}>
       <use href={photo} />
