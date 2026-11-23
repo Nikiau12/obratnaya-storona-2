@@ -10,6 +10,7 @@ import { EditorialStory as Story } from "./EditorialStory";
 import { Cover } from "../sketch/Cover";
 import { Note } from "../sketch/Interactions";
 import { MediaObject } from "../sketch/MediaObject";
+import { CollagePortrait, CollagePrinter } from "./CollageObjects";
 import { PaintedEye } from "./PaintedEye";
 import s from "./EditorialStudy.module.css";
 import t from "./HomeComparison.module.css";
@@ -47,9 +48,13 @@ export function EditorialStudy({ initialVariant = "collage" }: { initialVariant?
     <main id="main-content" tabIndex={-1} className={`${s.layout} ${t.layout}`}>
       <div className={t.journal}>
         <h1 className="sr-only">Журнал</h1>
-        {openingOrder[variant].map(index => (
-          <Story key={sketchFeatures[index].slug} feature={sketchFeatures[index]} placement={openingPlacements[index]} />
-        ))}
+        {openingOrder[variant].map(index => {
+          const feature = sketchFeatures[index];
+          const portrait = variant === "collage" && index === 2;
+          return <Story key={feature.slug} feature={feature} placement={openingPlacements[index]}
+            artwork={portrait && feature.image ? <CollagePortrait image={feature.image} /> : undefined}
+          />;
+        })}
 
         <div className={t.interlude}>
           <Link className={t.engraving} href="/books/nosorog-19" aria-label="Открыть издание: Носорог №19">
@@ -63,7 +68,9 @@ export function EditorialStudy({ initialVariant = "collage" }: { initialVariant?
           <div className={t.eye} aria-hidden="true"><PaintedEye /></div>
         </div>
 
-        <Story feature={sketchFeatures[3]} placement={t.press} />
+        <Story feature={sketchFeatures[3]} placement={t.press}
+          artwork={variant === "collage" && sketchFeatures[3].image ? <CollagePrinter image={sketchFeatures[3].image} /> : undefined}
+        />
         <Story feature={sketchFeatures[4]} placement={t.map} />
         <div className={t.film}>
           <MediaObject source={homeMedia} />

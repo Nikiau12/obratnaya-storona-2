@@ -70,22 +70,27 @@
 .trial .shelf ol { gap: 36px; }
 .trial .shelf li { max-width: 130px; }
 
-/* A magazine spread. The portrait spans the two shorter pieces on its right. */
+/* The type strip and the gold cutouts sit at opposite ends of the painted sweep. */
 .trial[data-home-variant="collage"] .journal {
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: clamp(38px, 4.5vw, 72px) clamp(10px, 1.35vw, 22px);
+  gap: clamp(28px, 3.6vw, 58px) clamp(8px, 1.2vw, 20px);
 }
-.reviews { grid-area: 1 / 1 / 3 / 7; }
-.reviews > a > div { width: min(84%, 340px); margin: 0 auto 16px 4%; }
-.reviews h2 { margin-inline-start: 17%; max-width: 20em; }
-.lead { grid-area: 1 / 7 / 2 / -1; align-self: center; }
-.lead > a > div { width: min(88%, 350px); margin: 0 0 18px auto; }
+.reviews { grid-area: 1 / 1 / 3 / 9; }
+.reviews > a > div { width: 108%; margin: 0 0 0 -3%; }
+.reviews h2 { margin: 0 12% 0 12%; max-width: 19em; }
+.lead { position: relative; grid-area: 1 / 9 / 2 / -1; align-self: center; }
+.lead > a > div {
+  width: min(125%, 420px);
+  margin: 8px 0 clamp(22px, 3vw, 46px) -29%;
+  transform: rotate(-9deg);
+}
 .dreams { grid-area: 2 / 8 / 3 / -1; align-self: end; }
-.dreams > a > div { width: 42%; max-width: 120px; margin: 0 0 10px auto; }
-.trial[data-home-variant="collage"] .interlude { grid-column: 2 / -1; justify-content: space-between; padding-block: 24px; }
-.press { grid-column: 1 / 8; }
-.press > a > div { width: min(85%, 420px); margin: 0 0 16px auto; }
-.press h2 { max-width: 18em; }
+.dreams > a > div { width: min(48%, 145px); margin: 0 0 12px 12%; transform: rotate(14deg); }
+.dreams h2 { margin-left: 20%; }
+.trial[data-home-variant="collage"] .interlude { grid-column: 2 / -1; justify-content: space-between; padding-block: 18px; }
+.press { grid-column: 1 / 9; }
+.press > a > div { width: min(95%, 540px); margin: 0 0 0 auto; }
+.press h2 { margin-left: 12%; max-width: 18em; }
 .map { grid-column: 9 / -1; align-self: center; }
 .film { grid-column: 5 / 10; }
 
@@ -108,6 +113,7 @@
   width: 100%;
   max-width: none;
   margin: 0;
+  transform: none;
   justify-self: center;
 }
 .trial[data-home-variant="balanced"] .journal :is(.dreams, .reviews, .press) > a > div { width: min(100%, var(--specimen-width)); }
@@ -140,9 +146,11 @@
   .header [data-tagline] { font-size: clamp(.75rem, 3.2vw, .9375rem); }
   .trial[data-home-variant="collage"] .journal { grid-template-columns: minmax(0, 1fr); row-gap: 44px; }
   .trial[data-home-variant="collage"] .journal > * { grid-area: auto; }
-  .trial[data-home-variant="collage"] .reviews > a { display: grid; grid-template-columns: 1.1fr 1fr; align-items: end; gap: 14px; }
+  .trial[data-home-variant="collage"] .reviews > a { display: block; }
   .trial[data-home-variant="collage"] .reviews > a > div { width: 100%; margin: 0; }
-  .trial[data-home-variant="collage"] .reviews h2 { margin: 0 0 8px; }
+  .trial[data-home-variant="collage"] .reviews h2 { margin: 0 6% 0 11%; }
+  .trial[data-home-variant="collage"] .lead > a > div { width: 91%; margin: 6px 0 24px -2%; }
+  .trial[data-home-variant="collage"] .dreams h2 { margin-left: 5%; }
   .trial[data-home-variant="collage"] .lead { width: 92%; justify-self: end; }
   .trial[data-home-variant="collage"] .dreams { width: 76%; }
   .trial[data-home-variant="collage"] .press { width: 88%; }

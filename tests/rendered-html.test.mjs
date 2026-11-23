@@ -46,7 +46,7 @@ test("homepage comparison links render both compositions with the same supplied 
   assert.match(stories(collage)[0], /Рецензии на книжные обложки/);
   assert.match(stories(balanced)[0], /Переводчик Петр Епифанов/);
   assert.deepEqual(stories(collage).sort(), stories(balanced).sort());
-  const destinations = html => [...html.matchAll(/href="(\/(?:books|material)\/[^"#?]+)"/g)].map(match => match[1]);
+  const destinations = html => [...html.matchAll(/<a\b[^>]*?\shref="(\/(?:books|material)\/[^"#?]+)"/g)].map(match => match[1]);
   assert.deepEqual(destinations(collage).sort(), destinations(balanced).sort());
   for (const html of [collage, balanced]) {
     assert.equal((html.match(/data-book="sketch-/g) || []).length, 6);
