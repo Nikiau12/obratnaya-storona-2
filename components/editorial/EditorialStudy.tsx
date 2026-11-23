@@ -10,7 +10,7 @@ import { EditorialStory as Story } from "./EditorialStory";
 import { Cover } from "../sketch/Cover";
 import { Note } from "../sketch/Interactions";
 import { MediaObject } from "../sketch/MediaObject";
-import { CollagePrinter } from "./CollageObjects";
+import { CollagePrinter, FoldedPortrait } from "./CollageObjects";
 import { PaintedEye } from "./PaintedEye";
 import s from "./EditorialStudy.module.css";
 import t from "./HomeComparison.module.css";
@@ -50,9 +50,9 @@ export function EditorialStudy({ initialVariant = "collage" }: { initialVariant?
         <h1 className="sr-only">Журнал</h1>
         {openingOrder[variant].map(index => {
           const feature = sketchFeatures[index];
-          const showDrapedMask = variant === "collage" && index === 2;
+          const showFoldedPortrait = variant === "collage" && index === 2;
           return <Story key={feature.slug} feature={feature} placement={openingPlacements[index]}
-            artwork={showDrapedMask ? <img src="/art/draped-mask.webp" alt="" width={1448} height={1086} /> : undefined}
+            artwork={showFoldedPortrait ? <FoldedPortrait /> : undefined}
           />;
         })}
 

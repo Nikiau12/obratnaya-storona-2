@@ -1,6 +1,21 @@
 import { useId } from "react";
 import { shalashTitleLines, type SketchImage } from "@/lib/sketch-feature";
 
+export function FoldedPortrait() {
+  const fold = useId();
+  // Tree cutout from Dalí's The Persistence of Memory: https://www.moma.org/collection/works/79018
+  // The foreground sliver passes over the back of the fold and disappears beneath the temple.
+  const tree = <image href="/art/memory-tree.webp" width="750" height="538.5" />;
+  return <svg viewBox="32 17 668 514" width="668" height="514" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id={fold}><path d="M378 165H413Q417 174 417 185L378 192Z" /></clipPath>
+    </defs>
+    {tree}
+    <image href="/art/folded-masked-face.webp" x="357" y="122" width="329" height="298.75" />
+    <g clipPath={`url(#${fold})`}>{tree}</g>
+  </svg>;
+}
+
 // Keep the original two photo cuts. The loose stock follows the lid, and the
 // ink follows the existing sheet in the tray when the body is rotated.
 export function CollagePrinter({ image }: { image: SketchImage }) {
