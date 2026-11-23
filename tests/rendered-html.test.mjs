@@ -44,6 +44,8 @@ test("the homepage and former comparison links all render the collage", async ()
     const order = [...html.matchAll(/<article\b[^>]*\bdata-story="(\d+)"/g)].map(match => Number(match[1]));
     assert.deepEqual(order, [2, 0, 1, 3, 4]);
     assert.match(html, /wall-hook-mask\.webp/);
+    assert.equal((html.match(/<canvas\b/g) || []).length, 1);
+    assert.doesNotMatch(html.match(/<header\b[^>]*>[\s\S]*?<\/header>/)?.[0] ?? "", /<canvas\b/);
     assert.doesNotMatch(html, /memory-tree\.webp/);
     assert.match(html, /printer-feed-paper\.webp/);
     assert.equal((html.match(/data-book="sketch-/g) || []).length, 6);
@@ -179,6 +181,7 @@ test("preview publications are isolated from the homepage and archive", async ()
     assert.equal(response.status, 200, path);
     const html = await response.text();
     assert.match(html, /noindex/, path);
+    assert.ok((html.match(/<canvas\b/g) || []).length <= 1, path);
     assert.doesNotMatch(html, /mailto:|<form/, path);
   }
   for (const path of ["/", "/materials"]) {

@@ -15,6 +15,7 @@
 }
 
 .collage {
+  isolation: isolate;
   --site-font: "Nunito", Arial, sans-serif;
   --sans: var(--site-font);
   --display: var(--site-font);
@@ -24,13 +25,15 @@
   letter-spacing: normal;
 }
 .collage .header {
+  background: transparent;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   gap: 14px;
   padding-block: 18px 28px;
 }
 .header [data-brand] { font: 500 clamp(1.75rem, 2.4vw, 2.25rem)/1.15 var(--site-font); }
 .header [data-tagline] { margin-top: 6px; font: 500 clamp(.875rem, 1.25vw, 1.125rem)/1.3 var(--site-font); }
-.header [data-room] { width: min(100%, 158px); margin: 12px 0 0; }
+.room { --card-room: phone; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.room canvas { display: block; width: 100%; height: 100%; }
 .header [data-navigation] { padding: 0; }
 .header [data-navigation-links] { gap: clamp(12px, 1.8vw, 28px); font: 500 var(--reading-size)/1.3 var(--site-font); }
 .header [data-navigation] > div { margin-top: 0; }
@@ -81,8 +84,7 @@
 @media (max-width: 900px) {
   .collage .header { grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding-block: 10px 24px; }
   .header [data-brand-group] { grid-column: 1 / -1; grid-row: 1; }
-  .header [data-room] { grid-area: 2 / 1; width: min(100%, 112px); margin: 0; }
-  .collage .header[data-home="true"] [data-navigation] { grid-area: 2 / 2; width: auto; display: flex; align-items: center; gap: 12px; }
+  .collage .header[data-home="true"] [data-navigation] { grid-area: 2 / 1 / 3 / -1; justify-self: center; width: auto; display: flex; align-items: center; gap: 12px; }
   .header [data-navigation-links] { font-size: 1.125rem; }
 }
 @media (max-width: 760px) {
@@ -93,7 +95,7 @@
 }
 @media (max-width: 580px) {
   .collage .header { gap: 8px; padding-inline: var(--page-gutter); }
-  .collage .header[data-home="true"] [data-navigation] { display: grid; justify-items: end; gap: 0; }
+  .collage .header[data-home="true"] [data-navigation] { flex-wrap: wrap; justify-content: center; }
   .header [data-navigation-links] { font-size: 1.0625rem; gap: 14px; }
   .header [data-tagline] { font-size: clamp(.75rem, 3.2vw, .9375rem); }
   .collage .journal { grid-template-columns: minmax(0, 1fr); row-gap: 44px; }
@@ -111,30 +113,42 @@
   .collage .interlude { padding-block: 0; }
 }
 
-/* A tablet has enough room for the floor in either orientation. A phone
-   turned sideways still uses the compact scene in the masthead. */
+/* On wider screens the shelf defines the right edge of the floor. */
 @media (min-width: 600px) and (min-height: 540px), (min-width: 1200px) {
-  .collage { isolation: isolate; max-width: none; }
-  .collage .header { background: transparent; }
-  .collage .header [data-room] {
-    --full-page-room: 1;
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    width: auto;
-    height: auto;
-    margin: 0;
-    max-width: none;
-    aspect-ratio: auto;
-    pointer-events: none;
-  }
-  .collage .header [data-room] > svg { display: none; }
+  .collage { max-width: none; }
+  .room { --card-room: viewport; }
   .collage .layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) max(104px, 10%);
     column-gap: 28%;
   }
   .collage .shelf ol { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Keep the floor visible alongside the whole mobile reading column. */
+@media (width < 600px), (width < 1200px) and (height < 540px) {
+  .collage .layout {
+    display: flex;
+    flex-direction: column;
+    padding-inline-end: clamp(108px, 40vw, 205px);
+  }
+  .collage .journal { grid-template-columns: minmax(0, 1fr); }
+  .collage .journal > * { grid-area: auto; }
+  .collage .reviews > a { display: block; }
+  .collage .reviews > a > div { margin: 0 0 12px; }
+  .collage .reviews img.wallMask {
+    width: min(75%, 178px);
+    margin-inline-start: 2%;
+  }
+  .collage .reviews h2, .collage .dreams h2 { margin-inline: 0; }
+  .collage .lead, .collage .map { width: 100%; }
+  .collage .interlude { display: grid; grid-template-columns: 1fr auto; }
+  .collage .interlude .engraving { max-width: 100%; width: 72px; }
+  .collage .interlude .eye { grid-area: 1 / 2; max-width: 100%; width: 56px; }
+  .collage .interlude .quotation { grid-column: 1 / -1; grid-row: 2; justify-self: start; }
+  .collage .shelf ol {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 128px), 1fr));
+  }
 }
 
 /* Give the tablet opening a wider floor, including large touch tablets
@@ -145,10 +159,6 @@
 }
 
 @media (min-width: 600px) and (max-width: 900px) and (min-height: 540px) {
-  .collage .header[data-home="true"] [data-navigation] {
-    grid-column: 1 / -1;
-    justify-self: center;
-  }
   .collage .reviews { grid-area: auto / 1 / auto / 11; }
   .collage .reviews > a { display: block; }
   .collage .reviews img.wallMask { width: min(60%, 210px); }

@@ -76,7 +76,7 @@ export function HomeComposition({ features, books, quote, preview = false }: Pro
 
   return (
     <div className={styles.root} data-theme={theme}>
-      <SiteHeader home />
+      <SiteHeader home showRoom />
       {preview ? <div className={styles.previewNotice}><Link href="/preview">Все макеты</Link></div> : null}
       <div className={styles.layout}>
         <main id="main-content" tabIndex={-1} className={styles.main}>
