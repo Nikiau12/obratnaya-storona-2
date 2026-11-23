@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { useEffect, useState, type MouseEvent } from "react";
 import { SketchHome } from "@/components/sketch/Home";
-import "./fonts.css";
 import s from "./TypographyStudy.module.css";
 
 export function TypographyStudy({ variant: initialVariant }: { variant: "a" | "b" }) {
@@ -23,8 +22,6 @@ export function TypographyStudy({ variant: initialVariant }: { variant: "a" | "b
     requestAnimationFrame(() => window.scrollTo({ top, behavior: "instant" }));
   }
   return <div className={s.study} data-typography={variant}>
-    <link rel="preload" href="/fonts/study/literata-cyrillic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-    <link rel="preload" href="/fonts/study/literata-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
     <div className={s.toolbar} role="region" aria-label="Сравнение типографики">
       <div className={s.controls}>
         <span className={s.label}>Два варианта главной</span>

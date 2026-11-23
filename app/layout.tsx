@@ -34,6 +34,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru">
+      <head><link rel="stylesheet" href="/fonts/nunito.css" /></head>
       <body>
         <SiteChrome>{children}</SiteChrome>
       </body>

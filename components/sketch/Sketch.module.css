@@ -322,7 +322,7 @@
 
 .bookTitle:hover { opacity:.65; }
 
-.bookTitle { font:400 30px/1.16 var(--display); letter-spacing:normal; font-variant-ligatures:none; }
-.storeBook p { font:400 23px/1.2 var(--display); }
-.storeBook small { font:400 21px/1.2 var(--display); }
+.bookTitle { font:500 clamp(18px,1.6vw,24px)/1.25 var(--display); letter-spacing:normal; font-variant-ligatures:none; }
+.storeBook p { font:400 17px/1.4 var(--display); }
+.storeBook small { font:400 15px/1.4 var(--display); }
 .mediaBookLink { font:400 30px/1.2 var(--display); }

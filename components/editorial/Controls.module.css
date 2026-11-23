@@ -13,7 +13,7 @@
   border-radius:3px;
   background:color-mix(in srgb,var(--ink) 5%,var(--paper));
   color:var(--ink);
-  font:400 26px/1.2 var(--display);
+  font:400 17px/1.35 var(--sans);
   letter-spacing:normal;
   font-variant-ligatures:none;
   transition:background 160ms;

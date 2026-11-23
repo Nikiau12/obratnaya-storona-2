@@ -8,7 +8,7 @@
 .store.store [data-catalog] { column-gap:clamp(22px,3vw,48px); row-gap:64px; }
 .store.store [data-catalog] article { line-height:1.4; }
 .store.store aside[aria-label="Издательства"] { border:0; padding-left:0; }
-.store.store aside h2 { font:400 30px/1.2 var(--display); letter-spacing:normal; }
+.store.store aside h2 { font:500 clamp(20px,1.6vw,24px)/1.25 var(--display); letter-spacing:normal; }
 @media(max-width:1100px){
  .store.store [data-store-layout] { grid-template-columns:minmax(0,1fr) 160px; gap:30px; }
  .store.store [data-catalog] { grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -30,7 +30,7 @@
 /* Art-led spreads: one dominant image, a quiet column, then a wide second feature. */
 .journal { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:100px 28px; align-items:start; }
 .journal .entry { margin:0; padding:0; min-width:0; }
-.journal .entry h2 { line-height:1.2; text-wrap:pretty; }
+.journal .entry h2 { line-height:1.2; text-wrap:pretty; overflow-wrap:break-word; }
 .journal .entry[data-story="0"] { grid-column:1/11; grid-row:1; }
 .journal .entry[data-story="0"] > a { max-width:none; }
 .journal .entry[data-story="0"] > a > div { width:45%; max-width:440px; margin:0 0 30px auto; }
@@ -77,17 +77,3 @@
 /* Search results keep their original identity without empty grid rows. */
 .journal[data-filtered="true"] { display:flex; flex-direction:column; gap:64px; }
 .journal[data-filtered="true"] .entry { width:100%; max-width:1050px; margin:0; }
-
-.journal .entry h2 { font-family:var(--display); font-variant-ligatures:none; font-weight:400; letter-spacing:normal; line-height:1.13; }
-.journal .entry[data-story="0"] h2 { font-size:clamp(48px,5vw,80px); }
-.journal .entry[data-story="1"] h2 { font-size:clamp(36px,3.1vw,48px); }
-.journal .entry[data-story="2"] h2 { font-size:clamp(40px,3.7vw,58px); }
-.journal .entry[data-story="3"] h2 { font-size:clamp(44px,4.2vw,66px); }
-.journal .entry[data-story="4"] h2 { font-size:clamp(52px,6vw,88px); }
-@media(max-width:760px){
- .journal .entry[data-story="0"] h2{font-size:44px}
- .journal .entry[data-story="1"] h2{font-size:36px}
- .journal .entry[data-story="2"] h2{font-size:40px}
- .journal .entry[data-story="3"] h2{font-size:43px}
- .journal .entry[data-story="4"] h2{font-size:46px}
-}

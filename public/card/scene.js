@@ -11,6 +11,7 @@ const projectLabelsReady = true;
 
 // A compact vocabulary of letters, figures, and physical objects. The stone,
 // scissors, and paper now form a quiet visual sequence inside the larger scene.
+const sceneFont = getComputedStyle(document.body).fontFamily;
 const objectSpecs = [
   { kind: "letter", text: "О", width: 0.68, height: 0.72, weight: 300, fontStyle: "italic", slant: 0.26, size: 0.92, pathIndex: 0, duration: 15.2 },
   { kind: "physical-object", asset: "stone", width: 0.62, height: 0.62, size: 1.06, rotationFactor: 0.38, pathIndex: 2, duration: 18.3, offset: 1 / 6 },
@@ -18,7 +19,7 @@ const objectSpecs = [
   { kind: "cover-figure", asset: "cycloPerson", width: 0.58, height: 0.92, size: 1.05, rotationFactor: 0.18, pathIndex: 4, duration: 19.4 },
   { kind: "physical-object", asset: "paper", width: 0.68, height: 0.88, size: 0.68, rotationFactor: 0.32, pathIndex: 6, duration: 18.3, offset: 4 / 6, entryDelay: 0.55, entryDuration: 2.45 },
   { kind: "digamma", width: 0.58, height: 0.7, size: 0.68, pathIndex: 7, duration: 16.8 },
-  { kind: "mirror-word", text: "наоборот", width: 1.3, height: 0.42, weight: 400, fontStyle: "italic", slant: 0.22, fontFamily: 'Formular, "Tilda Sans", "Helvetica Neue", Arial, sans-serif', size: 0.82, pathIndex: 1, duration: 17.2 },
+  { kind: "mirror-word", text: "наоборот", width: 1.3, height: 0.42, weight: 400, fontStyle: "italic", slant: 0.22, size: 0.82, pathIndex: 1, duration: 17.2 },
   { kind: "physical-object", asset: "bu", width: 0.62, height: 1.02, size: 0.74, rotationFactor: 0.3, pathIndex: 5, duration: 19.1 },
 ];
 
@@ -225,6 +226,7 @@ function twinklePlaceholder(button, node) {
 
 setActiveNode(activeNodeId);
 resize();
+document.fonts.ready.then(layoutGraph);
 addEventListener("resize", resize);
 addEventListener("pointermove", (event) => {
   if (!isCompact() && !reduceMotion) {
@@ -646,8 +648,7 @@ function drawTypographicSprite(item, w, h) {
   }
 
   const fontSize = item.kind === "mirror-word" ? h * 1.18 : h * 1.08;
-  const fontFamily = item.fontFamily || '"Tilda Sans", "Helvetica Neue", Arial, sans-serif';
-  ctx.font = `${item.fontStyle ? `${item.fontStyle} ` : ""}${item.weight || 400} ${fontSize}px ${fontFamily}`;
+  ctx.font = `${item.fontStyle ? `${item.fontStyle} ` : ""}${item.weight || 400} ${fontSize}px ${sceneFont}`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
