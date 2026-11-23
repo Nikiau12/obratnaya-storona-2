@@ -35,20 +35,16 @@ test("renders the editorial homepage", async () => {
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
 
-test("homepage comparison links render both compositions with the same supplied content", async () => {
-  const collage = await (await render("/?composition=collage")).text();
-  const balanced = await (await render("/?composition=balanced")).text();
-  assert.match(collage, /data-home-variant="collage"/);
-  assert.match(balanced, /data-home-variant="balanced"/);
-  const stories = html => [...html.matchAll(/<article\b[^>]*data-story="\d"[^>]*>[\s\S]*?<\/article>/g)]
-    .map(([article]) => article.match(/<h2>([\s\S]*?)<\/h2>/)?.[1]);
-  assert.equal(stories(collage).length, 5);
-  assert.match(stories(collage)[0], /Рецензии на книжные обложки/);
-  assert.match(stories(balanced)[0], /Переводчик Петр Епифанов/);
-  assert.deepEqual(stories(collage).sort(), stories(balanced).sort());
-  const destinations = html => [...html.matchAll(/<a\b[^>]*?\shref="(\/(?:books|material)\/[^"#?]+)"/g)].map(match => match[1]);
-  assert.deepEqual(destinations(collage).sort(), destinations(balanced).sort());
-  for (const html of [collage, balanced]) {
+test("the homepage and former comparison links all render the collage", async () => {
+  for (const path of ["/", "/?composition=balanced", "/?composition=collage"]) {
+    const response = await render(path);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.doesNotMatch(html, /Вариант композиции главной|А · В коллаже|Б · Собранная|data-home-variant=/);
+    const order = [...html.matchAll(/<article\b[^>]*\bdata-story="(\d+)"/g)].map(match => Number(match[1]));
+    assert.deepEqual(order, [2, 0, 1, 3, 4]);
+    assert.match(html, /folded-masked-face\.webp/);
+    assert.match(html, /printer-feed-paper\.webp/);
     assert.equal((html.match(/data-book="sketch-/g) || []).length, 6);
     assert.equal((html.match(/<video\b/g) || []).length, 1);
   }

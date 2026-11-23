@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { sketchBooks, sketchFeatures } from "@/lib/sketch-feature";
 import { homeMedia } from "@/lib/home-media";
 import { SiteFooter } from "../SiteFooter";
@@ -13,48 +10,19 @@ import { MediaObject } from "../sketch/MediaObject";
 import { CollagePrinter, FoldedPortrait } from "./CollageObjects";
 import { PaintedEye } from "./PaintedEye";
 import s from "./EditorialStudy.module.css";
-import t from "./HomeComparison.module.css";
-
-export type HomeVariant = "collage" | "balanced";
-
-const openingOrder = {
-  collage: [2, 0, 1],
-  balanced: [0, 1, 2],
-} as const;
-const openingPlacements = [t.lead, t.dreams, t.reviews];
+import t from "./HomeCollage.module.css";
 
 // The editorial composition with the original business-card motion. No relationships are
 // inferred from the proximity of stories and books.
-export function EditorialStudy({ initialVariant = "collage" }: { initialVariant?: HomeVariant }) {
-  const [variant, setVariant] = useState<HomeVariant>(initialVariant);
-  useEffect(() => {
-    const restore = () => setVariant(new URLSearchParams(location.search).get("composition") === "balanced" ? "balanced" : "collage");
-    restore();
-    window.addEventListener("popstate", restore);
-    return () => window.removeEventListener("popstate", restore);
-  }, []);
-  function selectVariant(next: HomeVariant) {
-    setVariant(next);
-    const url = new URL(location.href);
-    url.searchParams.set("composition", next);
-    history.replaceState(history.state, "", url);
-  }
-  return <div className={`${s.root} ${t.trial}`} data-composition="editorial" data-home-variant={variant}>
-    <div className={t.switcher} role="group" aria-label="Вариант композиции главной">
-      <button type="button" aria-pressed={variant === "collage"} onClick={() => selectVariant("collage")}>А · В коллаже</button>
-      <button type="button" aria-pressed={variant === "balanced"} onClick={() => selectVariant("balanced")}>Б · Собранная</button>
-    </div>
+export function EditorialStudy() {
+  return <div className={`${s.root} ${t.collage}`} data-composition="editorial">
     <SiteHeader home className={t.header} />
     <main id="main-content" tabIndex={-1} className={`${s.layout} ${t.layout}`}>
       <div className={t.journal}>
         <h1 className="sr-only">Журнал</h1>
-        {openingOrder[variant].map(index => {
-          const feature = sketchFeatures[index];
-          const showFoldedPortrait = variant === "collage" && index === 2;
-          return <Story key={feature.slug} feature={feature} placement={openingPlacements[index]}
-            artwork={showFoldedPortrait ? <FoldedPortrait /> : undefined}
-          />;
-        })}
+        <Story feature={sketchFeatures[2]} placement={t.reviews} artwork={<FoldedPortrait />} />
+        <Story feature={sketchFeatures[0]} placement={t.lead} />
+        <Story feature={sketchFeatures[1]} placement={t.dreams} />
 
         <div className={t.interlude}>
           <Link className={t.engraving} href="/books/nosorog-19" aria-label="Открыть издание: Носорог №19">
@@ -69,7 +37,7 @@ export function EditorialStudy({ initialVariant = "collage" }: { initialVariant?
         </div>
 
         <Story feature={sketchFeatures[3]} placement={t.press}
-          artwork={variant === "collage" && sketchFeatures[3].image ? <CollagePrinter image={sketchFeatures[3].image} /> : undefined}
+          artwork={sketchFeatures[3].image ? <CollagePrinter image={sketchFeatures[3].image} /> : undefined}
         />
         <Story feature={sketchFeatures[4]} placement={t.map} />
         <div className={t.film}>
