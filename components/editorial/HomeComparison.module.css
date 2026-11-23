@@ -70,13 +70,13 @@
 .trial .shelf ol { gap: 36px; }
 .trial .shelf li { max-width: 130px; }
 
-/* The type strip and the gold cutouts sit at opposite ends of the painted sweep. */
+/* A cut portrait shares the spread with the type strip and the gold fragments. */
 .trial[data-home-variant="collage"] .journal {
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: clamp(28px, 3.6vw, 58px) clamp(8px, 1.2vw, 20px);
 }
 .reviews { grid-area: 1 / 1 / 3 / 9; }
-.reviews > a > div { width: 108%; margin: 0 0 0 -3%; }
+.reviews > a > div { width: 90%; margin: 0 0 0 2%; }
 .reviews h2 { margin: 0 12% 0 12%; max-width: 19em; }
 .lead { position: relative; grid-area: 1 / 9 / 2 / -1; align-self: center; }
 .lead > a > div {
