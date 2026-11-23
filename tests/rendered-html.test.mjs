@@ -35,6 +35,23 @@ test("renders the editorial homepage", async () => {
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
 
+test("homepage comparison links render both compositions with the same supplied content", async () => {
+  const collage = await (await render("/?composition=collage")).text();
+  const balanced = await (await render("/?composition=balanced")).text();
+  assert.match(collage, /data-home-variant="collage"/);
+  assert.match(balanced, /data-home-variant="balanced"/);
+  const stories = html => [...html.matchAll(/<article\b[^>]*data-story="\d"[^>]*>[\s\S]*?<\/article>/g)]
+    .map(([article]) => article.match(/<h2>([\s\S]*?)<\/h2>/)?.[1]);
+  assert.equal(stories(collage).length, 5);
+  assert.deepEqual(stories(collage), stories(balanced));
+  const destinations = html => [...html.matchAll(/href="(\/(?:books|material)\/[^"#?]+)"/g)].map(match => match[1]);
+  assert.deepEqual(destinations(collage), destinations(balanced));
+  for (const html of [collage, balanced]) {
+    assert.equal((html.match(/data-book="sketch-/g) || []).length, 6);
+    assert.equal((html.match(/<video\b/g) || []).length, 1);
+  }
+});
+
 test("renders the longread template", async () => {
   const response = await render("/material/poetics-of-error");
   assert.equal(response.status, 200);

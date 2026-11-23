@@ -1,0 +1,4 @@
+Onest by The Onest Project Authors.
+Source: https://github.com/google/fonts/tree/main/ofl/onest
+Upstream: https://github.com/simpals/onest
+Unmodified variable font (Latin and Cyrillic), SIL Open Font License 1.1.

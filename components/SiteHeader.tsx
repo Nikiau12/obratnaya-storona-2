@@ -8,16 +8,16 @@ import styles from "./SiteHeader.module.css";
 
 const links = [["О нас", "/about"], ["Журнал", "/materials"], ["Витрина", "/books"]] as const;
 
-export function SiteHeader({ home = false }: { home?: boolean }) {
+export function SiteHeader({ home = false, className = "" }: { home?: boolean; className?: string }) {
   const pathname = usePathname();
   const { theme, setTheme } = useSiteTheme();
   return (
-    <header className={styles.header} data-home={home}>
+    <header className={`${styles.header} ${className}`} data-home={home}>
       <Link href={home ? "#main-content" : "#page-content"} className={styles.skip}>К содержанию</Link>
-      <div className={styles.brandGroup}><Link className={styles.brand} href="/" aria-label="Обратная сторона — на главную">Обратная сторона</Link>{home&&<p className={styles.tagline}>Констелляция независимых книжных практик</p>}</div>
-      {home&&<div className={styles.room} aria-hidden="true"><RoomLines/><CardHole/></div>}
-      <div className={styles.navigation}>
-      <nav className={styles.nav} aria-label="Основная навигация">
+      <div className={styles.brandGroup} data-brand-group><Link className={styles.brand} data-brand href="/" aria-label="Обратная сторона — на главную">Обратная сторона</Link>{home&&<p className={styles.tagline} data-tagline>Констелляция независимых книжных практик</p>}</div>
+      {home&&<div className={styles.room} data-room aria-hidden="true"><RoomLines/><CardHole/></div>}
+      <div className={styles.navigation} data-navigation>
+      <nav className={styles.nav} data-navigation-links aria-label="Основная навигация">
         {links.map(([label, href]) => <Link key={href} href={href} aria-current={pathname===href?"page":undefined}>{label}</Link>)}
       </nav>
       <div className={styles.actions}>
