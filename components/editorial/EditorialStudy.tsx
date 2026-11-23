@@ -7,7 +7,7 @@ import { EditorialStory as Story } from "./EditorialStory";
 import { Cover } from "../sketch/Cover";
 import { Note } from "../sketch/Interactions";
 import { MediaObject } from "../sketch/MediaObject";
-import { CollagePrinter, HangingPortrait } from "./CollageObjects";
+import { CollagePrinter } from "./CollageObjects";
 import { PaintedEye } from "./PaintedEye";
 import s from "./EditorialStudy.module.css";
 import t from "./HomeCollage.module.css";
@@ -20,7 +20,9 @@ export function EditorialStudy() {
     <main id="main-content" tabIndex={-1} className={`${s.layout} ${t.layout}`}>
       <div className={t.journal} data-room-journal>
         <h1 className="sr-only">Журнал</h1>
-        <Story feature={sketchFeatures[2]} placement={t.reviews} artwork={<HangingPortrait />} />
+        <Story feature={sketchFeatures[2]} placement={t.reviews}
+          artwork={<img className={t.wallMask} src="/art/wall-hook-mask.webp" alt="" width={760} height={1122} />}
+        />
         <Story feature={sketchFeatures[0]} placement={t.lead} />
         <Story feature={sketchFeatures[1]} placement={t.dreams} />
 

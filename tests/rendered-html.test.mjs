@@ -43,7 +43,8 @@ test("the homepage and former comparison links all render the collage", async ()
     assert.doesNotMatch(html, /Вариант композиции главной|А · В коллаже|Б · Собранная|data-home-variant=/);
     const order = [...html.matchAll(/<article\b[^>]*\bdata-story="(\d+)"/g)].map(match => Number(match[1]));
     assert.deepEqual(order, [2, 0, 1, 3, 4]);
-    assert.match(html, /hooked-masked-face\.webp/);
+    assert.match(html, /wall-hook-mask\.webp/);
+    assert.doesNotMatch(html, /memory-tree\.webp/);
     assert.match(html, /printer-feed-paper\.webp/);
     assert.equal((html.match(/data-book="sketch-/g) || []).length, 6);
     assert.equal((html.match(/<video\b/g) || []).length, 1);

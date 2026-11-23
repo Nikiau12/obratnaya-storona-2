@@ -1,21 +1,6 @@
 import { useId } from "react";
 import { shalashTitleLines, type SketchImage } from "@/lib/sketch-feature";
 
-export function HangingPortrait() {
-  const branchOverlap = useId();
-  // Tree cutout from Dalí's The Persistence of Memory: https://www.moma.org/collection/works/79018
-  const tree = <image href="/art/memory-tree.webp" width="750" height="538.5" />;
-  return <svg viewBox="32 17 668 514" width="668" height="514" aria-hidden="true" focusable="false">
-    <defs>
-      {/* Only the far tip of the hook passes behind the horizontal branch. */}
-      <clipPath id={branchOverlap}><rect x="557" y="153" width="22" height="32" /></clipPath>
-    </defs>
-    {tree}
-    <image href="/art/hooked-masked-face.webp" x="434.5" y="154.5" width="222.6" height="358.2" />
-    <g clipPath={`url(#${branchOverlap})`}>{tree}</g>
-  </svg>;
-}
-
 // Keep the original two photo cuts. The loose stock follows the lid, and the
 // ink follows the existing sheet in the tray when the body is rotated.
 export function CollagePrinter({ image }: { image: SketchImage }) {
