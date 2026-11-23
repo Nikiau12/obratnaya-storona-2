@@ -90,10 +90,9 @@
   }
   .collage .header [data-room] > svg { display: none; }
   .collage .layout {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 2fr) minmax(0, 1fr);
-    column-gap: 0;
+    grid-template-columns: minmax(0, 1fr) 10%;
+    column-gap: 28%;
   }
-  .collage .shelf { grid-column: 3; }
   .collage :is(.journal h2 span, .quotation button span, .film > a,
     .shelf li > a > span:last-child, [data-brand], [data-tagline], [data-navigation] a) {
     background-color: var(--paper);

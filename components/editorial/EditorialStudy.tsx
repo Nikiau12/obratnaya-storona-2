@@ -18,7 +18,7 @@ export function EditorialStudy() {
   return <div className={`${s.root} ${t.collage}`} data-composition="editorial">
     <SiteHeader home className={t.header} />
     <main id="main-content" tabIndex={-1} className={`${s.layout} ${t.layout}`}>
-      <div className={t.journal}>
+      <div className={t.journal} data-room-journal>
         <h1 className="sr-only">Журнал</h1>
         <Story feature={sketchFeatures[2]} placement={t.reviews} artwork={<FoldedPortrait />} />
         <Story feature={sketchFeatures[0]} placement={t.lead} />
@@ -46,7 +46,7 @@ export function EditorialStudy() {
         </div>
       </div>
 
-      <aside className={`${s.shelf} ${t.shelf}`} aria-label="Витрина книг">
+      <aside className={`${s.shelf} ${t.shelf}`} data-room-shelf aria-label="Витрина книг">
         <ol>
           {sketchBooks.map((book, index) => <li key={book.slug}>
             <Link href={book.href} data-book={book.slug} aria-label={`Открыть книгу: ${book.title}`}>
