@@ -9,10 +9,6 @@
 .destinations a:focus-visible { outline:2px solid var(--ink); outline-offset:5px; }
 .room { --card-room:about; position:relative; grid-area:1 / 6 / 4 / -1; height:clamp(440px,52vw,720px); min-width:0; }
 .room canvas { display:block; width:100%; height:100%; }
-.switch { position:absolute; top:30%; right:16%; display:grid; place-items:center; width:44px; height:56px; padding:8px; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:2px; cursor:pointer; }
-.switch span { display:block; width:22px; height:34px; border:1px solid currentColor; border-radius:1px; background:linear-gradient(to bottom,transparent 0 49%,var(--line) 49% 51%,transparent 51%); box-shadow:inset 0 -5px 0 var(--line); }
-.switch[aria-checked="false"] span { box-shadow:inset 0 5px 0 var(--line); }
-.switch:focus-visible { outline:2px solid currentColor; outline-offset:5px; }
 @media(max-width:900px) {
   .statement { font-size:clamp(28px,4.1vw,44px); }
   .composition { column-gap:16px; }
@@ -24,5 +20,4 @@
   .statement span:last-child { margin-left:5%; }
   .destinations { margin-top:20px; }
   .room { --card-room:phone; width:100%; height:clamp(360px,65svh,540px); margin-top:16px; }
-  .switch { top:27%; right:12%; }
 }

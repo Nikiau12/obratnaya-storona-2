@@ -68,7 +68,7 @@ test("the homepage and former comparison links all render the collage", async ()
   const about = await render("/about");
   const aboutHtml = await about.text();
   assert.equal((aboutHtml.match(/<canvas\b/g) || []).length, 1);
-  assert.match(aboutHtml, /Движение предметов/);
+  assert.doesNotMatch(aboutHtml, /Движение предметов|Выключить движение|Включить движение/);
 });
 
 test("renders the longread template", async () => {
