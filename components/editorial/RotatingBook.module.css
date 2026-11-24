@@ -1,33 +1,80 @@
-.stage { display:block; perspective:1100px; padding:8px 16px 16px 8px; }
+@property --review-book-angle {
+  syntax:"<angle>";
+  inherits:true;
+  initial-value:-17deg;
+}
+.stage {
+  --book-depth:clamp(10px,1.5vw,20px);
+  --half-depth:calc(var(--book-depth) / 2);
+  display:block;
+  perspective:1100px;
+  padding:8px 16px 16px 8px;
+}
 .book {
+  --review-book-angle:-17deg;
   position:relative;
   display:block;
   aspect-ratio:752/1038;
   transform-style:preserve-3d;
-  transform:rotateZ(-4deg) rotateY(-17deg);
+}
+/* Each face rotates around the book's centre. Keeping the rotation on the
+   faces also prevents Safari from showing the front image through the back. */
+.book > span {
+  position:absolute;
+  top:50%;
+  left:50%;
+  display:block;
+  backface-visibility:hidden;
+  transform:translate(-50%,-50%) rotateZ(-4deg) rotateX(-6deg) rotateY(var(--review-book-angle)) var(--face-position);
+}
+.front, .back {
+  width:100%;
+  height:100%;
 }
 .front {
-  position:relative;
-  display:block;
-  width:100%;
-  height:auto;
-  overflow:hidden;
-  backface-visibility:hidden;
-  transform:translateZ(10px);
+  --face-position:translateZ(var(--half-depth));
+  /* Explicit facing also hides the front in Safari's flattened render layers. */
+  opacity:clamp(0,calc(cos(var(--review-book-angle)) * 10000),1);
+  /* Crop the 752 × 1038 cover at (461, 331) from the original 1680px photo. */
+  background-image:url("/books/saturn-autumn.png");
+  background-size:223.404255% 161.849711%;
+  background-position:49.676724% 51.557632%;
+  background-repeat:no-repeat;
   box-shadow:0 12px 22px #0002;
 }
-.pages {
-  position:absolute;
-  inset:2px auto 2px 100%;
-  width:20px;
-  transform-origin:left center;
-  transform:translateZ(10px) rotateY(90deg);
-  background:repeating-linear-gradient(90deg,#ebe9e0 0 1px,#bfbdb3 1px 2px,#e7e5db 2px 4px);
-  border-block:2px solid #606753;
+.back {
+  --face-position:translateZ(calc(-1 * var(--half-depth))) rotateY(180deg);
+  opacity:clamp(0,calc(cos(var(--review-book-angle)) * -10000),1);
+  background:linear-gradient(90deg,#626b5b,#7c836d 12%,#747c67 94%,#626b5b);
+  border:1px solid #626b5b;
+  box-shadow:0 10px 20px #0002;
 }
+.spine, .pages {
+  width:var(--book-depth);
+  height:calc(100% - 2px);
+}
+.spine {
+  --face-position:translateX(calc(var(--book-width) / -2)) rotateY(-90deg);
+  opacity:clamp(0,calc(sin(var(--review-book-angle)) * 10000),1);
+  background:linear-gradient(90deg,#515b4a,#7b8269 25%,#767e66 75%,#515b4a);
+}
+.pages {
+  --face-position:translateX(calc(var(--book-width) / 2 - 1px)) rotateY(90deg);
+  opacity:clamp(0,calc(sin(var(--review-book-angle)) * -10000),1);
+  background:repeating-linear-gradient(90deg,#e9e4d6 0 1px,#c5c0b0 1px 2px,#eee9dd 2px 3px);
+  border-inline:1px solid #606753;
+}
+.top, .bottom {
+  width:calc(100% - 2px);
+  height:var(--book-depth);
+  background:repeating-linear-gradient(0deg,#e9e4d6 0 1px,#c5c0b0 1px 2px,#eee9dd 2px 3px);
+  border-block:1px solid #606753;
+}
+.top { --face-position:translateY(calc(var(--book-height) / -2 + 1px)) rotateX(90deg); }
+.bottom { --face-position:translateY(calc(var(--book-height) / 2 - 1px)) rotateX(-90deg); }
 @keyframes turn {
-  from { transform:rotateZ(-4deg) rotateY(-76deg); }
-  to { transform:rotateZ(-4deg) rotateY(-17deg); }
+  from { --review-book-angle:-76deg; }
+  to { --review-book-angle:-17deg; }
 }
 @media (prefers-reduced-motion:no-preference) {
   .stage[data-book-turn="true"] .book { animation:turn 3.4s cubic-bezier(.2,.65,.3,1) both; }

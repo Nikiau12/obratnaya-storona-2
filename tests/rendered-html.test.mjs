@@ -55,11 +55,8 @@ test("the homepage and former comparison links all render the collage", async ()
     assert.doesNotMatch(html, /Вариант композиции главной|А · В коллаже|Б · Собранная|data-home-variant=/);
     const order = [...html.matchAll(/<article\b[^>]*\bdata-story="(\d+)"/g)].map(match => Number(match[1]));
     assert.deepEqual(order, [2, 0, 1, 3, 4]);
-    assert.deepEqual(reviewPortrait(html), {
-      source: journalPortrait.source,
-      viewport: "461 331 752 1038",
-      outline: undefined,
-    });
+    assert.match(html, /data-book-turn=/);
+    assert.doesNotMatch(html.match(/<article\b[^>]*data-story="2"[^>]*>[\s\S]*?<\/article>/)?.[0] ?? "", /<clipPath/);
     assert.equal((html.match(/<canvas\b/g) || []).length, 0);
     assert.doesNotMatch(html, /wall-hook-mask/);
     assert.doesNotMatch(html.match(/<header\b[^>]*>[\s\S]*?<\/header>/)?.[0] ?? "", /<canvas\b/);

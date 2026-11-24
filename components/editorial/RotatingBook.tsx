@@ -9,21 +9,31 @@ export function RotatingBook() {
 
   useEffect(() => {
     if (!root.current) return;
+    const book = root.current.firstElementChild as HTMLElement;
+    function measure() {
+      book.style.setProperty("--book-width", `${book.offsetWidth}px`);
+      book.style.setProperty("--book-height", `${book.offsetHeight}px`);
+    }
+    measure();
+    const resize = new ResizeObserver(measure);
+    resize.observe(book);
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
       setVisible(true);
       observer.disconnect();
     });
     observer.observe(root.current);
-    return () => observer.disconnect();
+    return () => { observer.disconnect(); resize.disconnect(); };
   }, []);
 
   return <span ref={root} className={s.stage} data-book-turn={visible} aria-hidden="true">
     <span className={s.book}>
+      <span className={s.back} />
+      <span className={s.spine} />
       <span className={s.pages} />
-      <svg className={s.front} viewBox="461 331 752 1038" width={752} height={1038} focusable="false">
-        <image href="/books/saturn-autumn.png" width={1680} height={1680} />
-      </svg>
+      <span className={s.top} />
+      <span className={s.bottom} />
+      <span className={s.front} />
     </span>
   </span>;
 }
