@@ -28,11 +28,19 @@ export function RotatingBook() {
 
   return <span ref={root} className={s.stage} data-book-turn={visible} aria-hidden="true">
     <span className={s.book}>
+      <span className={s.shadow} />
       <span className={s.back} />
+      <span className={s.backLining} />
       <span className={s.spine} />
       <span className={s.pages} />
       <span className={s.top} />
       <span className={s.bottom} />
+      <span className={`${s.coverEdge} ${s.frontEdge}`} />
+      <span className={`${s.coverEdge} ${s.backEdge}`} />
+      <span className={`${s.coverTop} ${s.frontTop}`} />
+      <span className={`${s.coverTop} ${s.backTop}`} />
+      <span className={`${s.coverBottom} ${s.frontBottom}`} />
+      <span className={`${s.coverBottom} ${s.backBottom}`} />
       <span className={s.front} />
     </span>
   </span>;
