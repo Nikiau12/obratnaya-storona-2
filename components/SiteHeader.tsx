@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { CardHole, RoomLines } from "./sketch/CardScene";
 import { useSiteTheme } from "./SiteTheme";
+import { CartButton } from "./cart/Cart";
 import styles from "./SiteHeader.module.css";
 
 const links = [["О нас", "/about"], ["Журнал", "/materials"], ["Витрина", "/books"]] as const;
@@ -64,6 +65,7 @@ function SiteNavigation({ pathname }: { pathname: string }) {
       <nav className={styles.nav} data-navigation-links aria-label="Основная навигация">
         {links.map(([label, href]) => <Link key={href} href={href}
           onClick={() => setOpen(false)} aria-current={pathname === href ? "page" : undefined}>{label}</Link>)}
+        <CartButton onOpen={() => setOpen(false)} />
       </nav>
       <div className={styles.actions} data-theme-actions>
         <div className={styles.themePicker} role="group" aria-label="Цвет фона">

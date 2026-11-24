@@ -2,6 +2,7 @@ import Link from "next/link";
 import s from "./Editorial.module.css";
 import c from "./Composition.module.css";
 import about from "./About.module.css";
+import { AboutRoom } from "./AboutRoom";
 
 export function InfoPage({ kind }: { kind: "about" | "bureau" }) {
   const bureau = kind === "bureau";
@@ -10,6 +11,7 @@ export function InfoPage({ kind }: { kind: "about" | "bureau" }) {
     <div className={about.composition}>
       <p className={about.statement}><span>Констелляция</span><span>независимых</span><span>книжных практик</span></p>
       <nav className={about.destinations} aria-label="Разделы Обратной стороны"><Link href="/materials">Журнал</Link><Link href="/books">Витрина</Link></nav>
+      <AboutRoom />
     </div>
   </main>;
   return <main className={`${s.page} ${c.infoPage}`} data-kind={kind}>

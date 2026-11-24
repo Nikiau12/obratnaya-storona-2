@@ -29,7 +29,7 @@ test("renders the editorial homepage", async () => {
   assert.match(html, /Чёрный фон/);
   assert.match(html, /Белый фон/);
   assert.doesNotMatch(html, /data-ink-trail/);
-  assert.match(html, /<canvas[^>]*aria-hidden="true"/);
+  assert.doesNotMatch(html, /<canvas\b/);
   assert.doesNotMatch(html, /Содержание выпуска|Выпуск 01|Книга внутри выпуска/);
   assert.match(html, /og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
@@ -55,14 +55,23 @@ test("the homepage and former comparison links all render the collage", async ()
     assert.doesNotMatch(html, /Вариант композиции главной|А · В коллаже|Б · Собранная|data-home-variant=/);
     const order = [...html.matchAll(/<article\b[^>]*\bdata-story="(\d+)"/g)].map(match => Number(match[1]));
     assert.deepEqual(order, [2, 0, 1, 3, 4]);
-    assert.deepEqual(reviewPortrait(html), journalPortrait);
-    assert.equal((html.match(/<canvas\b/g) || []).length, 1);
+    assert.deepEqual(reviewPortrait(html), {
+      source: journalPortrait.source,
+      viewport: "461 331 752 1038",
+      outline: undefined,
+    });
+    assert.equal((html.match(/<canvas\b/g) || []).length, 0);
+    assert.doesNotMatch(html, /wall-hook-mask/);
     assert.doesNotMatch(html.match(/<header\b[^>]*>[\s\S]*?<\/header>/)?.[0] ?? "", /<canvas\b/);
     assert.doesNotMatch(html, /memory-tree\.webp/);
     assert.match(html, /printer-feed-paper\.webp/);
     assert.equal((html.match(/data-book="sketch-/g) || []).length, 6);
     assert.equal((html.match(/<video\b/g) || []).length, 1);
   }
+  const about = await render("/about");
+  const aboutHtml = await about.text();
+  assert.equal((aboutHtml.match(/<canvas\b/g) || []).length, 1);
+  assert.match(aboutHtml, /Движение предметов/);
 });
 
 test("renders the longread template", async () => {

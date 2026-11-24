@@ -5,24 +5,21 @@ import { SiteFooter } from "../SiteFooter";
 import { SiteHeader } from "../SiteHeader";
 import { EditorialStory as Story } from "./EditorialStory";
 import { Cover } from "../sketch/Cover";
-import { CardHole } from "../sketch/CardScene";
 import { Note } from "../sketch/Interactions";
 import { MediaObject } from "../sketch/MediaObject";
 import { CollagePrinter } from "./CollageObjects";
 import { PaintedEye } from "./PaintedEye";
+import { RotatingBook } from "./RotatingBook";
 import s from "./EditorialStudy.module.css";
 import t from "./HomeCollage.module.css";
 
-// The editorial composition with the original business-card motion. No relationships are
-// inferred from the proximity of stories and books.
 export function EditorialStudy() {
   return <div className={`${s.root} ${t.collage}`} data-composition="editorial">
-    <div className={t.room} data-room aria-hidden="true"><CardHole /></div>
     <SiteHeader home className={t.header} />
     <main id="main-content" tabIndex={-1} className={`${s.layout} ${t.layout}`}>
       <div className={t.journal} data-room-journal>
         <h1 className="sr-only">Журнал</h1>
-        <Story feature={sketchFeatures[2]} placement={t.reviews} />
+        <Story feature={sketchFeatures[2]} placement={t.reviews} artwork={<RotatingBook />} />
         <Story feature={sketchFeatures[0]} placement={t.lead} />
         <Story feature={sketchFeatures[1]} placement={t.dreams} />
 

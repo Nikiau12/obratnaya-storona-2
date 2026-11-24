@@ -7,12 +7,6 @@
   background: var(--paper);
 }
 
-/* The editorial objects stay still; the original hole uses its canvas loop. */
-.root *, .root *::before, .root *::after {
-  animation: none !important;
-  transition: none !important;
-}
-
 .root :is(a, button):focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
 .root a:not(:has(img, svg, canvas, video)):not(:has(h2)):hover { opacity:.7; }
 .root .bookTitle:hover { opacity:.7; }

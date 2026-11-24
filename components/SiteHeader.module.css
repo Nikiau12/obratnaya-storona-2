@@ -45,7 +45,7 @@
 .navigation { grid-column:3; grid-row:1; justify-self:end; }
 .nav { font-size:clamp(1rem,1.5vw,1.25rem); gap:clamp(12px,1.8vw,28px); }
 .room { grid-column:1; grid-row:1; margin-top:30px; }
-@media(max-width:900px){
+@media(max-width:1100px){
  .header { grid-template-columns:1fr; }
  .brandGroup { grid-column:1/-1; }
  .navigation { grid-column:1/-1; grid-row:2; display:flex; justify-self:center; align-items:center; flex-wrap:wrap; justify-content:center; gap:12px; }
