@@ -35,12 +35,6 @@ export function RotatingBook() {
       <span className={s.pages} />
       <span className={s.top} />
       <span className={s.bottom} />
-      <span className={`${s.coverEdge} ${s.frontEdge}`} />
-      <span className={`${s.coverEdge} ${s.backEdge}`} />
-      <span className={`${s.coverTop} ${s.frontTop}`} />
-      <span className={`${s.coverTop} ${s.backTop}`} />
-      <span className={`${s.coverBottom} ${s.frontBottom}`} />
-      <span className={`${s.coverBottom} ${s.backBottom}`} />
       <span className={s.front} />
     </span>
   </span>;

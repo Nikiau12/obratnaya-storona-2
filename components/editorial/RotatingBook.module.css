@@ -18,8 +18,6 @@
   --cover-thickness:calc(var(--book-width, 260px) * .0025);
   --page-inset:calc(var(--book-width, 260px) * .006);
   --paper-depth:calc(var(--book-depth) - var(--cover-thickness) * 2);
-  --front-edge-z:calc(var(--half-depth) - var(--cover-thickness) / 2);
-  --back-edge-z:calc(var(--half-depth) * -1 + var(--cover-thickness) / 2);
   --front-facing:clamp(0,calc(cos(var(--review-book-angle)) * 10000),1);
   --back-facing:clamp(0,calc(cos(var(--review-book-angle)) * -10000),1);
   --fore-edge-facing:clamp(0,calc(sin(var(--review-book-angle)) * -10000),1);
@@ -73,7 +71,9 @@
 .backLining {
   --face-position:translateZ(calc(-1 * var(--half-depth) + var(--cover-thickness)));
   opacity:var(--front-facing);
-  box-shadow:inset 0 0 0 var(--page-inset) #d2ceba;
+  /* A solid inside face closes the cover behind the paper block. A thin
+     inset outline plus separate subpixel edge strips produced a braided seam. */
+  background:#7d836d;
 }
 .spine {
   --face-position:translateX(calc(var(--book-width) / -2)) rotateY(-90deg);
@@ -87,17 +87,14 @@
   width:var(--paper-depth);
   height:calc(100% - var(--page-inset) * 2);
   opacity:var(--fore-edge-facing);
-  background:
-    linear-gradient(90deg,#756e5526,transparent 15%,#fff2 42%,transparent 74%,#766c522a),
-    linear-gradient(90deg,#e4dfd0 0%,#f1eee5 12%,#d4cebe 13%,#eae6da 14%,#f0ece2 29%,#d9d3c4 30%,#eeeadf 32%,#e1dccd 47%,#eeeadf 48%,#f0ece2 67%,#d6d0c0 68%,#ebe7db 70%,#eeeadf 89%,#d7d1c0 90%,#eae5d8 92%);
-  box-shadow:inset 0 .4px .5px #60583c35,inset 0 -.5px .6px #60583c40;
+  /* Individual pages are smaller than a screen pixel here. Smooth shading
+     avoids the dashed moire created by high-frequency lines during a turn. */
+  background:linear-gradient(90deg,#ddd7c7,#eeeadf 42%,#e9e4d7 76%,#d8d2c1);
 }
 .top, .bottom {
   width:calc(100% - var(--page-inset));
   height:var(--paper-depth);
-  background:
-    linear-gradient(90deg,#766e5426,transparent 10%,#fff1 75%,#746b5410),
-    linear-gradient(0deg,#e5dfce,#eee9dc 12%,#d4cebc 13%,#eae4d5 15%,#ebe5d6 38%,#d8d1bf 39%,#e9e3d4 41%,#f0eadd 68%,#d1cab7 69%,#e8e1d1 71%,#e7e0ce);
+  background:linear-gradient(0deg,#d8d1bf,#ebe5d7 45%,#e3dccb);
 }
 .top {
   --face-position:translateX(calc(var(--page-inset) / -2)) translateY(calc(var(--book-height) / -2 + var(--page-inset))) rotateX(90deg);
@@ -107,23 +104,6 @@
   --face-position:translateX(calc(var(--page-inset) / -2)) translateY(calc(var(--book-height) / 2 - var(--page-inset))) rotateX(-90deg);
   background-color:#c8c1ac;
 }
-.coverEdge {
-  width:var(--cover-thickness);
-  height:100%;
-  background:#777c64;
-  opacity:var(--fore-edge-facing);
-}
-.frontEdge { --face-position:translateX(calc(var(--book-width) / 2)) translateZ(var(--front-edge-z)) rotateY(90deg); }
-.backEdge { --face-position:translateX(calc(var(--book-width) / 2)) translateZ(var(--back-edge-z)) rotateY(90deg); }
-.coverTop, .coverBottom {
-  width:100%;
-  height:var(--cover-thickness);
-  background:#989b80;
-}
-.frontTop { --face-position:translateY(calc(var(--book-height) / -2)) translateZ(var(--front-edge-z)) rotateX(90deg); }
-.backTop { --face-position:translateY(calc(var(--book-height) / -2)) translateZ(var(--back-edge-z)) rotateX(90deg); }
-.frontBottom { --face-position:translateY(calc(var(--book-height) / 2)) translateZ(var(--front-edge-z)) rotateX(-90deg); }
-.backBottom { --face-position:translateY(calc(var(--book-height) / 2)) translateZ(var(--back-edge-z)) rotateX(-90deg); }
 .book > .shadow {
   --face-position:translateZ(calc(-1 * var(--half-depth) - 1px));
   backface-visibility:visible;
