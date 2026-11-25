@@ -189,7 +189,7 @@ export function AboutRoom() {
 
   return <>
     <section ref={room} className={s.room} data-room data-project-open={Boolean(opened || previewId)} aria-label="Карта проектов Обратной стороны">
-      <CardHole paused={Boolean(opened || previewId)} />
+      <CardHole />
       <svg className={s.connections} viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
         {aboutConnections.map(([from, to]) => {
           const a = aboutPoints.find(p => p.id === from)!, b = aboutPoints.find(p => p.id === to)!;
