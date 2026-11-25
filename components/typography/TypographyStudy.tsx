@@ -26,8 +26,8 @@ export function TypographyStudy({ variant: initialVariant }: { variant: "a" | "b
       <div className={s.controls}>
         <span className={s.label}>Два варианта главной</span>
         <nav className={s.choices} aria-label="Вариант типографики">
-          <a href="/preview/typography?variant=a" onClick={event => choose(event, "a")} aria-current={variant === "a" ? "page" : undefined}>А · Книжный</a>
-          <a href="/preview/typography?variant=b" onClick={event => choose(event, "b")} aria-current={variant === "b" ? "page" : undefined}>Б · Журнальный</a>
+          <Link href="/preview/typography?variant=a" onClick={event => choose(event, "a")} aria-current={variant === "a" ? "page" : undefined}>А · Книжный</Link>
+          <Link href="/preview/typography?variant=b" onClick={event => choose(event, "b")} aria-current={variant === "b" ? "page" : undefined}>Б · Журнальный</Link>
         </nav>
         <Link href="/" className={s.original}>Текущая главная</Link>
       </div>

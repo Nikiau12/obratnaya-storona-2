@@ -1,0 +1,131 @@
+{
+  "date": "2026-11-25",
+  "baselineRevision": "8b68764f27d341d475353dbb21284ce9718f6dcb",
+  "before": {
+    "info": 0,
+    "low": 1,
+    "moderate": 15,
+    "high": 17,
+    "critical": 2,
+    "total": 35
+  },
+  "after": {
+    "info": 0,
+    "low": 0,
+    "moderate": 7,
+    "high": 0,
+    "critical": 0,
+    "total": 7
+  },
+  "remaining": [
+    {
+      "name": "@esbuild-kit/core-utils",
+      "severity": "moderate",
+      "isDirect": false,
+      "range": "*",
+      "via": [
+        "esbuild"
+      ],
+      "fixAvailable": {
+        "name": "drizzle-kit",
+        "version": "0.18.1",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "@esbuild-kit/esm-loader",
+      "severity": "moderate",
+      "isDirect": false,
+      "range": "*",
+      "via": [
+        "@esbuild-kit/core-utils"
+      ],
+      "fixAvailable": {
+        "name": "drizzle-kit",
+        "version": "0.18.1",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "@vercel/og",
+      "severity": "moderate",
+      "isDirect": false,
+      "range": "0.0.12-beta.0 - 1.0.2",
+      "via": [
+        "satori"
+      ],
+      "fixAvailable": {
+        "name": "vinext",
+        "version": "1.4.6",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "drizzle-kit",
+      "severity": "moderate",
+      "isDirect": true,
+      "range": "0.19.0 - 1.0.0-beta.1-fd8bfcc",
+      "via": [
+        "@esbuild-kit/esm-loader"
+      ],
+      "fixAvailable": {
+        "name": "drizzle-kit",
+        "version": "0.18.1",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "esbuild",
+      "severity": "moderate",
+      "isDirect": false,
+      "range": "<=0.24.2",
+      "via": [
+        {
+          "name": "esbuild",
+          "title": "esbuild enables any website to send any requests to the development server and read the response",
+          "url": "https://github.com/advisories/GHSA-67mh-4wv8-2f99",
+          "range": "<=0.24.2"
+        }
+      ],
+      "fixAvailable": {
+        "name": "drizzle-kit",
+        "version": "0.18.1",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "satori",
+      "severity": "moderate",
+      "isDirect": false,
+      "range": "0.0.27 - 0.33.4",
+      "via": [
+        {
+          "name": "satori",
+          "title": "Satori-generated SVG has improper escaping",
+          "url": "https://github.com/advisories/GHSA-wx4j-mvgx-mqwp",
+          "range": ">=0.0.27 <0.33.5"
+        }
+      ],
+      "fixAvailable": {
+        "name": "vinext",
+        "version": "1.4.6",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "vinext",
+      "severity": "moderate",
+      "isDirect": true,
+      "range": "0.0.1 - 1.0.0-beta.13",
+      "via": [
+        "@vercel/og"
+      ],
+      "fixAvailable": {
+        "name": "vinext",
+        "version": "1.4.6",
+        "isSemVerMajor": true
+      }
+    }
+  ],
+  "note": "Counts include affected parent packages. Vinext build dependencies may be bundled into the production Worker even when declared under devDependencies."
+}

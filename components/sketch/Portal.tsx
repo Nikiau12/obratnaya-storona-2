@@ -73,7 +73,7 @@ export function Constellation() {
   const iframe = useRef<HTMLIFrameElement>(null);
   const [ready, setReady] = useState(false);
   const syncTheme = () => iframe.current?.contentWindow?.postMessage({type: "obratnaya:theme", theme}, location.origin);
-  useEffect(() => { syncTheme(); }, [theme]);
+  useEffect(() => { iframe.current?.contentWindow?.postMessage({type: "obratnaya:theme", theme}, location.origin); }, [theme]);
   useEffect(() => {
     function navigate(event: MessageEvent) {
       if (event.origin !== location.origin || event.source !== iframe.current?.contentWindow || event.data?.type !== "obratnaya:navigate") return;

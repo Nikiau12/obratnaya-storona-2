@@ -1,0 +1,12 @@
+
+/* Materials: search and filters are temporarily removed */
+.materials-index .archive-controls{display:none}
+
+/* Text links stay free of underlines in every interaction state. */
+a, button, a *, button *, u, ins { text-decoration:none!important; }
+a::before, a::after, button::before, button::after { text-decoration:none!important; }
+a:hover, button:hover { text-decoration:none!important; }
+
+/* Shared by editorial, catalog and legacy templates, including native controls. */
+body { font-synthesis:none; font-variant-ligatures:none; }
+button, input, select, textarea, option, optgroup { font-family:var(--site-font); }

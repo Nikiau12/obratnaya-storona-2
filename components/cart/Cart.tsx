@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { createContext, useContext, useEffect, useId, useRef, useState, type ReactNode } from "react";
-import { cartCatalog, readCart, type CartItem } from "@/lib/cart";
+import { createContext, useContext, useEffect, useId, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { cartCatalog, type CartItem } from "@/lib/cart";
+import { subscribeCart, cartSnapshot, serverCartSnapshot, updateCart } from "@/lib/cart-store";
 import { Cover } from "../sketch/Cover";
 import { BookCover } from "../home/BookCover";
 import s from "./Cart.module.css";
-
-const storageKey = "obratnaya-storona-cart-v1";
 
 type CartState = {
   items: CartItem[];
@@ -23,35 +22,19 @@ function useCart() {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [ready, setReady] = useState(false);
+  const items = useSyncExternalStore(subscribeCart, cartSnapshot, serverCartSnapshot);
   const [opened, setOpened] = useState(false);
 
-  useEffect(() => {
-    try { setItems(readCart(localStorage.getItem(storageKey))); } catch {}
-    setReady(true);
-    function sync(event: StorageEvent) {
-      if (event.key === storageKey || event.key === null) setItems(readCart(event.newValue));
-    }
-    window.addEventListener("storage", sync);
-    return () => window.removeEventListener("storage", sync);
-  }, []);
-
-  useEffect(() => {
-    if (!ready) return;
-    try { localStorage.setItem(storageKey, JSON.stringify(items)); } catch {}
-  }, [items, ready]);
-
   function add(slug: string) {
-    if (!ready || !cartCatalog.some(book => book.slug === slug)) return;
-    setItems(current => current.some(item => item.slug === slug)
+    if (!cartCatalog.some(book => book.slug === slug)) return;
+    updateCart(current => current.some(item => item.slug === slug)
       ? current.map(item => item.slug === slug ? { ...item, quantity: Math.min(99, item.quantity + 1) } : item)
       : [...current, { slug, quantity: 1 }]);
     setOpened(true);
   }
 
   function setQuantity(slug: string, quantity: number) {
-    setItems(current => quantity < 1
+    updateCart(current => quantity < 1
       ? current.filter(item => item.slug !== slug)
       : current.map(item => item.slug === slug ? { ...item, quantity: Math.min(99, quantity) } : item));
   }

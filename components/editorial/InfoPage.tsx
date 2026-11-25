@@ -1,8 +1,8 @@
 import Link from "next/link";
 import s from "./Editorial.module.css";
 import c from "./Composition.module.css";
-import about from "./About.module.css";
-import { AboutRoom } from "./AboutRoom";
+import about from "../about/AboutPage.module.css";
+import { AboutRoom } from "../about/AboutRoom";
 
 export function InfoPage({ kind }: { kind: "about" | "bureau" }) {
   const bureau = kind === "bureau";

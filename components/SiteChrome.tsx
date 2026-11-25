@@ -7,7 +7,7 @@ import { SiteThemeProvider } from "./SiteTheme";
 import { PortalRestoration } from "./sketch/Portal";
 import { CartProvider } from "./cart/Cart";
 import s from "./editorial/Editorial.module.css";
-import about from "./editorial/About.module.css";
+import about from "./about/AboutPage.module.css";
 
 export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();

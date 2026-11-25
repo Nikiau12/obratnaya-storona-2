@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {FeatureVisual} from "./Journal";
 import { sketchFeature, sketchBooks, bookFeatures, featureBooks, type SketchFeature, type SketchBook } from "@/lib/sketch-feature";
-import { DrawnObject } from "./Objects";
 import { Cover } from "./Cover";
 import { AddToCart } from "../cart/Cart";
 import { PublicationBlocks } from "./PublicationBlocks";
