@@ -13,6 +13,6 @@ export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const content = pathname === "/" || pathname === "/preview/home" || pathname === "/preview/typography" || pathname === "/preview/composition" || pathname === "/preview/relations" || pathname === "/preview/editorial" || pathname === "/preview/previous"
     ? children
-    : <div className={`${s.shell} ${pathname === "/about" ? about.shell : ""}`}><SiteHeader /><div id="page-content" tabIndex={-1}>{children}</div><SiteFooter /></div>;
+    : <div className={`${s.shell} ${pathname === "/about" ? about.shell : ""}`} data-about-page={pathname === "/about" || undefined}><SiteHeader /><div id="page-content" tabIndex={-1}>{children}</div><SiteFooter /></div>;
   return <SiteThemeProvider><CartProvider><PortalRestoration />{content}</CartProvider></SiteThemeProvider>;
 }

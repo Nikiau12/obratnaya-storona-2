@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { chromium, webkit } from "playwright";
-import { checkGeometry, geometry, nativePinch, webkitPointers } from "../tests/browser/constellation.mjs";
+import { checkCompactScene, checkGeometry, geometry, nativePinch, webkitPointers } from "../tests/browser/constellation.mjs";
 import { cartPersistence, storageFallback } from "../tests/browser/storage.mjs";
 
 const baseUrl = (process.env.BASE_URL || "http://localhost:3000").replace(/\/$/, "");
@@ -12,7 +12,7 @@ const results = [];
 for (const engine of [chromium, webkit]) {
   const browser = await engine.launch();
   try {
-    for (const [width, height] of [[320, 568], [390, 844], [768, 1024], [1024, 768], [1366, 1024]]) {
+    for (const [width, height] of [[320, 568], [360, 800], [390, 844], [430, 932], [844, 390], [768, 1024], [1024, 768], [1366, 1024]]) {
       const page = await browser.newPage({ viewport: { width, height }, hasTouch: true, isMobile: true });
       const errors = [];
       page.on("pageerror", error => errors.push(error.message));
@@ -20,6 +20,7 @@ for (const engine of [chromium, webkit]) {
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(100);
       checkGeometry(await geometry(page), width, height);
+      await checkCompactScene(page, width, height);
       if (engine === chromium) await nativePinch(page, width, height);
       else await webkitPointers(page, width, height);
       await page.getByRole("button", { name: "Носорог", exact: true }).tap();
@@ -30,6 +31,14 @@ for (const engine of [chromium, webkit]) {
       await page.waitForTimeout(160);
       assert.notEqual(await canvas.evaluate(node => node.toDataURL()), frame);
       await dialog.getByRole("button", { name: "Закрыть", exact: true }).tap();
+      const projects=page.locator("button[data-point]");
+      for (let i=0;i<await projects.count();i++) {
+        const title=await projects.nth(i).textContent();
+        await projects.nth(i).tap();
+        const detail=page.getByRole("dialog",{name:title,exact:true});
+        await detail.waitFor();
+        await detail.getByRole("button",{name:"Закрыть",exact:true}).tap();
+      }
       assert.deepEqual(errors, []);
       await page.screenshot({ path: fileURLToPath(new URL(`${engine.name()}-${width}.png`, output)) });
       results.push({ engine: engine.name(), width, height, status: "passed" });

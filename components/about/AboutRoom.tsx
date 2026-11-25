@@ -35,7 +35,7 @@ export function AboutRoom() {
             data-active={active === from || active === to} vectorEffect="non-scaling-stroke" />;
         })}
       </svg>
-      <svg className={s.dust} viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <svg className={s.dust} data-dust viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
         {Array.from({ length: 34 }, (_, index) => {
           const angle = -1.2 + index * 2.399963, spread = .3 + index % 8 / 10 + Math.sqrt((index + 1) / 42) * .32;
           return <circle key={index} cx={500 + Math.cos(angle) * 290 * spread} cy={440 + Math.sin(angle) * 200 * spread} r={1 + index % 4 * .35} />;
@@ -60,7 +60,7 @@ export function AboutRoom() {
             if (ignoreClick() || (event.detail !== 0 && pointerType.current !== "touch")) return;
             setTrigger(event.currentTarget); setOpened(point.id);
           }}>
-          <span className={s.pointTarget} aria-hidden="true"><span /></span><span className={s.pointLabel}>{entry.title}</span>
+          <span className={s.pointTarget} aria-hidden="true"><span /></span><span className={s.pointLabel} data-point-label>{entry.title}</span>
         </button>;
       })}
     </section>

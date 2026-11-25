@@ -35,7 +35,7 @@ export function ProjectPreview({ project, anchor, id }: { project: AboutProject;
       let next = candidates.find(fits);
       if (!next) {
         // At a short viewport, make the card narrower and use the largest
-        // side of the point. The visible point keeps its full 44px target.
+        // side of the point, preserving the point's interaction target.
         const left = a.left - gap - pad, right = innerWidth - pad - a.right - gap;
         const available = Math.max(left, right);
         if (available > 200 && width > available) {

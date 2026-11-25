@@ -53,6 +53,9 @@ export function useConstellation(onManipulate: () => void) {
     const resize = new ResizeObserver(schedule);
     resize.observe(node);
     node.querySelectorAll("button[data-point]").forEach(button => resize.observe(button));
+    node.querySelectorAll("[data-point-label]").forEach(label => resize.observe(label));
+    const header = node.closest("[data-about-page]")?.querySelector("header");
+    if (header) resize.observe(header);
     document.fonts.ready.then(schedule);
     draw();
     return () => {

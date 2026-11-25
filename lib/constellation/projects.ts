@@ -29,14 +29,28 @@ export const aboutConnections = [
 
 // Anchors remain attached to their labels when the constellation adapts.
 export const aboutPoints = [
-  { id: "signal", desktop: [25, 64, "left"], phone: [12, 56, "right"] },
-  { id: "flicker", desktop: [77, 57, "right"], phone: [87, 60, "left"] },
-  { id: "residents", desktop: [45, 29, "left"], phone: [8, 9, "right"] },
-  { id: "showcase", desktop: [67, 30, "right"], phone: [92, 42, "left"] },
-  { id: "word", desktop: [30.5, 45, "left"], phone: [8, 32, "right"] },
-  { id: "chlor", desktop: [52, 87, "right"], phone: [28, 91, "right"] },
-  { id: "day", desktop: [55, 43.5, "right"], phone: [64, 31, "right"] },
-  { id: "archive", desktop: [19, 52.5, "right"], phone: [24, 44, "right"] },
-  { id: "about", desktop: [85, 48.5, "right"], phone: [88, 78, "right"] },
-  { id: "contact", desktop: [59, 12, "right"], phone: [92, 19, "left"] },
+  { id: "signal", desktop: [25, 64, "left"] },
+  { id: "flicker", desktop: [77, 57, "right"] },
+  { id: "residents", desktop: [45, 29, "left"] },
+  { id: "showcase", desktop: [67, 30, "right"] },
+  { id: "word", desktop: [30.5, 45, "left"] },
+  { id: "chlor", desktop: [52, 87, "right"] },
+  { id: "day", desktop: [55, 43.5, "right"] },
+  { id: "archive", desktop: [19, 52.5, "right"] },
+  { id: "about", desktop: [85, 48.5, "right"] },
+  { id: "contact", desktop: [59, 12, "right"] },
 ] as const;
+
+// The radial, short-phone and tablet coordinates from the business card.
+export const compactPoints = {
+  signal: { angle:230, radius:1, side:"left", short:[.25,.12], tablet:[.25,.64] },
+  flicker: { angle:-10, radius:.9, side:"left", short:[.78,.48], tablet:[.77,.57] },
+  residents: { angle:-90, radius:1, side:"right", short:[.49,.08], tablet:[.45,.385] },
+  showcase: { angle:58, radius:.78, side:"right", short:[.78,.8], tablet:[.67,.38] },
+  word: { angle:112, radius:.66, side:"left", short:[.18,.86], tablet:[.305,.47] },
+  chlor: { angle:80, radius:.94, side:"left", short:[.42,.55], tablet:[.52,.82] },
+  day: { angle:152, radius:.72, side:"right", short:[.39,.42], tablet:[.55,.435] },
+  archive: { angle:190, radius:1, side:"left", short:[.19,.45], tablet:[.19,.525] },
+  about: { angle:30, radius:.8, side:"right", short:[.72,.82], tablet:[.85,.485] },
+  contact: { angle:-50, radius:.8, side:"left", short:[.9,.16], tablet:[.59,.3] },
+} as const;

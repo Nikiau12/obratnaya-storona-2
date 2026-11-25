@@ -4,25 +4,26 @@ export async function geometry(page) {
   return page.evaluate(() => {
     const root = document.querySelector("[data-room]");
     const rect = root.getBoundingClientRect();
-    const boxes = [...root.querySelectorAll("button[data-point]")].map(node => {
-      const box = node.getBoundingClientRect();
-      return { id: node.dataset.point, x: box.x, y: box.y, right: box.right, bottom: box.bottom };
+    const boxes = [...root.querySelectorAll("[data-point]")].map(node => {
+      const parts = [node, node.querySelector("[data-point-label]")].filter(Boolean).map(part => part.getBoundingClientRect());
+      return { id:node.dataset.point, x:Math.min(...parts.map(p=>p.x)), y:Math.min(...parts.map(p=>p.y)), right:Math.max(...parts.map(p=>p.right)), bottom:Math.max(...parts.map(p=>p.bottom)) };
     });
     const overlaps = [];
     for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
       const a = boxes[i], b = boxes[j];
       if (Math.min(a.right, b.right) - Math.max(a.x, b.x) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.y, b.y) > 1) overlaps.push([a.id, b.id]);
     }
-    const errors = [...root.querySelectorAll("line[data-from]")].map(line => {
-      const marker = root.querySelector(`[data-point="${line.dataset.from}"] [class*="pointTarget"] > span`) || root.querySelector(`[data-point="${line.dataset.from}"]`);
+    const errors = [...root.querySelectorAll("line[data-from]")].flatMap(line => ["from","to"].map((end,index) => {
+      const marker = root.querySelector(`[data-point="${line.dataset[end]}"] [class*="pointTarget"] > span`) || root.querySelector(`[data-point="${line.dataset[end]}"]`);
       const dot = marker.getBoundingClientRect();
-      return Math.hypot(rect.x + Number(line.getAttribute("x1")) / 1000 * rect.width - dot.x - dot.width / 2, rect.y + Number(line.getAttribute("y1")) / 1000 * rect.height - dot.y - dot.height / 2);
-    });
+      return Math.hypot(rect.x + Number(line.getAttribute(`x${index+1}`)) / 1000 * rect.width - dot.x - dot.width / 2, rect.y + Number(line.getAttribute(`y${index+1}`)) / 1000 * rect.height - dot.y - dot.height / 2);
+    }));
     return {
       room: { x: rect.x, y: rect.y, width: rect.width, height: rect.height, bottom: rect.bottom },
       boxes, overlaps, lineError: Math.max(...errors),
       scale: Number(root.dataset.graphScale), x: Number(root.dataset.graphOffsetX), y: Number(root.dataset.graphOffsetY),
       pageScale: visualViewport.scale,
+      compact: root.dataset.graphLayout !== "desktop",
     };
   });
 }
@@ -34,7 +35,27 @@ export function checkGeometry(value, width, height) {
   assert.deepEqual(value.overlaps, []);
   assert.ok(value.lineError < 1, "A connection has moved away from its point");
   for (const box of value.boxes) assert.ok(box.x >= 0 && box.y >= value.room.y && box.right <= width && box.bottom <= height, JSON.stringify(box));
+  if (value.compact) {
+    const horizon=value.room.height*(width<640?.52:.47), edge=horizon+(value.room.height-horizon)*.16;
+    for (const box of value.boxes) assert.ok(box.bottom<=value.room.y+edge+1, `A project has escaped onto the floor: ${JSON.stringify(box)}`);
+  }
   assert.equal(value.pageScale, 1, "The gesture must zoom the map, not the entire webpage");
+}
+
+export async function checkCompactScene(page, width, height) {
+  if (width >= 640) return;
+  const diameter = await page.locator("canvas").evaluate(canvas => {
+    const row = Math.round(canvas.height * .68);
+    const pixels = canvas.getContext("2d").getImageData(0, row, canvas.width, 1).data;
+    let longest = 0, run = 0;
+    for (let i=0;i<pixels.length;i+=4) {
+      if (pixels[i]<8 && pixels[i+1]<8 && pixels[i+2]<8 && pixels[i+3]>250) { run++; longest=Math.max(longest,run); }
+      else run=0;
+    }
+    return longest/canvas.width*canvas.getBoundingClientRect().width;
+  });
+  const expected=1.44*Math.min(width*.265,height*.19);
+  assert.ok(Math.abs(diameter-expected)<8, `The rendered phone hole must match obratno.io proportions (${diameter} vs ${expected})`);
 }
 
 export async function nativePinch(page, width, height) {
@@ -77,7 +98,7 @@ export async function nativePinch(page, width, height) {
   assert.equal(result.scale, 1);
   assert.equal(result.x, 0); assert.equal(result.y, 0);
   checkGeometry(result, width, height);
-  const label = await page.locator('button[data-point="signal"]').boundingBox();
+  const label = await page.locator('button[data-point="signal"] [data-point-label]').boundingBox();
   const labelX = label.x + label.width / 2, labelY = label.y + label.height / 2;
   await pinch(1.4, labelX + 30, labelY, 30);
   assert.ok((await geometry(page)).scale > 1.3, "A pinch starting on a project label must keep its fingers when pointer capture changes");
