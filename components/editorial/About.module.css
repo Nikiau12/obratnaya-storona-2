@@ -22,6 +22,20 @@
 .pointTarget > span { width:12px; height:12px; border:1px solid var(--ink); border-radius:50%; background:var(--ink); outline:1px solid transparent; outline-offset:5px; transition:outline-color 160ms ease; }
 .projectPoint[data-active="true"] .pointTarget > span { outline-color:var(--ink); }
 .projectPoint:focus-visible { outline:1px solid var(--ink); outline-offset:3px; }
+.projectPreview {
+  position:fixed; z-index:20; visibility:hidden; pointer-events:none;
+  box-sizing:border-box; width:min(520px,calc(100vw - 24px)); max-height:calc(100dvh - 24px);
+  padding:30px 34px; border:1px solid color-mix(in srgb,var(--ink) 22%,transparent);
+  background:var(--paper); color:var(--ink); box-shadow:0 12px 36px #0002;
+  overflow:hidden; font-family:var(--sans); letter-spacing:normal;
+}
+.projectPreview h2 { font:400 clamp(28px,2.5vw,38px)/1.18 var(--sans); letter-spacing:normal; margin:0; overflow-wrap:break-word; }
+.projectPreview p { font:400 20px/1.45 var(--sans); margin:24px 0 0; }
+@media(max-height:600px) {
+  .projectPreview { padding:20px 24px; }
+  .projectPreview h2 { font-size:28px; }
+  .projectPreview p { font-size:17px; line-height:1.4; margin-top:18px; }
+}
 .projectPanel {
   position:fixed; inset:0 auto 0 clamp(24px,4vw,72px); margin:auto 0;
   box-sizing:border-box; width:min(650px,calc(100vw - 96px)); max-width:none;

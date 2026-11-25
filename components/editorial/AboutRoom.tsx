@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
-import { aboutConnections, aboutPoints, aboutProjects } from "@/lib/about-projects";
+import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { aboutConnections, aboutPoints, aboutProjects, type AboutProject } from "@/lib/about-projects";
 import { CardHole } from "../sketch/CardScene";
 import s from "./About.module.css";
 
@@ -78,16 +78,86 @@ function layoutConstellation(root: HTMLElement) {
   });
 }
 
+function ProjectPreview({ project, anchor, id }: { project: AboutProject; anchor: HTMLButtonElement; id: string }) {
+  const card = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const node = card.current;
+    if (!node) return;
+    let frame = 0, viewportWidth = 0, viewportHeight = 0;
+    function position() {
+      if (!node) return;
+      if (viewportWidth !== innerWidth || viewportHeight !== innerHeight) {
+        node.style.width = ""; node.style.maxHeight = "";
+        viewportWidth = innerWidth; viewportHeight = innerHeight;
+      }
+      const a = anchor.getBoundingClientRect();
+      const width = node.offsetWidth, height = node.offsetHeight;
+      const pad = 12, gap = 20;
+      const maxX = innerWidth - width - pad, maxY = innerHeight - height - pad;
+      const clampX = (x: number) => Math.max(pad, Math.min(maxX, x));
+      const clampY = (y: number) => Math.max(pad, Math.min(maxY, y));
+      // Prefer a neighbouring side with enough room. Above/below works for
+      // narrower screens. Clamping must never move the card across its anchor.
+      const candidates = [
+        { x: a.right + gap, y: clampY(a.top + a.height / 2 - height / 2) },
+        { x: a.left - gap - width, y: clampY(a.top + a.height / 2 - height / 2) },
+        { x: clampX(a.left + a.width / 2 - width / 2), y: a.top - gap - height },
+        { x: clampX(a.left + a.width / 2 - width / 2), y: a.bottom + gap },
+      ];
+      const fits = (p: { x: number; y: number }) => p.x >= pad && p.x <= maxX && p.y >= pad && p.y <= maxY;
+      let next = candidates.find(fits);
+      if (!next) {
+        // At a short viewport, make the card narrower and use the largest
+        // side of the point. The visible point keeps its full 44px target.
+        const left = a.left - gap - pad, right = innerWidth - pad - a.right - gap;
+        const available = Math.max(left, right);
+        if (available > 200 && width > available) {
+          node.style.width = `${Math.floor(available)}px`;
+          position();
+          return;
+        }
+        // A desktop pointer can also be used on a narrow portrait screen.
+        // Reduce the preview's height to the space above/below its trigger.
+        const above = a.top - gap - pad, below = innerHeight - pad - a.bottom - gap;
+        const useAbove = above >= below;
+        node.style.maxHeight = `${Math.max(1, useAbove ? above : below)}px`;
+        next = { x: clampX(a.left + a.width / 2 - width / 2), y: useAbove ? a.top - gap - node.offsetHeight : a.bottom + gap };
+      }
+      node.style.left = `${next.x}px`;
+      node.style.top = `${next.y}px`;
+      node.style.visibility = "visible";
+    }
+    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(position); };
+    const resize = new ResizeObserver(schedule);
+    resize.observe(node);
+    const room = anchor.closest("[data-room]");
+    if (room) resize.observe(room);
+    window.addEventListener("resize", schedule);
+    position();
+    return () => { resize.disconnect(); cancelAnimationFrame(frame); window.removeEventListener("resize", schedule); };
+  }, [anchor]);
+
+  return <div ref={card} id={id} className={s.projectPreview} role="tooltip" data-project-preview={project.id}>
+    <h2>{project.title}</h2>
+    {project.description && <p>{project.description}{project.emphasis && <> <em>{project.emphasis}</em></>}</p>}
+  </div>;
+}
+
 export function AboutRoom() {
   const [opened, setOpened] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const [focused, setFocused] = useState<string | null>(null);
+  const [previewAnchor, setPreviewAnchor] = useState<HTMLButtonElement | null>(null);
   const room = useRef<HTMLElement>(null);
   const panel = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
+  const pointerType = useRef("");
   const id = useId();
   const project = aboutProjects.find(item => item.id === opened);
-  const active = opened ?? hovered ?? focused;
+  const active = opened ?? focused ?? hovered;
+  const previewId = opened ? null : focused ?? hovered;
+  const preview = aboutProjects.find(item => item.id === previewId);
 
   useEffect(() => {
     if (!room.current) return;
@@ -118,8 +188,8 @@ export function AboutRoom() {
   }, [opened]);
 
   return <>
-    <section ref={room} className={s.room} data-room data-project-open={Boolean(opened)} aria-label="Карта проектов Обратной стороны">
-      <CardHole paused={Boolean(opened)} />
+    <section ref={room} className={s.room} data-room data-project-open={Boolean(opened || previewId)} aria-label="Карта проектов Обратной стороны">
+      <CardHole paused={Boolean(opened || previewId)} />
       <svg className={s.connections} viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
         {aboutConnections.map(([from, to]) => {
           const a = aboutPoints.find(p => p.id === from)!, b = aboutPoints.find(p => p.id === to)!;
@@ -139,14 +209,25 @@ export function AboutRoom() {
         const style = { "--node-x": `${point.desktop[0]}%`, "--node-y": `${point.desktop[1]}%` } as CSSProperties;
         if (!entry) return <span key={point.id} className={s.point} data-point={point.id} style={style} aria-hidden="true" />;
         return <button key={point.id} type="button" className={s.projectPoint} style={style} data-point={point.id}
-          data-side={point.desktop[2]} data-active={active === point.id} aria-haspopup="dialog" aria-expanded={opened === point.id} aria-controls={id}
-          onPointerEnter={event => { if (event.pointerType !== "touch") setHovered(point.id); }} onPointerLeave={() => setHovered(null)}
-          onFocus={() => setFocused(point.id)} onBlur={() => setFocused(null)}
-          onClick={event => { trigger.current = event.currentTarget; setOpened(point.id); }}>
+          data-side={point.desktop[2]} data-active={active === point.id} aria-haspopup="dialog" aria-expanded={opened === point.id || previewId === point.id} aria-controls={id}
+          aria-describedby={previewId === point.id ? `${id}-preview` : undefined}
+          onPointerEnter={event => { if (event.pointerType !== "touch") { setPreviewAnchor(event.currentTarget); setFocused(null); setHovered(point.id); } }}
+          onPointerLeave={() => { setHovered(null); setFocused(null); }}
+          onPointerDown={event => { pointerType.current = event.pointerType; }}
+          onFocus={event => { if (pointerType.current !== "touch" && event.currentTarget.matches(":focus-visible")) { setPreviewAnchor(event.currentTarget); setFocused(point.id); } }}
+          onBlur={() => setFocused(null)}
+          onKeyDown={event => { if (event.key === "Escape") { setHovered(null); setFocused(null); } }}
+          onClick={event => {
+            // Hover is transient on pointer devices. Touch and keyboard users
+            // can open the existing reading panel and reach its project link.
+            if (event.detail !== 0 && pointerType.current !== "touch") return;
+            trigger.current = event.currentTarget; setOpened(point.id);
+          }}>
           <span className={s.pointTarget} aria-hidden="true"><span /></span><span className={s.pointLabel}>{entry.title}</span>
         </button>;
       })}
     </section>
+    {preview && previewAnchor && <ProjectPreview key={preview.id} project={preview} anchor={previewAnchor} id={`${id}-preview`} />}
     <dialog ref={panel} id={id} className={s.projectPanel} tabIndex={-1}
       aria-labelledby={`${id}-title`} aria-describedby={project?.description ? `${id}-copy` : undefined}
       onCancel={event => { event.preventDefault(); setOpened(null); }}
