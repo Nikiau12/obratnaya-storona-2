@@ -14,6 +14,9 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     "dist/**",
     "public/card/**",
+    // Ignored publication checkouts and generated browser audit artifacts.
+    "work/**",
+    "outputs/**",
   ]),
 ]);
 

@@ -30,12 +30,15 @@ npm run start
 ```bash
 npx playwright install chromium webkit
 npm run test:browser
+npm run test:cart
 npm run audit:routes
 npm run audit:secrets
 npm run audit:dependencies
 ```
 
 `audit:routes` использует последнюю сборку из `dist/`. `test:browser` по умолчанию открывает `http://localhost:3000`; другой адрес задаётся через `BASE_URL`. Снимки и результаты проверок записываются в игнорируемую папку `outputs/audit/`. Проверка сигнатур секретов не заменяет аудит всей Git-истории.
+
+`test:cart` отдельно проверяет полноэкранную корзину в Chromium и WebKit: обе темы, размеры от 320 до 1440 px, количество, удаление, пустое состояние, длинный список, возврат фокуса и сохранение между вкладками. Результаты находятся в `outputs/cart-audit/`.
 
 ## Структура
 
